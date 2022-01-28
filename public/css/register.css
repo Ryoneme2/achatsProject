@@ -28,3 +28,7 @@
   border: none;
   transition: all 0.25s ease-in-out;
 }
+
+.sign-up-btn:hover {
+  background-color: #a271cf;
+}

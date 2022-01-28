@@ -33,13 +33,13 @@
       <h1 class="text-center my-4">Sign up</h1>
       <div class="col-12 d-flex justify-content-center">
         <div class="regis-form p-5">
-          <form action="#" method="post">
+          <form action="../service/insertUserData.php" method="post" enctype='multipart/form-data'>
             <div class="row mb-4">
               <div class="col-md-4 col-sm-12">
                 <label class="text-color-dark d-block" for="name">Name</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="text" placeholder="Enter firstname...">
+                <input class="input-text" name="name" type="text" placeholder="Enter firstname...">
               </div>
             </div>
             <div class="row mb-4">
@@ -47,7 +47,7 @@
                 <label class="text-color-dark d-block" for="sername">Sername</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="text" placeholder="Enter Sername...">
+                <input class="input-text" name="sername" type="text" placeholder="Enter Sername...">
               </div>
             </div>
             <div class="row mb-4">
@@ -55,7 +55,7 @@
                 <label class="text-color-dark d-block" for="Username">Username</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="text" placeholder="Enter Username...">
+                <input class="input-text" name="username" type="text" placeholder="Enter Username...">
               </div>
             </div>
             <div class="row mb-4">
@@ -63,7 +63,7 @@
                 <label class="text-color-dark d-block" for="Email">Email</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="email" placeholder="Enter Email...">
+                <input class="input-text" name="email" type="email" placeholder="Enter Email...">
               </div>
             </div>
             <div class="row mb-4">
@@ -71,7 +71,7 @@
                 <label class="text-color-dark d-block" for="Password">Password</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="password" placeholder="Enter Password...">
+                <input class="input-text" name="password" type="password" placeholder="Enter Password...">
               </div>
             </div>
             <div class="row mb-4">
@@ -87,7 +87,7 @@
                 <label class="text-color-dark d-block" for="Address">Address</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <textarea class="input-textarea" rows="4" cols="50"></textarea>
+                <textarea class="input-textarea" name="address" rows="4" cols="50"></textarea>
               </div>
             </div>
             <div class="row mb-4">
@@ -95,7 +95,7 @@
                 <label class="text-color-dark d-block" for="Phone">Phone</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="text" placeholder="Enter Phone...">
+                <input class="input-text" name="phone" type="text" placeholder="Enter Phone...">
               </div>
             </div>
             <div class="row mb-4">
@@ -103,11 +103,15 @@
                 <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <label class="uploadLabel">
-                  <input type="file" class="uploadButton" />
-                  Upload
-                </label>
+                <!-- <label class="uploadLabel"> -->
+                <input type="file" name="profile" class="uploadButton2" />
+                Upload
+                <!-- </label> -->
               </div>
+            </div>
+
+            <div class="mt-5 d-flex justify-content-center">
+              <input class="sign-up-btn bg-color-one text-light fs-4" type="submit"></button>
             </div>
 
           </form>
@@ -155,6 +159,7 @@
     </div>
   </footer>
 
+  <script></script>
 </body>
 
 </html>

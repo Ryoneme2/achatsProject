@@ -49,6 +49,10 @@ body {
   border: solid 2px #bfa2db;
   border-radius: 7px;
 }
+.input-text:focus,
+.input-textarea:focus {
+  outline: solid 1px #a87bd3 !important;
+}
 
 a:hover {
   color: #a87bd3;
