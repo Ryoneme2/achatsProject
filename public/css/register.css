@@ -1,0 +1,30 @@
+@media only screen and (max-width: 768px) {
+  .regis-form {
+    width: 100% !important;
+  }
+}
+.uploadButton {
+  display: none;
+}
+.uploadLabel {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #bfa2db;
+  color: #ffffff;
+}
+.regis-form {
+  background-color: #fff;
+  width: 60%;
+  height: auto;
+  border-radius: 10px;
+}
+.sign-up-btn {
+  width: 120px;
+  height: 47px;
+  border-radius: 7px;
+  border: none;
+  transition: all 0.25s ease-in-out;
+}

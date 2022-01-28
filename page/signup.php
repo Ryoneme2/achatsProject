@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../public/css/login.css">
   <link rel="stylesheet" href="../public/css/main.css">
+  <link rel="stylesheet" href="../public/css/register.css">
   <title>Sign in</title>
 </head>
 
@@ -22,42 +22,99 @@
 
       </div>
       <div>
-        <button class="sign-up-btn bg-color-one text-light fs-4">sign up</button>
+        <button class="sign-up-btn bg-color-one text-light fs-4">sign in</button>
       </div>
     </div>
   </nav>
 
   <section class="container mt-5">
+    <!-- <div class="d-flex justify-content-center"> -->
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center">
-        <!-- img -->
-        <div>
-          <img class="img-cover" src="../public/img/v5.png" alt="cover">
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-login container py-5">
-          <h1 class="text-center text-color-dark fs-0">Sign in</h1>
+      <h1 class="text-center my-4">Sign up</h1>
+      <div class="col-12 d-flex justify-content-center">
+        <div class="regis-form p-5">
           <form action="#" method="post">
-            <div>
-              <label class="text-color-dark d-block fs-4 mb-1" for="username">username</label>
-              <input class="input-text mb-4" type="text" placeholder="Username...">
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="name">Name</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="text" placeholder="Enter firstname...">
+              </div>
             </div>
-            <div>
-              <label class="text-color-dark d-block fs-4 mb-1" for="username">password</label>
-              <input class="input-text mb-1" type="password" placeholder="Password...">
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="sername">Sername</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="text" placeholder="Enter Sername...">
+              </div>
             </div>
-            <small><a class="text-color-one text-decoration-underline fs-7 d-block" href="#">Forgot the password?</a></small>
-            <div class="d-flex justify-content-center mt-5">
-              <button class="sign-up-btn bg-color-one text-light fs-5">Sign in</button>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Username">Username</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="text" placeholder="Enter Username...">
+              </div>
             </div>
-            <div class="d-flex justify-content-center mt-3">
-              <p class="text-color-one text-center">Don't have an account yet? <a href="#" class="fw-bold text-color-one text-decoration-underline">sign up</a></p>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Email">Email</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="email" placeholder="Enter Email...">
+              </div>
             </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Password">Password</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="password" placeholder="Enter Password...">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="ConfirmPassword">Confirm Password</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="password" placeholder="Enter Confirm Password...">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Address">Address</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <textarea class="input-textarea" rows="4" cols="50"></textarea>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Phone">Phone</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" type="text" placeholder="Enter Phone...">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <label class="uploadLabel">
+                  <input type="file" class="uploadButton" />
+                  Upload
+                </label>
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
     </div>
+    <!-- </div> -->
   </section>
 
   <footer class="container-fulid py-4 mt-5">
