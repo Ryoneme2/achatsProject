@@ -1,8 +1,20 @@
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
   .regis-form {
     width: 100% !important;
   }
 }
+@media only screen and (max-width: 500px) {
+  #preview {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  #preview img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+  }
+}
+
 .uploadButton {
   display: none;
 }
@@ -31,4 +43,15 @@
 
 .sign-up-btn:hover {
   background-color: #a271cf;
+}
+#preview {
+  width: 300px;
+  height: 300px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+}
+#preview img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
 }

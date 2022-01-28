@@ -103,15 +103,20 @@
                 <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <!-- <label class="uploadLabel"> -->
-                <input type="file" name="profile" class="uploadButton2" />
-                Upload
-                <!-- </label> -->
+                <div>
+                  <div id="preview" class="d-flex justify-content-center align-items-center"></div>
+                </div>
+                <div class="mt-3">
+                  <label class="uploadLabel">
+                    <input type="file" name="profile" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
+                    Upload
+                  </label>
+                </div>
               </div>
             </div>
 
             <div class="mt-5 d-flex justify-content-center">
-              <input class="sign-up-btn bg-color-one text-light fs-4" type="submit"></button>
+              <input class="sign-up-btn bg-color-one text-light fs-4" type="submit">
             </div>
 
           </form>
@@ -159,7 +164,7 @@
     </div>
   </footer>
 
-  <script></script>
+  <script src="../public/js/signin.js"></script>
 </body>
 
 </html>
