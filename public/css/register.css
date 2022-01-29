@@ -51,9 +51,21 @@
   border-radius: 9999px;
   background: rgb(236, 236, 236);
 }
+#preview2 {
+  width: 150px;
+  height: 150px;
+  border: 2px dashed #ccc;
+  background: rgb(236, 236, 236);
+}
 
 #preview img {
   border-radius: 9999px;
+  height: 148px;
+  /* max-height: 290px; */
+  width: 148px;
+}
+
+#preview2 img {
   height: 148px;
   /* max-height: 290px; */
   width: 148px;
