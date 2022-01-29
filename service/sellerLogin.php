@@ -52,7 +52,7 @@ if ($row['seller_username'] == $user_input && $row['seller_password'] == $pass_i
           })
         </script>";
 
-  header('refresh: 2; url=../page/seller/dashboard.php');
+  header('refresh: 1; url=../page/seller/dashboard.php');
 } else {
   echo "<script>
         console.log('test');

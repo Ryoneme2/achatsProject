@@ -1,8 +1,24 @@
+@media only screen and (max-width: 1000px) {
+  .flexx {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-new-prod {
+    display: none !important;
+  }
+  .addprod-form {
+    width: 100% !important;
+  }
+}
+
 .profile-image img {
   width: 70px;
   height: 70px;
   border-radius: 9999px;
   background: rgb(236, 236, 236);
+  cursor: pointer;
 }
 
 .img-shop img {
@@ -25,15 +41,20 @@
   height: 40px;
   cursor: pointer;
 }
-.sign-up-btn {
+.sign-up-btn,
+.sign-up-btn2 {
   width: 100px;
   height: 40px;
   border-radius: 7px;
   border: none;
   transition: all 0.25s ease-in-out;
+  cursor: pointer;
 }
 .sign-up-btn:hover {
-  background-color: #a87bd3;
+  background-color: rgb(167, 121, 210);
+}
+.sign-up-btn2:hover {
+  background-color: rgb(255, 30, 30);
 }
 .addprod-form {
   background-color: #fff;
@@ -78,6 +99,11 @@
   border-radius: 20px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  transition: all 0.25s ease-in-out;
+}
+.prod_thumnail:hover {
+  box-shadow: rgba(167, 121, 210, 0.4) 5px 5px,
+    rgba(167, 121, 210, 0.3) 10px 10px, rgba(167, 121, 210, 0.2) 15px 15px;
 }
 .text-overflow-self {
   white-space: nowrap;

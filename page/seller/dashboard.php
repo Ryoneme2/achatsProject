@@ -20,8 +20,8 @@
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'seller') {
 
   ?>
-    <nav class="navbar navbar-light bg-color-one70 py-2">
-      <div class="container-fluid d-flex justify-content-between align-items-center ">
+    <nav class="navbar navbar-light bg-color-one70 py-1">
+      <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
         <div>
           <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="#">
             achats<span class="fs-1 text-light text-decoration-none">.</span>
@@ -45,37 +45,102 @@
             </a>
           </div>
           <img src="<?php echo $_SESSION['seller_photo'] ?>" alt="">
-          <a href="../../service/logout.php">logout</a>
+          <div class="dropdownClick">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 172 172" style=" fill:#000000;">
+              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <path d="M0,172v-172h172v172z" fill="none"></path>
+                <g id="original-icon" fill="#ffffff">
+                  <path d="M78.83333,21.5c-3.956,0 -7.16667,3.21067 -7.16667,7.16667v14.33333c0,3.956 3.21067,7.16667 7.16667,7.16667h14.33333c3.956,0 7.16667,-3.21067 7.16667,-7.16667v-14.33333c0,-3.956 -3.21067,-7.16667 -7.16667,-7.16667zM78.83333,71.66667c-3.956,0 -7.16667,3.21067 -7.16667,7.16667v14.33333c0,3.956 3.21067,7.16667 7.16667,7.16667h14.33333c3.956,0 7.16667,-3.21067 7.16667,-7.16667v-14.33333c0,-3.956 -3.21067,-7.16667 -7.16667,-7.16667zM78.83333,121.83333c-3.956,0 -7.16667,3.21067 -7.16667,7.16667v14.33333c0,3.956 3.21067,7.16667 7.16667,7.16667h14.33333c3.956,0 7.16667,-3.21067 7.16667,-7.16667v-14.33333c0,-3.956 -3.21067,-7.16667 -7.16667,-7.16667z"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </nav>
 
+    <div class="dropdown-container me-2 mt-1">
+      <ul class="dropdown-ul">
+        <div class="d-flex justify-content-start align-items-center mx-3">
+          <div><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
+              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <path d="M0,172v-172h172v172z" fill="none"></path>
+                <g id="original-icon" fill="#666666">
+                  <path d="M86,21.5c-15.74728,0 -28.66667,12.91939 -28.66667,28.66667c0,15.74728 12.91939,28.66667 28.66667,28.66667c15.74727,0 28.66667,-12.91939 28.66667,-28.66667c0,-15.74728 -12.91939,-28.66667 -28.66667,-28.66667zM86,35.83333c8.00097,0 14.33333,6.33237 14.33333,14.33333c0,8.00097 -6.33237,14.33333 -14.33333,14.33333c-8.00097,0 -14.33333,-6.33237 -14.33333,-14.33333c0,-8.00097 6.33237,-14.33333 14.33333,-14.33333zM86,100.33333c-22.5105,0 -64.5,11.0725 -64.5,32.25v17.91667h66.61361c-1.3545,-4.54367 -2.11361,-9.3525 -2.11361,-14.33333h-50.16667v-3.58333c0,-6.22783 26.574,-17.91667 50.16667,-17.91667c1.591,0 3.2026,0.06764 4.8151,0.16797c2.33633,-4.95217 5.43412,-9.47568 9.18229,-13.38151c-5.074,-0.74533 -9.86223,-1.11979 -13.9974,-1.11979zM129.46191,100.33333c-0.9245,0 -1.69816,0.69236 -1.80566,1.6097l-0.83985,7.25065c-3.46867,1.204 -6.59893,3.03116 -9.32226,5.389l-6.71875,-2.91146c-0.84567,-0.3655 -1.82291,-0.03281 -2.28157,0.76986l-6.71875,11.61784c-0.45867,0.80267 -0.24826,1.82089 0.48991,2.36556l5.78093,4.2832c-0.33683,1.77733 -0.5459,3.59565 -0.5459,5.45899c0,1.86333 0.2019,3.67482 0.5459,5.44499l-5.76693,4.2972c-0.73817,0.55183 -0.95574,1.57006 -0.48991,2.36556l6.70475,11.61784c0.45867,0.80267 1.4499,1.12136 2.29557,0.75586l6.70475,-2.89746c2.71617,2.35067 5.8536,4.185 9.32226,5.389l0.83985,7.25065c0.10033,0.9245 0.88116,1.6097 1.80566,1.6097h13.40951c0.9245,0 1.69816,-0.69236 1.80566,-1.6097l0.83985,-7.25065c3.46867,-1.204 6.59893,-3.03116 9.32226,-5.389l6.71875,2.91146c0.84567,0.3655 1.82291,0.02564 2.28157,-0.76986l6.71875,-11.61784c0.45867,-0.80267 0.24826,-1.82089 -0.48991,-2.36556l-5.78093,-4.2972c0.344,-1.77017 0.5459,-3.58166 0.5459,-5.44499c0,-1.86333 -0.2019,-3.67482 -0.5459,-5.44499l5.76693,-4.2972c0.73817,-0.55183 0.95574,-1.57006 0.48991,-2.36556l-6.70475,-11.61784c-0.45867,-0.80267 -1.4499,-1.12136 -2.29557,-0.75586l-6.70475,2.89746c-2.71617,-2.35067 -5.8536,-4.185 -9.32226,-5.389l-0.83985,-7.25065c-0.10033,-0.9245 -0.88116,-1.6097 -1.80566,-1.6097zM136.16667,123.625c6.923,0 12.54167,5.6115 12.54167,12.54167c0,6.923 -5.61867,12.54167 -12.54167,12.54167c-6.923,0 -12.54167,-5.61867 -12.54167,-12.54167c0,-6.93017 5.61867,-12.54167 12.54167,-12.54167z"></path>
+                </g>
+              </g>
+            </svg></div>
+          <div>
+            <li><a class="text-color-dark text-decoration-none" href="#">manage account</a></li>
+          </div>
+        </div>
+        <hr class="hr-drop">
+        <div class="d-flex justify-content-start align-items-center ms-3">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
+              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <path d="M0,172v-172h172v172z" fill="none"></path>
+                <g fill="#6f6f6f">
+                  <path d="M86,14.33333c-39.49552,0 -71.66667,32.17115 -71.66667,71.66667c0,39.49552 32.17115,71.66667 71.66667,71.66667c39.49552,0 71.66667,-32.17115 71.66667,-71.66667c0,-39.49552 -32.17115,-71.66667 -71.66667,-71.66667zM86,28.66667c31.74921,0 57.33333,25.58412 57.33333,57.33333c0,31.74921 -25.58412,57.33333 -57.33333,57.33333c-31.74921,0 -57.33333,-25.58412 -57.33333,-57.33333c0,-31.74921 25.58412,-57.33333 57.33333,-57.33333zM78.83333,50.16667v28.66667h-28.66667v14.33333h28.66667v28.66667h14.33333v-28.66667h28.66667v-14.33333h-28.66667v-28.66667z"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <li><a class="text-color-dark text-decoration-none" href="../../service/logout.php">new product</a></li>
+          </div>
+        </div>
+        <hr class="hr-drop">
+        <div class="d-flex justify-content-start align-items-center ms-3">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
+              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <path d="M0,172v-172h172v172z" fill="none"></path>
+                <g fill="#666666">
+                  <path d="M43,14.33333c-7.90483,0 -14.33333,6.4285 -14.33333,14.33333v114.66667c0,7.90483 6.4285,14.33333 14.33333,14.33333h86c7.90483,0 14.33333,-6.4285 14.33333,-14.33333v-34.04167l-14.31934,10.736v23.30566h-86.014v-114.66667h86v23.29167l14.33333,10.75v-34.04167c0,-7.90483 -6.4285,-14.33333 -14.33333,-14.33333zM114.66667,59.125v19.70833h-35.83333v14.33333h35.83333v19.70833l35.83333,-26.875z"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <li><a class="text-color-dark text-decoration-none" href="../../service/logout.php">logout</a></li>
+          </div>
+        </div>
+      </ul>
+    </div>
+
+    <script src="../../public/js/close.js"></script>
+
+
     <section class="container my-5 px-6">
       <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
+        <div class="col-lg-3 col-sm-12 d-flex justify-content-center mb-4">
           <div class="img-shop">
             <img src="<?php echo $_SESSION['seller_photo'] ?>" alt="">
           </div>
         </div>
         <div class="col-lg-9 col-sm-12">
-          <div class="d-flex align-items-center text-color-dark">
-            <h2 class="m-0 fs-1 d-inline"><?php echo $_SESSION['seller_shopname'] ?></h2>
-            <a class="ms-1" href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 172 172" style=" fill:#000000;">
-                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                  <path d="M0,172v-172h172v172z" fill="none"></path>
-                  <g fill="#7f7c82">
-                    <path d="M128.49609,21.33203c-5.62695,0 -11.25391,2.18359 -15.62109,6.55078l-84.99219,84.99219l-0.33594,1.67969l-5.87891,29.5625l-1.67969,7.89453l7.89453,-1.67969l29.5625,-5.87891l1.67969,-0.33594l84.99219,-84.99219c8.73438,-8.73437 8.73438,-22.50781 0,-31.24219c-4.36719,-4.36719 -9.99414,-6.55078 -15.62109,-6.55078zM128.49609,31.57813c2.70849,0 5.43799,1.23877 8.0625,3.86328c5.22803,5.22803 5.22803,10.89697 0,16.125l-3.86328,3.69531l-15.95703,-15.95703l3.69531,-3.86328c2.62451,-2.62451 5.35401,-3.86328 8.0625,-3.86328zM109.17969,46.86328l15.95703,15.95703l-65.00391,65.00391c-3.52734,-6.88672 -9.07031,-12.42969 -15.95703,-15.95703zM37.28906,120.60156c6.4458,2.60352 11.50586,7.66357 14.10938,14.10938l-17.63672,3.52734z"></path>
+          <div class="flexx">
+            <div class="d-flex align-items-center text-color-dark">
+              <h2 class="m-0 fs-1 d-inline"><?php echo $_SESSION['seller_shopname'] ?></h2>
+              <a class="ms-1" href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 172 172" style=" fill:#000000;">
+                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                    <g fill="#7f7c82">
+                      <path d="M128.49609,21.33203c-5.62695,0 -11.25391,2.18359 -15.62109,6.55078l-84.99219,84.99219l-0.33594,1.67969l-5.87891,29.5625l-1.67969,7.89453l7.89453,-1.67969l29.5625,-5.87891l1.67969,-0.33594l84.99219,-84.99219c8.73438,-8.73437 8.73438,-22.50781 0,-31.24219c-4.36719,-4.36719 -9.99414,-6.55078 -15.62109,-6.55078zM128.49609,31.57813c2.70849,0 5.43799,1.23877 8.0625,3.86328c5.22803,5.22803 5.22803,10.89697 0,16.125l-3.86328,3.69531l-15.95703,-15.95703l3.69531,-3.86328c2.62451,-2.62451 5.35401,-3.86328 8.0625,-3.86328zM109.17969,46.86328l15.95703,15.95703l-65.00391,65.00391c-3.52734,-6.88672 -9.07031,-12.42969 -15.95703,-15.95703zM37.28906,120.60156c6.4458,2.60352 11.50586,7.66357 14.10938,14.10938l-17.63672,3.52734z"></path>
+                    </g>
                   </g>
-                </g>
-              </svg></a>
+                </svg></a>
+            </div>
+            <div>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $_SESSION['seller_product_qty'] ?></span> products</p>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $_SESSION['seller_follower'] ?></span> followers</p>
+            </div>
+            <div>
+              <p class="d-inline me-3 text-color-dark">rating: <span><?php echo $_SESSION['seller_rating'] ?></span></p>
+            </div>
           </div>
-          <div>
-            <p class="d-inline me-3 text-color-dark"><span><?php echo $_SESSION['seller_product_qty'] ?></span> products</p>
-            <p class="d-inline me-3 text-color-dark"><span><?php echo $_SESSION['seller_follower'] ?></span> followers</p>
-          </div>
-          <div>
-            <p class="d-inline me-3 text-color-dark">rating: <span><?php echo $_SESSION['seller_rating'] ?></span></p>
-          </div>
+
         </div>
       </div>
     </section>
@@ -111,13 +176,15 @@
         ?>
 
           <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail mx-2 my-2 p-2">
-            <div class="img-thumnail d-flex justify-content-center mb-3">
-              <img src="<?php echo $prod_row['prod_photo'] ?>">
-            </div>
-            <div>
-              <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>
-              <p class="text-color-dark text-overflow-self">Price : <?php echo $prod_row['prod_price'] ?></p>
-            </div>
+            <a class="text-decoration-none" href="<?php echo "./editProduct.php?id=" . $prod_row['prod_id'] ?>">
+              <div class="img-thumnail d-flex justify-content-center mb-3">
+                <img src="<?php echo $prod_row['prod_photo'] ?>">
+              </div>
+              <div class="ms-2">
+                <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>
+                <p class="text-color-dark text-overflow-self">Price : <?php echo number_format($prod_row['prod_price']) ?> baht</p>
+              </div>
+            </a>
           </div>
 
 
