@@ -42,7 +42,7 @@
         <h1 class="text-center my-4 fs-0 text-color-dark">add product</h1>
         <div class="col-12 d-flex justify-content-center">
           <div class="addprod-form p-5">
-            <form action="../../service/addPendingSeller.php" method="post" enctype='multipart/form-data'>
+            <form action="../../service/addProduct.php" method="post" enctype='multipart/form-data'>
               <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
                   <label class="text-color-dark d-block" for="productname">Product name</label>
@@ -59,7 +59,7 @@
                 <div class="col-md-8 col-sm-12">
                   <div class="mb-2">
                     <label class="uploadLabel">
-                      <input type="file" name="prod_photo" id="prod_photo" class="uploadButton" onchange="encodeImageFileAsURL()" />
+                      <input type="file" name="prod_photo" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
                       choose
                     </label>
                   </div>
@@ -74,9 +74,20 @@
                   <label class="text-color-dark d-block" for="productname">Type</label>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <select class="input-text" name="type" id="type">
-                    <option value="1">test1</option>
-                    <option value="2">test2</option>
+                  <select class="input-text" name="prod_type" id="types">
+                    <option style="color: #f0d9ff;" disabled selected>Please select one</option>
+                    <?php
+
+                    require_once "../../config/dbcon.php";
+
+                    $cataCmd = 'SELECT cata_name FROM catagory';
+
+                    $cataResult = mysqli_query($con, $cataCmd);
+
+                    while ($cataRow = mysqli_fetch_assoc($cataResult)) {
+                      echo "<option value='" . $cataRow['cata_name'] . "'>" . $cataRow['cata_name'] . "</option>";
+                    }
+                    ?>
                   </select>
                 </div>
               </div>
@@ -86,7 +97,8 @@
                   <label class="text-color-dark d-block" for="productname">Size</label>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="size" type="text" placeholder="Enter Size...">
+                  <input class="input-text" name="size" type="text" placeholder="Enter Size1, Size2,...">
+                  <!-- <small class="text-secondary">Format : value,value,value</small> -->
                 </div>
               </div>
               <div class="row mb-4">
@@ -94,7 +106,8 @@
                   <label class="text-color-dark d-block" for="productname">Color</label>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="color" type="text" placeholder="Enter Color...">
+                  <input class="input-text" name="color" type="text" placeholder="Enter Color1, Color2,...">
+                  <!-- <small class="text-secondary">Format : value,value,value</small> -->
                 </div>
               </div>
               <div class="row mb-4">
@@ -171,6 +184,8 @@
         </div>
       </div>
     </footer>
+
+    <script src="../../public/js/signin.js"></script>
   <?php
 
   } else {
@@ -180,6 +195,8 @@
   }
 
   ?>
+
+
 </body>
 
 </html>

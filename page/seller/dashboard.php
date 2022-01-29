@@ -40,7 +40,9 @@
                 </g>
               </svg>
             </div>
-            <p class="text-color-darker m-0">new product</p>
+            <a class="text-decoration-none" href="./addProduct.php">
+              <p class="text-color-darker m-0">new product</p>
+            </a>
           </div>
           <img src="<?php echo $_SESSION['seller_photo'] ?>" alt="">
           <a href="../../service/logout.php">logout</a>
@@ -92,9 +94,35 @@
     </section>
 
     <!-- TODO show product -->
+    <!-- SELECT * FROM `product` LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = 1; -->
+
 
     <section class="container my-5 px-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <?php
 
+        require_once "../../config/dbcon.php";
+
+        $prodDataCmd = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = ' . $_SESSION['seller_id'];
+        // echo $prodDataCmd;
+        $prodData =  mysqli_query($con, $prodDataCmd);
+
+        while ($prod_row = mysqli_fetch_array($prodData)) {
+        ?>
+
+          <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail mx-2 my-2 p-2">
+            <div class="img-thumnail d-flex justify-content-center mb-3">
+              <img src="<?php echo $prod_row['prod_photo'] ?>">
+            </div>
+            <div>
+              <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>
+              <p class="text-color-dark text-overflow-self">Price : <?php echo $prod_row['prod_price'] ?></p>
+            </div>
+          </div>
+
+
+        <?php } ?>
+      </div>
     </section>
 
     <section class="container my-5 px-5">

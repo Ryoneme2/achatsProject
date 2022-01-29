@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <?php
 
 require_once "../config/dbcon.php";
@@ -27,8 +30,10 @@ if ($isAllow) {
   $base64_2 = $row['tmp_seller_withcitizen'];
 
 
-  $sqlCmdInsert = "INSERT INTO seller_info (seller_name,seller_sername,seller_shopname,seller_username,seller_email,seller_password,seller_address,seller_phone,seller_photo,seller_citizenid,seller_withcitizen)
-  VALUES('$name','$sername','$shopname','$username','$email','$password','$address','$phone','$base64','$citizenId','$base64_2')";
+  $sqlCmdInsert = "INSERT INTO seller_info (seller_name,seller_sername,seller_shopname,seller_username,seller_email,seller_password,seller_address,seller_phone,seller_photo,seller_citizenid,seller_withcitizen,seller_follower,	seller_product_qty,seller_rating)
+  VALUES('$name','$sername','$shopname','$username','$email','$password','$address','$phone','$base64','$citizenId','$base64_2',0,0,0)";
+
+  // echo $sqlCmdInsert;
 
   $isDone = mysqli_query($con, $sqlCmdInsert);
   if ($isDone) {
@@ -49,7 +54,19 @@ if ($isAllow) {
 
     header('refresh:1; url=../page/admin/approving.php');
   } else {
-    echo "fail";
+    echo "<script>
+        console.log('test');
+        $(document).ready(function() {
+          Swal.fire({
+            title: 'Oops!!',
+            text: 'Something went wrong! Please try again',
+            icon: 'error',
+            showConfirmButton: false
+        });
+        })
+      </script>";
+
+    header('refresh:1; url=../page/admin/approving.php');
   }
 } else {
 

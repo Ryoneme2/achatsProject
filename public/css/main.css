@@ -55,6 +55,10 @@ body {
   color: #747474;
 }
 
+.select {
+  color: #f0d9ff !important;
+}
+
 .input-text,
 select {
   width: 100%;

@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <?php
 
 session_start();
@@ -64,5 +67,5 @@ if ($row['seller_username'] == $user_input && $row['seller_password'] == $pass_i
       </script>";
   session_destroy();
 
-  header('refresh: 2; url=../page/seller/signin.php');
+  header('refresh: 1; url=../page/seller/signin.php');
 }
