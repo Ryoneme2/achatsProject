@@ -8,6 +8,20 @@ body {
 ::selection {
   background: #f0d9ff;
 }
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #cfbae3;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #cfbae3;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #cfbae3;
+}
 
 .bg-color-one {
   background-color: #bfa2db;

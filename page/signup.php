@@ -87,7 +87,7 @@
                 <label class="text-color-dark d-block" for="Address">Address</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <textarea class="input-textarea" name="address" rows="4" cols="50"></textarea>
+                <textarea class="input-textarea" name="address" rows="4" cols="50" placeholder="Enter Address..."></textarea>
               </div>
             </div>
             <div class="row mb-4">
@@ -102,11 +102,11 @@
               <div class="col-md-4 col-sm-12">
                 <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
               </div>
-              <div class="col-md-8 col-sm-12">
+              <div class="col-md-8 col-sm-12 d-flex align-items-center">
                 <div>
                   <div id="preview" class="d-flex justify-content-center align-items-center"></div>
                 </div>
-                <div class="mt-3">
+                <div class="ms-4">
                   <label class="uploadLabel">
                     <input type="file" name="profile" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
                     Upload
