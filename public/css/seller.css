@@ -1,0 +1,68 @@
+.profile-image img {
+  width: 70px;
+  height: 70px;
+  border-radius: 9999px;
+  background: rgb(236, 236, 236);
+}
+
+.img-shop img {
+  width: 200px;
+  height: 200px;
+  border-radius: 9999px;
+  background: rgb(236, 236, 236);
+}
+.link-prod1,
+.link-prod2 {
+  /* width: 100%; */
+  cursor: pointer;
+  height: 55px;
+  border: solid 1px #bfa2db;
+}
+.add-new-prod {
+  border: solid 3px #6f6f6f;
+  width: 130px;
+  border-radius: 50px;
+  height: 40px;
+  cursor: pointer;
+}
+.sign-up-btn {
+  width: 100px;
+  height: 40px;
+  border-radius: 7px;
+  border: none;
+  transition: all 0.25s ease-in-out;
+}
+.sign-up-btn:hover {
+  background-color: #a87bd3;
+}
+.addprod-form {
+  background-color: #fff;
+  width: 60%;
+  height: auto;
+  border-radius: 10px;
+}
+.uploadButton {
+  display: none;
+}
+.uploadLabel {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #bfa2db;
+  color: #ffffff;
+}
+#preview {
+  width: 100%;
+  height: 150px;
+  border: 2px dashed #ccc;
+  background: rgb(236, 236, 236);
+  border-radius: 20px;
+}
+
+#preview img {
+  height: 100%;
+  max-width: 150px;
+  width: auto;
+}

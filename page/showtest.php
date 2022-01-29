@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
 
-<body>
-  <?php
+<?php
 
-  require_once '../config/dbcon.php';
+echo "<script>
+  console.log('test');
+  $(document).ready(function() {
+    Swal.fire({
+      title: 'Oops!!',
+      text: 'Something went wrong! Please try again',
+      icon: 'error',
+      showConfirmButton: false
+  });
+  })
+</script>";
 
-  $sql = "SELECT usr_photo FROM achats";
-
-  $result = mysqli_query($con, $sql);
-
-  $row = mysqli_fetch_assoc($result);
-
-  ?>
-
-  <img src="<?php echo $row['usr_photo'] ?>" alt="">
-</body>
-
-</html>
+header("refresh:2; url=./admin/approving.php");
+?>

@@ -1,0 +1,32 @@
+.sign-up-btn {
+  width: 120px;
+  height: 47px;
+  border-radius: 7px;
+  border: none;
+  transition: all 0.25s ease-in-out;
+}
+.sign-up-btn:hover {
+  background-color: #a87bd3;
+}
+.header-content {
+  height: 70px;
+  width: 100%;
+  border-radius: 7px 7px 0 0;
+}
+.body-content {
+  height: auto;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0 0 7px 7px;
+}
+.cancel-btn,
+.allow-btn {
+  border-radius: 50px;
+  width: 70px;
+  border: none;
+}
+.preview-photo img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}

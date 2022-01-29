@@ -51,8 +51,12 @@ body {
 .text-color-dark {
   color: #7f7c82;
 }
+.text-color-darker {
+  color: #747474;
+}
 
-.input-text {
+.input-text,
+select {
   width: 100%;
   border: solid 2px #bfa2db;
   border-radius: 7px;
@@ -71,3 +75,6 @@ body {
 a:hover {
   color: #a87bd3;
 }
+/* .px-6 {
+  padding: 0 10rem 0 10rem;
+} */

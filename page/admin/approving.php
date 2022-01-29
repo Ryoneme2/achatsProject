@@ -8,8 +8,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../public/css/main.css">
-  <link rel="stylesheet" href="../../public/css/register.css">
-  <title>Sign up: Seller</title>
+  <link rel="stylesheet" href="../../public/css/admin_approve.css">
+  <title>Sign in</title>
 </head>
 
 <body>
@@ -22,147 +22,87 @@
 
       </div>
       <div>
-        <button class="sign-up-btn bg-color-one text-light fs-4">sign in</button>
+        <button class="sign-up-btn bg-color-one text-light fs-4">sign up</button>
       </div>
     </div>
   </nav>
 
-  <section class="container mt-5">
-    <!-- <div class="d-flex justify-content-center"> -->
-    <div class="row">
-      <h1 class="text-center my-4 fs-0 text-color-dark">Sign up</h1>
-      <div class="col-12 d-flex justify-content-center">
-        <div class="regis-form p-5">
-          <form action="../../service/addPendingSeller.php" method="post" enctype='multipart/form-data'>
-            <div class="row mb-4">
-              <h2 class="text-color-dark fs-3">Personal</h2>
-              <hr style="width:100%;" class="mx-auto mb-5">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="name">Name</label>
+  <section class="container my-5">
+    <div class="content-info">
+      <h1 class="fs-3 text-color-dark mb-0">waiting list</h1>
+      <hr style="width:100%;" class="mx-auto mb-5">
+      <div class="row">
+        <?php
+        // TODO : Check Session
+
+        require_once "../../config/dbcon.php";
+
+        $sql = 'SELECT * FROM tmp_seller';
+
+        $result = mysqli_query($con, $sql);
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+        ?>
+          <div class="col-12 mx-3">
+            <div class="header-content bg-color-one70 d-flex justify-content-between align-items-center px-3">
+              <div>
+                <h4 class="fs-4 text-color-dark mt-2">request</h4>
               </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="name" type="text" placeholder="Enter firstname...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="sername">Sername</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="sername" type="text" placeholder="Enter Sername...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Shop Name">Shop Name</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="shopname" type="text" placeholder="Enter Shop Name...">
+              <div>
+                <button class="cancel-btn bg-color-light text-color-dark"><a class="text-color-dark text-decoration-none" href="<?php echo "../../service/approveSeller.php?id=" . $row['tmp_seller_id'] . '&allow=false' ?>">cancel</a></button>
+                <button class="allow-btn bg-color-one"><a class="text-color-light text-decoration-none" href="<?php echo "../../service/approveSeller.php?id=" . $row['tmp_seller_id'] . '&allow=true' ?>">allow</a></button>
               </div>
             </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Username">Username</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="username" type="text" placeholder="Enter Username...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Email">Email</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="email" type="email" placeholder="Enter Email...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Password">Password</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="password" type="password" placeholder="Enter Password...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="ConfirmPassword">Confirm Password</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="password" placeholder="Enter Confirm Password...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Address">Address</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <textarea class="input-textarea" name="address" rows="4" cols="50" placeholder="Enter Address..."></textarea>
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Phone">Phone</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="phone" type="text" placeholder="Enter Phone...">
-              </div>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
-              </div>
-              <div class="col-md-8 col-sm-12 d-flex align-items-center">
-                <div>
-                  <div id="preview" class="d-flex justify-content-center align-items-center"></div>
+            <div class="body-content container py-5">
+              <div class="row">
+                <div class="col-6">
+                  <div>
+                    <h5>Name : <span><?php echo $row['tmp_seller_name'] . " " . $row['tmp_seller_sername'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>Shop name : <span><?php echo $row['tmp_seller_shopname'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>Username : <span><?php echo $row['tmp_seller_username'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>email : <span><?php echo $row['tmp_seller_email'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>Photo : </h5>
+                    <div class="preview-photo">
+                      <img src="<?php echo $row['tmp_seller_photo'] ?>" alt="<?php echo 'profilePic' . $row['tmp_seller_id'] ?>">
+                    </div>
+                  </div>
                 </div>
-                <div class="ms-4">
-                  <label class="uploadLabel">
-                    <input type="file" name="profile" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
-                    Upload
-                  </label>
+                <div class="col-6">
+                  <div>
+                    <h5>Address : <span><?php echo $row['tmp_seller_address'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>Phone : <span><?php echo $row['tmp_seller_phone'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>citizen id : <span><?php echo $row['tmp_seller_citizenid'] ?></span></h5>
+                  </div>
+                  <div>
+                    <h5>Photo with citizen card : </h5>
+                    <div class="preview-photo">
+                      <img src="<?php echo $row['tmp_seller_withcitizen'] ?>" alt="<?php echo 'citizenPic' . $row['tmp_seller_id'] ?>">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <h2 class="text-color-dark fs-3">ID Card</h2>
-            <hr style="width:100%;" class="mx-auto mb-5">
 
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="CitizenId">Citizen ID</label>
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="citizenId" type="text" placeholder="Enter CitizenId...">
-              </div>
-            </div>
-
-            <div class="row mb-4">
-              <div class="col-md-4 col-sm-12">
-                <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
-              </div>
-              <div class="col-md-8 col-sm-12 d-flex align-items-center">
-                <div>
-                  <div id="preview2" class="d-flex justify-content-center align-items-center"></div>
-                </div>
-                <div class="ms-4">
-                  <label class="uploadLabel">
-                    <input type="file" name="profile2" id="file2" class="uploadButton" onchange="encodeImageFileAsURL2()" />
-                    Upload
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-5 d-flex justify-content-center">
-              <input class="sign-up-btn bg-color-one text-light fs-4" type="submit">
-            </div>
-
-          </form>
-        </div>
+        <?php }
+        ?>
       </div>
     </div>
-    <!-- </div> -->
+
   </section>
 
   <footer class="container-fulid py-4 mt-5">
@@ -203,7 +143,6 @@
     </div>
   </footer>
 
-  <script src="../../public/js/signin.js"></script>
 </body>
 
 </html>
