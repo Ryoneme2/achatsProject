@@ -19,6 +19,14 @@
 
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'seller') {
 
+    require_once '../../config/dbcon.php';
+
+    $sqlSellCmd = "SELECT seller_product_qty,seller_follower,seller_rating FROM seller_info WHERE seller_id = " . $_SESSION['seller_id'];
+
+    // echo $sqlCmd;
+    $result2 = mysqli_query($con, $sqlSellCmd);
+    $rowP = mysqli_fetch_array($result2);
+
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
@@ -133,11 +141,11 @@
                 </svg></a>
             </div>
             <div>
-              <p class="d-inline me-3 text-color-dark"><span><?php echo $_SESSION['seller_product_qty'] ?></span> products</p>
-              <p class="d-inline me-3 text-color-dark"><span><?php echo $_SESSION['seller_follower'] ?></span> followers</p>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowP['seller_product_qty'] ?></span> products</p>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowP['seller_follower'] ?></span> followers</p>
             </div>
             <div>
-              <p class="d-inline me-3 text-color-dark">rating: <span><?php echo $_SESSION['seller_rating'] ?></span></p>
+              <p class="d-inline me-3 text-color-dark">rating: <span><?php echo $rowP['seller_rating'] ?></span></p>
             </div>
           </div>
 
@@ -164,6 +172,15 @@
 
     <section class="container my-5 px-5">
       <div class="row d-flex justify-content-center align-items-center">
+
+        <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail2 mx-2 my-2 p-2">
+          <a class="text-decoration-none text-color-dark" href="./addProduct.php">
+            <div class="d-flex justify-content-center align-items-center w-100 h-100">
+              <h1 class="big-size ">+</h1>
+            </div>
+          </a>
+        </div>
+
         <?php
 
         require_once "../../config/dbcon.php";

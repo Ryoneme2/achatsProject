@@ -5,12 +5,26 @@
 require_once '../config/dbcon.php';
 
 $id = $_GET['id'];
+session_start();
+$idSeller = $_SESSION['seller_id'];
 
-$sql = 'DELETE FROM product WHERE prod_id =' . $id;
+$sqlSellCmd = "SELECT seller_product_qty FROM seller_info WHERE seller_id = $id";
+
+// echo $sqlCmd;
+$result2 = mysqli_query($con, $sqlSellCmd);
+$row = mysqli_fetch_array($result2);
+$qty = $row['seller_product_qty '];
+$qty2 = $qty - 1;
+
+$sqlSellQtyCmd = "UPDATE seller_info SET seller_product_qty = $qty2 WHERE seller_id = $idSeller";
+
+
+$sql = 'DELETE FROM product WHERE prod_id =' . $idSeller;
 
 $result = mysqli_query($con, $sql);
+$result3 = mysqli_query($con, $sqlSellQtyCmd);
 
-if ($result) {
+if ($result && $result3) {
 
   echo "<script>
           console.log('test');

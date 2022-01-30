@@ -38,7 +38,7 @@
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
         <div>
-          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="#">
+          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="./userIndex.php">
             achats<span class="fs-1 text-light text-decoration-none">.</span>
           </a>
 
@@ -140,8 +140,13 @@
     <script src="../../public/js/close.js"></script>
 
     <div class="container mt-5">
-      <div class="head-content">
-
+      <div class="head-content d-flex align-items-center ps-5">
+        <div class="profile-image me-3">
+          <img src="<?php echo $rowProduct['seller_photo'] ?>" alt="">
+        </div>
+        <div class="profile-image mt-2">
+          <h3 class="fs-4 text-color-light"><?php echo $rowProduct['seller_shopname'] ?></h3>
+        </div>
       </div>
       <div class="bg-content py-5 px-3">
         <div class="row">
@@ -250,7 +255,7 @@
           <div class="row">
             <?php
 
-            $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product LIMIT 3';
+            $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product ORDER BY RAND() LIMIT 3';
 
             $prodRes = mysqli_query($con, $sqlprodCmd);
 

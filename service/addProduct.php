@@ -29,12 +29,20 @@ $photoBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 $sqlCmd = "INSERT INTO product (prod_name,prod_photo,prod_type,prod_size,prod_color,prod_details,prod_warranty,prod_price,seller_id)
            VALUES ('$product_name','$photoBase64','$prod_type','$size','$color','$detail','$warranty',$price,$id)";
 
-// echo $sqlCmd;
+$sqlSellCmd = "SELECT seller_product_qty FROM seller_info WHERE seller_id = $id";
 
+// echo $sqlCmd;
+$result2 = mysqli_query($con, $sqlSellCmd);
+$row = mysqli_fetch_array($result2);
+$qty = $row['seller_product_qty '];
+$qty2 = $qty + 1;
+
+$sqlSellQtyCmd = "UPDATE seller_info SET seller_product_qty = $qty2 WHERE seller_id = $id";
 
 $result = mysqli_query($con, $sqlCmd);
+$result3 = mysqli_query($con, $sqlSellQtyCmd);
 
-if ($result) {
+if ($result && $result3) {
 
   echo "<script>
           console.log('test');
