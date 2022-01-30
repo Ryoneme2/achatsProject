@@ -22,7 +22,9 @@
 
       </div>
       <div>
-        <button class="sign-up-btn bg-color-one text-light fs-4">sign up</button>
+        <a href="./signup.php">
+          <button class="sign-up-btn bg-color-one text-light fs-4">sign up</button>
+        </a>
       </div>
     </div>
   </nav>
@@ -38,7 +40,7 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-login container py-5">
           <h1 class="text-center text-color-dark fs-0">Sign in</h1>
-          <form action="#" method="post">
+          <form action="../../service/userLogin.php" method="post">
             <div>
               <label class="text-color-dark d-block fs-4 mb-1" for="username">username</label>
               <input class="input-text mb-4" name="username" type="text" placeholder="Username...">

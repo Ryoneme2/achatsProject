@@ -22,7 +22,9 @@
 
       </div>
       <div>
-        <button class="sign-up-btn bg-color-one text-light fs-4">sign up</button>
+        <a href="./signup.php">
+          <button class="sign-up-btn bg-color-one text-light fs-4">sign up</button>
+        </a>
       </div>
     </div>
   </nav>

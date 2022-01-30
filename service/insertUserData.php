@@ -13,15 +13,15 @@ $password = $_POST['password'];
 $address = $_POST['address'];
 $phone = $_POST['phone'];
 $profile = $_FILES['profile']['name'];
-echo "<br>" . $name . "<br>";
-echo "<br>" . $sername . "<br>";
-echo "<br>" . $username . "<br>";
-echo "<br>" . $email . "<br>";
-echo "<br>" . $password . "<br>";
-echo "<br>" . $address . "<br>";
-echo "<br>" . $phone . "<br>";
+// echo "<br>" . $name . "<br>";
+// echo "<br>" . $sername . "<br>";
+// echo "<br>" . $username . "<br>";
+// echo "<br>" . $email . "<br>";
+// echo "<br>" . $password . "<br>";
+// echo "<br>" . $address . "<br>";
+// echo "<br>" . $phone . "<br>";
 
-echo $profile;
+// echo $profile;
 
 $tmp_name = $_FILES["profile"]["tmp_name"];
 
@@ -40,10 +40,36 @@ $sql = "INSERT INTO achats (usr_name,usr_sername,usr_username,usr_email,usr_pass
 VALUES('$name','$sername','$username','$email','$password','$address','$phone','$base64')";
 
 // Execute query
-mysqli_query($con, $sql);
+$result = mysqli_query($con, $sql);
 
-// if ($result) {
-//   echo "SAVE DONE";
-// } else {
-//   mysqli_error($connect);
-// }
+if ($result) {
+
+  echo "<script>
+          console.log('test');
+          $(document).ready(function() {
+            Swal.fire({
+              title: 'success',
+              text: 'Signed up',
+              icon: 'success',
+              timer: 5000,
+              showConfirmButton: false
+            });
+          })
+        </script>";
+
+  header('refresh:1; url=../page/users/signin.php');
+} else {
+
+  echo "<script>
+        console.log('test');
+        $(document).ready(function() {
+          Swal.fire({
+            title: 'Oops!!',
+            text: 'Something went wrong! Please try again',
+            icon: 'error',
+            showConfirmButton: false
+        });
+        })
+      </script>";
+  header('refresh:1; url=../page/users/signup.php');
+}

@@ -3,17 +3,6 @@
     width: 100% !important;
   }
 }
-/* @media only screen and (max-width: 500px) {
-  #preview {
-    width: 200px !important;
-    height: 200px !important;
-  }
-  #preview img {
-    width: 100%;
-    max-width: 150px;
-    height: auto;
-  }
-} */
 
 .uploadButton {
   display: none;
