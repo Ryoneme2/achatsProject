@@ -17,6 +17,8 @@ $citizenId = $_POST['citizenId'];
 $profile = $_FILES['profile']['name'];
 $profile2 = $_FILES['profile2']['name'];
 
+// TODO: check dupicated username
+
 // echo $profile;
 
 $tmp_name = $_FILES["profile"]["tmp_name"];

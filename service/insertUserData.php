@@ -22,6 +22,8 @@ $profile = $_FILES['profile']['name'];
 // echo "<br>" . $phone . "<br>";
 
 // echo $profile;
+// TODO: check dupicated username
+
 
 $tmp_name = $_FILES["profile"]["tmp_name"];
 
