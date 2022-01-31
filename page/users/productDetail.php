@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
   <title>Sign in: Seller</title>
@@ -20,6 +22,8 @@
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
     require_once '../../config/dbcon.php';
+
+    $_SESSION['comment'] = [];
 
     $id = $_GET['id'];
 
@@ -243,9 +247,43 @@
         </div>
         <!-- review -->
 
-        <div class="container my-3">
+        <div class="container mb-3">
           <h3 class="fs-4 text-color-dark">review</h3>
-          <hr style="width:100%;" class="mx-auto mb-5">
+          <hr style="width:100%;" class="mx-auto">
+
+          <div class="my-3 px-3">
+            <?php
+
+            $sqlProdComment = "SELECT * FROM comment WHERE prod_id =" . $id;
+
+            $resCommentCmd = mysqli_query($con, $sqlProdComment);
+
+            while ($rowCommentCmd = mysqli_fetch_assoc($resCommentCmd)) {
+            ?>
+
+              <h3 class="fs-5 text-color-dark"><?php echo $rowCommentCmd['comment_username'] ?> : <span class="fw-light fs-5"><?php echo $rowCommentCmd['comment_context'] ?></span> </h3>
+
+            <?php
+            }
+            ?>
+          </div>
+
+
+
+          <form action="./productDetail.php" method="get">
+            <div class="my-3 px-3">
+              <!-- <div class="mt-2">
+                <h3 class="fs-4 text-color-dark">add comment</h3>
+              </div> -->
+              <div class="d-flex align-items-center">
+                <input type="text" name="comment" class="comment-form ps-2" placeholder="add a review...">
+                <input type="hidden" name="p_id" value="<?php echo $rowProduct['prod_id'] ?>">
+                <input type="hidden" name="id" value="<?php echo $rowProduct['prod_id'] ?>">
+                <input type="submit" name="comment-add" class="comment-btn text-light" value="add">
+              </div>
+            </div>
+          </form>
+
         </div>
 
         <div class="container my-5">
