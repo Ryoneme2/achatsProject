@@ -270,7 +270,7 @@
 
 
 
-          <form action="./productDetail.php" method="get">
+          <form action="../../service/comment.php" method="get">
             <div class="my-3 px-3">
               <!-- <div class="mt-2">
                 <h3 class="fs-4 text-color-dark">add comment</h3>
