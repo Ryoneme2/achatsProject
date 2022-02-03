@@ -388,6 +388,18 @@
   } else {
     session_destroy();
 
+    echo "<script>
+        console.log('test');
+        $(document).ready(function() {
+          Swal.fire({
+            title: 'Oops!!',
+            text: 'You not have permission to access this site please login first',
+            icon: 'error',
+            showConfirmButton: false
+        });
+        })
+      </script>";
+
     header('refresh: 2; url=./signin.php');
   }
 
