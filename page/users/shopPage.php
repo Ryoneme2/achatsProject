@@ -8,8 +8,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
+  <link rel="stylesheet" href="../../public/css/seller.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Main page</title>
+  <title>Product: search</title>
 </head>
 
 <body>
@@ -21,11 +22,19 @@
 
     require_once '../../config/dbcon.php';
 
+    $shop_id = $_GET['shop_id'];
+
+    $sqlShop = "SELECT * FROM seller_info WHERE seller_id = $shop_id";
+
+    $resultShop = mysqli_query($con, $sqlShop);
+
+    $rowShop = mysqli_fetch_assoc($resultShop);
+
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
         <div>
-          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="#">
+          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="./userIndex.php">
             achats<span class="fs-1 text-light text-decoration-none">.</span>
           </a>
 
@@ -127,89 +136,73 @@
     <script src="../../public/js/close.js"></script>
 
 
-    <section class="container-fulid banner bg-color-one70 d-flex align-items-center justify-content-center">
-      <div class="d-flex align-items-center">
-        <div class="me-5 d-flex flex-column align-items-center">
-          <div class="mb-3">
-            <img class="img-fulid" src="../../public/img/bannerTypo.png" alt="banner" width="300">
-          </div>
-          <div>
-            <!-- TODO : hover for more ux -->
-            <button class="border border-light rounded-pill py-2 px-4 bg-color-one70 fs-4 text-light">shop now</button>
+    <section class="container my-5 px-6">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-lg-3 col-sm-12 d-flex justify-content-center mb-4">
+          <div class="img-shop">
+            <img src="<?php echo $rowShop['seller_photo'] ?>" alt="">
           </div>
         </div>
-        <div class="ms-5">
-          <img class="img-fulid" src="../../public/img/banner300.png" alt="banner">
+        <div class="col-lg-9 col-sm-12">
+          <div class="flexx">
+            <div class="d-flex align-items-center text-color-dark">
+              <h2 class="m-0 fs-1 d-inline"><?php echo $rowShop['seller_shopname'] ?></h2>
+            </div>
+            <div>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowShop['seller_product_qty'] ?></span> products</p>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowShop['seller_follower'] ?></span> followers</p>
+            </div>
+            <div>
+              <p class="d-inline me-3 text-color-dark">rating: <span><?php echo $rowShop['seller_rating'] ?></span></p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <section class="container my-5">
-      <h2 class="text-color-dark my-4 ps-4">product type</h2>
+    <section class="container my-5 px-5">
+      <div>
+        <h3 class="fs-4 text-color-dark">products</h3>
+        <hr style="width:100%;" class="mx-auto mb-5">
+      </div>
+      <div></div>
+    </section>
 
-      <div class="row">
+    <!-- TODO show product -->
+    <!-- SELECT * FROM `product` LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = 1; -->
+
+
+    <section class="container my-5 px-5">
+      <div class="row d-flex justify-content-center align-items-center">
 
         <?php
 
-        $sqlCmd = 'SELECT cata_name,cata_photo FROM catagory';
 
-        $cataRes = mysqli_query($con, $sqlCmd);
+        $prodDataCmd = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = ' . $shop_id;
+        // echo $prodDataCmd;
+        $prodData =  mysqli_query($con, $prodDataCmd);
 
-        while ($cataRow = mysqli_fetch_assoc($cataRes)) {
+        while ($prod_row = mysqli_fetch_array($prodData)) {
         ?>
 
-          <div class="col-lg-2 col-md-6 col-sm-12">
-            <a class="text-decoration-none text-color-dark" href="./byCatagoryProduct.php?search_context=<?php echo $cataRow['cata_name'] ?>">
-              <div class="d-flex flex-column">
-                <div class="img_thumnail d-flex justify-content-center">
-                  <div class="mb-2">
-                    <img src="<?php echo $cataRow['cata_photo'] ?>" alt="">
-                  </div>
-                </div>
-                <div class="detail-content">
-                  <p class="text-center fw-300"><?php echo $cataRow['cata_name'] ?></p>
-                </div>
+          <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail mx-2 my-2 p-2">
+            <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prod_row['prod_id'] ?>">
+              <div class="img-thumnail d-flex justify-content-center mb-3">
+                <img src="<?php echo $prod_row['prod_photo'] ?>">
+              </div>
+              <div class="ms-2">
+                <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>
+                <p class="text-color-dark text-overflow-self">Price : <?php echo number_format($prod_row['prod_price']) ?> baht</p>
               </div>
             </a>
           </div>
 
-        <?php } ?>
-      </div>
-    </section>
-
-    <section class="recommand container">
-      <h2 class="text-color-dark my-4 ps-4">recommand</h2>
-      <div class="row">
-        <?php
-
-        $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product ORDER BY RAND() LIMIT 8';
-
-        $prodRes = mysqli_query($con, $sqlprodCmd);
-
-        while ($prodRow = mysqli_fetch_assoc($prodRes)) {
-        ?>
-
-          <div class="col-lg-3 col-md-6 col-sm-12 p-3">
-            <div class="recom-bg p-3">
-              <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
-                <div class="d-flex flex-column">
-                  <div class="img_thumnail2 d-flex justify-content-center">
-                    <div class="mb-2">
-                      <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
-                    </div>
-                  </div>
-                  <div class="detail-content">
-                    <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
-                    <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
 
         <?php } ?>
       </div>
     </section>
+
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">

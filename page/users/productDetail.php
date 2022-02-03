@@ -11,7 +11,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Sign in: Seller</title>
+  <title>Product : details</title>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
     $id = $_GET['id'];
 
     $sqlCmd = "SELECT product.prod_id,product.prod_name,product.prod_photo,product.prod_type,product.prod_size,product.prod_color,
-    product.prod_details,product.prod_warranty,product.prod_price,seller_info.seller_name,seller_info.seller_shopname,
+    product.prod_details,product.prod_warranty,product.prod_price,seller_info.seller_id,seller_info.seller_name,seller_info.seller_shopname,
     seller_info.seller_photo,seller_info.seller_rating,seller_info.seller_follower,seller_info.seller_id
     FROM product
     LEFT JOIN seller_info 
@@ -142,16 +142,17 @@
     </div>
 
     <script src="../../public/js/close.js"></script>
-
     <div class="container mt-5">
-      <div class="head-content d-flex align-items-center ps-5">
-        <div class="profile-image me-3">
-          <img src="<?php echo $rowProduct['seller_photo'] ?>" alt="">
+      <a class="text-light text-decoration-none" href="shopPage.php?shop_id=<?php echo $rowProduct['seller_id'] ?>">
+        <div class="head-content d-flex align-items-center ps-5">
+          <div class="profile-image me-3">
+            <img src="<?php echo $rowProduct['seller_photo'] ?>" alt="">
+          </div>
+          <div class="profile-image mt-2">
+            <h3 class="fs-4 text-color-light"><?php echo $rowProduct['seller_shopname'] ?></h3>
+          </div>
         </div>
-        <div class="profile-image mt-2">
-          <h3 class="fs-4 text-color-light"><?php echo $rowProduct['seller_shopname'] ?></h3>
-        </div>
-      </div>
+      </a>
       <div class="bg-content py-5 px-3">
         <div class="row">
           <div class="col-12 d-flex justify-content-center">
