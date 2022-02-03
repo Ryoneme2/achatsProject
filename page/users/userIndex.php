@@ -31,10 +31,10 @@
 
         </div>
         <div>
-          <form action="#">
+          <form action="./searchProduct.php" method="get">
             <div class="d-flex">
               <div>
-                <input class="search-form ps-2" type="text" name="search">
+                <input class="search-form ps-2" type="text" name="search_context">
               </div>
               <div>
                 <input class="search-btn" type="submit" value="search">
@@ -159,7 +159,7 @@
         ?>
 
           <div class="col-lg-2 col-md-6 col-sm-12">
-            <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cataRow['cata_name'] ?>">
+            <a class="text-decoration-none text-color-dark" href="./byCatagoryProduct.php?search_context=<?php echo $cataRow['cata_name'] ?>">
               <div class="d-flex flex-column">
                 <div class="img_thumnail d-flex justify-content-center">
                   <div class="mb-2">
