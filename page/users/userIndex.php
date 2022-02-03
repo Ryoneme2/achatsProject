@@ -127,8 +127,21 @@
     <script src="../../public/js/close.js"></script>
 
 
-    <section class="container-fulid banner bg-color-one70">
-
+    <section class="container-fulid banner bg-color-one70 d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center">
+        <div class="me-5 d-flex flex-column align-items-center">
+          <div class="mb-3">
+            <img class="img-fulid" src="../../public/img/bannerTypo.png" alt="banner" width="300">
+          </div>
+          <div>
+            <!-- TODO : hover for more ux -->
+            <button class="border border-light rounded-pill py-2 px-4 bg-color-one70 fs-4 text-light">shop now</button>
+          </div>
+        </div>
+        <div class="ms-5">
+          <img class="img-fulid" src="../../public/img/banner300.png" alt="banner">
+        </div>
+      </div>
     </section>
 
     <section class="container my-5">
@@ -146,16 +159,18 @@
         ?>
 
           <div class="col-lg-2 col-md-6 col-sm-12">
-            <div class="d-flex flex-column">
-              <div class="img_thumnail d-flex justify-content-center">
-                <div class="mb-2">
-                  <img src="<?php echo $cataRow['cata_photo'] ?>" alt="">
+            <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cataRow['cata_name'] ?>">
+              <div class="d-flex flex-column">
+                <div class="img_thumnail d-flex justify-content-center">
+                  <div class="mb-2">
+                    <img src="<?php echo $cataRow['cata_photo'] ?>" alt="">
+                  </div>
+                </div>
+                <div class="detail-content">
+                  <p class="text-center fw-300"><?php echo $cataRow['cata_name'] ?></p>
                 </div>
               </div>
-              <div class="detail-content">
-                <p class="text-center fw-300"><?php echo $cataRow['cata_name'] ?></p>
-              </div>
-            </div>
+            </a>
           </div>
 
         <?php } ?>
@@ -167,7 +182,7 @@
       <div class="row">
         <?php
 
-        $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product';
+        $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product ORDER BY RAND() LIMIT 8';
 
         $prodRes = mysqli_query($con, $sqlprodCmd);
 
