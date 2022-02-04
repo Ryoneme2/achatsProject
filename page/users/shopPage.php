@@ -9,8 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/seller.css">
   <link rel="stylesheet" href="../../public/css/main.css">
@@ -31,6 +29,8 @@
     $sqlShop = "SELECT * FROM seller_info WHERE seller_id = $shop_id";
 
     $resultShop = mysqli_query($con, $sqlShop);
+
+    $numRow = mysqli_num_rows($resultShop);
 
     $rowShop = mysqli_fetch_assoc($resultShop);
 
@@ -153,7 +153,7 @@
               <h2 class="m-0 fs-1 d-inline"><?php echo $rowShop['seller_shopname'] ?></h2>
             </div>
             <div>
-              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowShop['seller_product_qty'] ?></span> products</p>
+              <p class="d-inline me-3 text-color-dark"><span><?php echo $numRow ?></span> products</p>
               <p class="d-inline me-3 text-color-dark"><span><?php echo $rowShop['seller_follower'] ?></span> followers</p>
             </div>
             <div>

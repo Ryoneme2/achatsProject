@@ -141,7 +141,7 @@
             <button class="border border-light rounded-pill py-2 px-4 bg-color-one70 fs-4 text-light">shop now</button>
           </div>
         </div>
-        <div class="ms-5">
+        <div class="ms-5 d-none">
           <img class="img-fulid" src="../../public/img/banner300.png" alt="banner">
         </div>
       </div>
@@ -164,8 +164,8 @@
           <div class="col-lg-2 col-md-6 col-sm-12">
             <a class="text-decoration-none text-color-dark" href="./byCatagoryProduct.php?search_context=<?php echo $cataRow['cata_name'] ?>">
               <div class="d-flex flex-column">
-                <div class="img_thumnail d-flex justify-content-center">
-                  <div class="mb-2">
+                <div class="d-flex justify-content-center">
+                  <div class="mb-2 img_thumnail">
                     <img src="<?php echo $cataRow['cata_photo'] ?>" alt="">
                   </div>
                 </div>
