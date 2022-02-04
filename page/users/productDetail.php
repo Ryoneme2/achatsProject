@@ -130,7 +130,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="#">my faverite</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="./faveriteDisplay.php">my faverite</a></li>
           </div>
         </div>
         <hr class="hr-drop">

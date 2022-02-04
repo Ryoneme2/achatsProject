@@ -8,6 +8,15 @@ body {
   background-color: #f3f1f5;
 }
 
+@media only screen and (max-width: 768px) {
+  .responsive-display {
+    display: none !important;
+  }
+  .responsive-display-flex {
+    display: none !important;
+  }
+}
+
 ::selection {
   background: #f0d9ff;
 }
@@ -123,4 +132,10 @@ a:hover {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.responsive-display {
+  display: block;
+}
+.responsive-display-flex {
+  display: flex;
 }

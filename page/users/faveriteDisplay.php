@@ -25,7 +25,7 @@
 
     $search = $_GET['search_context'];
 
-    $sql = "SELECT * FROM product WHERE prod_type ='$search'";
+    $sql = "SELECT * FROM faverite_user INNER JOIN product ON faverite_user.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'];
 
     $result = mysqli_query($con, $sql);
 
@@ -110,7 +110,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="./faveriteDisplay.php">my faverite</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="#">my faverite</a></li>
           </div>
         </div>
         <hr class="hr-drop">
@@ -136,7 +136,7 @@
 
 
     <section class="container my-4">
-      <h3 class="fs-4 text-color-dark">product</h3>
+      <h3 class="fs-4 text-color-dark">my faverite</h3>
       <hr style="width:100%;" class="mx-auto mb-5">
       <div class="row">
         <?php

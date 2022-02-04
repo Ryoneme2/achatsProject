@@ -105,7 +105,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="#">my faverite</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="./faveriteDisplay.php">my faverite</a></li>
           </div>
         </div>
         <hr class="hr-drop">
@@ -141,7 +141,7 @@
             <button class="border border-light rounded-pill py-2 px-4 bg-color-one70 fs-4 text-light">shop now</button>
           </div>
         </div>
-        <div class="ms-5 d-none">
+        <div class="ms-5 responsive-display">
           <img class="img-fulid" src="../../public/img/banner300.png" alt="banner">
         </div>
       </div>
