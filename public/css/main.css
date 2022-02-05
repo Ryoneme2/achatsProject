@@ -139,3 +139,9 @@ a:hover {
 .responsive-display-flex {
   display: flex;
 }
+.num-cart {
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+}

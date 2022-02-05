@@ -9,7 +9,6 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
   $user_id = $_SESSION['usr_id'];
 
   $sqlCommentCmd = "INSERT INTO faverite_user (usr_id,prod_id) VALUES ($user_id,$p_id)";
-  // echo $sqlCommentCmd;
 
   $resCommentCmd = mysqli_query($con, $sqlCommentCmd);
 

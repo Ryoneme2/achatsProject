@@ -38,8 +38,8 @@ $base64_2 = 'data:image/' . $type2 . ';base64,' . base64_encode($data2);
 
 
 // Get all the submitted data from the form
-$sql = "INSERT INTO tmp_seller (tmp_seller_name,tmp_seller_sername,tmp_seller_shopname,tmp_seller_username,tmp_seller_email,tmp_seller_password,tmp_seller_address,tmp_seller_phone,tmp_seller_photo,tmp_seller_citizenid,tmp_seller_withcitizen)
-VALUES('$name','$sername','$shopname','$username','$email','$password','$address','$phone','$base64','$citizenId','$base64_2')";
+$sql = "INSERT INTO seller_info (seller_name,seller_sername,seller_shopname,seller_username,seller_email,seller_password,seller_address,seller_phone,seller_photo,seller_citizenid,seller_withcitizen,seller_follower,seller_rating,isApprove)
+VALUES('$name','$sername','$shopname','$username','$email','$password','$address','$phone','$base64','$citizenId','$base64_2',0,0,0)";
 
 
 // Execute query

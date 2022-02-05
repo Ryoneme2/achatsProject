@@ -9,9 +9,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="../../public/css/user.css">
+
+  <link rel="stylesheet" href="../../public/css/seller.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product: search</title>
+  <title>Sign in: Seller</title>
 </head>
 
 <body>
@@ -19,15 +20,15 @@
 
   session_start();
 
-  if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
+  if ($_SESSION['isLogin'] && $_SESSION['role'] == 'seller') {
 
     require_once '../../config/dbcon.php';
 
-    $search = $_GET['search_context'];
+    $sqlSellCmd = "SELECT seller_product_qty,seller_follower,seller_rating FROM seller_info WHERE seller_id = " . $_SESSION['seller_id'];
 
-    $sql = "SELECT * FROM product WHERE prod_name LIKE '%$search%'";
-
-    $result = mysqli_query($con, $sql);
+    // echo $sqlCmd;
+    $result2 = mysqli_query($con, $sqlSellCmd);
+    $rowP = mysqli_fetch_array($result2);
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
@@ -38,56 +39,23 @@
           </a>
 
         </div>
-        <div class="d-flex align-items-center">
-          <div class="me-3">
-            <form action="./searchProduct.php" method="get">
-              <div class="d-flex">
-                <div>
-                  <input class="search-form ps-2" type="text" name="search_context">
-                </div>
-                <div>
-                  <input class="search-btn" type="submit" value="search">
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="me-3 d-flex align-items-center">
+        <div class="profile-image d-flex align-items-center">
+          <div class="add-new-prod d-flex justify-content-center align-items-center me-3">
             <div>
-              <a href="">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
-                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                    <path d="M0,172v-172h172v172z" fill="none"></path>
-                    <g fill="#ffffff">
-                      <path d="M31.63411,14.30534l-24.43945,0.12598l0.06999,14.33333l14.83724,-0.06999l23.61361,56.64746l-8.5804,13.73145c-2.86667,4.58667 -3.01493,10.38036 -0.39193,15.10319c2.623,4.72283 7.59991,7.65657 13.00358,7.65657h86.41992v-14.33333h-86.41992l-0.46191,-0.83985l8.42643,-13.49349h53.52604c5.21017,0 10.005,-2.83296 12.52767,-7.37663l25.8252,-46.47135c1.23983,-2.22167 1.20601,-4.93167 -0.08399,-7.12467c-1.29,-2.18583 -3.64985,-3.52734 -6.18685,-3.52734h-105.69434zM43.58789,43h87.55371l-19.9043,35.83333h-52.71419zM50.16667,129c-7.91608,0 -14.33333,6.41725 -14.33333,14.33333c0,7.91608 6.41725,14.33333 14.33333,14.33333c7.91608,0 14.33333,-6.41725 14.33333,-14.33333c0,-7.91608 -6.41725,-14.33333 -14.33333,-14.33333zM121.83333,129c-7.91608,0 -14.33333,6.41725 -14.33333,14.33333c0,7.91608 6.41725,14.33333 14.33333,14.33333c7.91608,0 14.33333,-6.41725 14.33333,-14.33333c0,-7.91608 -6.41725,-14.33333 -14.33333,-14.33333z"></path>
-                    </g>
-                  </g>
-                </svg>
-              </a>
-            </div>
-            <div>
-              <!-- dynamic cart item -->
-              <div class="num-cart">
-                <p class="text-center text-color-dark">
-                  <?php echo $_SESSION['user_cart_num'] ?>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="me-3">
-            <a href="">
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
-                  <g fill="#ffffff">
-                    <path d="M83.3125,0c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v8.0625h-61.8125c-4.44067,0 -8.0625,3.62183 -8.0625,8.0625v129c0,4.44067 3.62183,8.0625 8.0625,8.0625h61.8125v8.0625c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-8.0625h61.8125c4.44067,0 8.0625,-3.62183 8.0625,-8.0625v-129c0,-4.44067 -3.62183,-8.0625 -8.0625,-8.0625h-61.8125v-8.0625c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM18.8125,16.125h61.8125v13.4375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-13.4375h61.8125c1.48022,0 2.6875,1.20728 2.6875,2.6875v129c0,1.48022 -1.20728,2.6875 -2.6875,2.6875h-61.8125v-13.4375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v13.4375h-61.8125c-1.48022,0 -2.6875,-1.20728 -2.6875,-2.6875v-129c0,-1.48022 1.20728,-2.6875 2.6875,-2.6875zM96.75,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM110.1875,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM123.625,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM137.0625,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM83.3125,37.625c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM49.71875,53.75c-1.18628,0 -2.22559,0.76636 -2.57202,1.90015l-14.78125,48.375c-0.43042,1.41724 0.36743,2.91846 1.78467,3.34888c0.26245,0.08398 0.5249,0.12598 0.78735,0.12598c1.15479,0 2.21509,-0.74536 2.56152,-1.90015l4.35669,-14.22485h14.31934c0.34643,0 0.66138,-0.07349 0.97632,-0.19946l4.24121,14.39282c0.40942,1.42773 1.90015,2.25708 3.32788,1.82666c1.42773,-0.41992 2.23609,-1.92114 1.82666,-3.33838l-14.25635,-48.375c-0.33594,-1.14429 -1.37524,-1.92114 -2.56152,-1.93164zM83.3125,53.75c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM104.84399,53.75c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v21.09058c-0.021,0.13648 -0.03149,0.27295 -0.03149,0.40942c0,0.13647 0.0105,0.27295 0.03149,0.40942v26.46558c0,1.49072 1.20728,2.6875 2.6875,2.6875h16.125c7.41162,0 13.4375,-6.02588 13.4375,-13.4375v-5.375c0,-5.354 -3.14941,-9.99414 -7.69507,-12.14624c1.44873,-1.83716 2.32007,-4.15723 2.32007,-6.66626v-5.375c0,-5.9314 -4.8186,-10.75 -10.75,-10.75zM107.5,59.125h10.78149c2.96045,0 5.375,2.41455 5.375,5.375v5.375c0,2.96045 -2.41455,5.375 -5.375,5.375h-10.78149zM49.67676,65.79126l5.9419,20.20874h-12.11475zM83.3125,69.875c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM107.5,80.625h13.46899c4.44067,0 8.0625,3.62183 8.0625,8.0625v5.375c0,4.44067 -3.62183,8.0625 -8.0625,8.0625h-13.46899zM83.3125,86c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM83.3125,102.125c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM83.3125,118.25c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM29.5625,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM43,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM56.4375,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM69.875,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875z"></path>
+                  <g fill="#6f6f6f">
+                    <path d="M86,14.33333c-39.49552,0 -71.66667,32.17115 -71.66667,71.66667c0,39.49552 32.17115,71.66667 71.66667,71.66667c39.49552,0 71.66667,-32.17115 71.66667,-71.66667c0,-39.49552 -32.17115,-71.66667 -71.66667,-71.66667zM86,28.66667c31.74921,0 57.33333,25.58412 57.33333,57.33333c0,31.74921 -25.58412,57.33333 -57.33333,57.33333c-31.74921,0 -57.33333,-25.58412 -57.33333,-57.33333c0,-31.74921 25.58412,-57.33333 57.33333,-57.33333zM78.83333,50.16667v28.66667h-28.66667v14.33333h28.66667v28.66667h14.33333v-28.66667h28.66667v-14.33333h-28.66667v-28.66667z"></path>
                   </g>
                 </g>
               </svg>
+            </div>
+            <a class="text-decoration-none" href="./addProduct.php">
+              <p class="text-color-darker m-0">new product</p>
             </a>
           </div>
-        </div>
-        <div class="profile-image d-flex align-items-center">
-          <img src="<?php echo $_SESSION['usr_photo'] ?>" alt="">
+          <img src="<?php echo $_SESSION['seller_photo'] ?>" alt="">
           <div class="dropdownClick">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 172 172" style=" fill:#000000;">
               <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -123,30 +91,14 @@
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
               <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                 <path d="M0,172v-172h172v172z" fill="none"></path>
-                <g fill="#666666">
-                  <path d="M16.555,24.08c-1.63937,0.30906 -2.82187,1.76031 -2.795,3.44v116.96c0,1.89469 1.54531,3.44 3.44,3.44h137.6c1.89469,0 3.44,-1.54531 3.44,-3.44v-116.96c0,-1.89469 -1.54531,-3.44 -3.44,-3.44h-137.6c-0.1075,0 -0.215,0 -0.3225,0c-0.1075,0 -0.215,0 -0.3225,0zM20.64,30.96h130.72v110.08h-130.72zM72.24,41.28c-5.65719,0 -10.32,4.66281 -10.32,10.32c0,5.65719 4.66281,10.32 10.32,10.32h27.52c5.65719,0 10.32,-4.66281 10.32,-10.32c0,-5.65719 -4.66281,-10.32 -10.32,-10.32zM72.24,48.16h27.52c1.90813,0 3.44,1.53188 3.44,3.44c0,1.90813 -1.53187,3.44 -3.44,3.44h-27.52c-1.90812,0 -3.44,-1.53187 -3.44,-3.44c0,-1.90812 1.53188,-3.44 3.44,-3.44zM110.08,96.32l-6.88,10.32h3.44v10.32h6.88v-10.32h3.44zM130.72,96.32l-6.88,10.32h3.44v10.32h6.88v-10.32h3.44zM103.2,120.4v6.88h34.4v-6.88z"></path>
+                <g fill="#6f6f6f">
+                  <path d="M86,14.33333c-39.49552,0 -71.66667,32.17115 -71.66667,71.66667c0,39.49552 32.17115,71.66667 71.66667,71.66667c39.49552,0 71.66667,-32.17115 71.66667,-71.66667c0,-39.49552 -32.17115,-71.66667 -71.66667,-71.66667zM86,28.66667c31.74921,0 57.33333,25.58412 57.33333,57.33333c0,31.74921 -25.58412,57.33333 -57.33333,57.33333c-31.74921,0 -57.33333,-25.58412 -57.33333,-57.33333c0,-31.74921 25.58412,-57.33333 57.33333,-57.33333zM78.83333,50.16667v28.66667h-28.66667v14.33333h28.66667v28.66667h14.33333v-28.66667h28.66667v-14.33333h-28.66667v-28.66667z"></path>
                 </g>
               </g>
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="#">my orders</a></li>
-          </div>
-        </div>
-        <hr class="hr-drop">
-        <div class="d-flex justify-content-start align-items-center ms-3">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
-              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                <path d="M0,172v-172h172v172z" fill="none"></path>
-                <g id="original-icon" fill="#666666">
-                  <path d="M118.25,21.5c-20.7475,0 -32.25,14.97833 -32.25,14.97833c0,0 -11.5025,-14.97833 -32.25,-14.97833c-21.77233,0 -39.41667,17.64433 -39.41667,39.41667c0,29.89217 35.20267,58.85983 45.01383,68.01167c11.30183,10.535 26.65283,24.08 26.65283,24.08c0,0 15.351,-13.545 26.65283,-24.08c9.81117,-9.15183 45.01383,-38.1195 45.01383,-68.01167c0,-21.77233 -17.64433,-39.41667 -39.41667,-39.41667zM106.1455,115.455c-1.2685,1.14667 -2.37217,2.14283 -3.268,2.98133c-5.38217,5.01667 -11.74617,10.7715 -16.8775,15.3725c-5.13133,-4.601 -11.5025,-10.363 -16.8775,-15.3725c-0.903,-0.8385 -2.00667,-1.84183 -3.268,-2.98133c-10.17667,-9.19483 -37.18783,-33.61883 -37.18783,-54.53833c0,-13.83167 11.25167,-25.08333 25.08333,-25.08333c13.0935,0 20.683,9.1375 20.88367,9.374l11.36633,12.126l11.36633,-12.126c0.07167,-0.09317 7.79017,-9.374 20.88367,-9.374c13.83167,0 25.08333,11.25167 25.08333,25.08333c0,20.9195 -27.01117,45.3435 -37.18783,54.53833z"></path>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div>
-            <li><a class="text-color-dark text-decoration-none" href="./faveriteDisplay.php">my faverite</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="../../service/logout.php">new product</a></li>
           </div>
         </div>
         <hr class="hr-drop">
@@ -171,35 +123,11 @@
     <script src="../../public/js/close.js"></script>
 
 
-    <section class="container my-4">
-      <h3 class="fs-4 text-color-dark">product</h3>
-      <hr style="width:100%;" class="mx-auto mb-5">
-      <div class="row">
-        <?php
-        while ($prodRow = mysqli_fetch_assoc($result)) {
-        ?>
+    <section class="container my-5 px-6">
 
-          <div class="col-lg-3 col-md-6 col-sm-12 p-3">
-            <div class="recom-bg p-3">
-              <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
-                <div class="d-flex flex-column">
-                  <div class="img_thumnail2 d-flex justify-content-center">
-                    <div class="mb-2">
-                      <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
-                    </div>
-                  </div>
-                  <div class="detail-content">
-                    <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
-                    <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-        <?php } ?>
-      </div>
     </section>
+
+
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">
@@ -242,6 +170,7 @@
 
   } else {
     session_destroy();
+
     echo "<script>
         console.log('test');
         $(document).ready(function() {

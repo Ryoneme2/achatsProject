@@ -10,7 +10,7 @@ require_once "../config/dbcon.php";
 $user_input = $_POST['username'];
 $pass_input = $_POST['password'];
 
-$sqlCmd = "SELECT * FROM achats WHERE usr_username = '$user_input'";
+$sqlCmd = "SELECT * FROM admin_info WHERE admin_username = '$user_input'";
 
 // echo $sqlCmd;
 
@@ -24,27 +24,11 @@ $row = mysqli_fetch_assoc($allData);
 if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) {
 
 
+  $_SESSION['admin_id'] = $row['admin_id'];
+  $_SESSION['admin_name'] = $row['admin_name'];
 
-  $_SESSION['usr_id'] = $row['usr_id'];
-  $_SESSION['usr_name'] = $row['usr_name'];
-  $_SESSION['usr_sername'] = $row['usr_sername'];
-  $_SESSION['usr_photo'] = $row['usr_photo'];
-  $_SESSION['usr_email'] = $row['usr_email'];
-  $_SESSION['usr_username'] = $row['usr_username'];
-  $_SESSION['usr_address'] = $row['usr_address'];
-  $_SESSION['usr_shopname'] = $row['usr_shopname'];
-  $_SESSION['usr_phone'] = $row['usr_phone'];
   $_SESSION['isLogin'] = true;
-  $_SESSION['role'] = 'user';
-
-  $sqlCartQuery = "SELECT * FROM carts WHERE usr_id = " . $_SESSION['usr_id'];
-  $resCartQuery = mysqli_query($con, $sqlCartQuery);
-
-  $CartRow = mysqli_fetch_assoc($resCartQuery);
-  $numCartRow = mysqli_num_rows($resCartQuery);
-
-  $_SESSION['user_cart_num'] = $numCartRow;
-
+  $_SESSION['role'] = 'admin';
 
   echo "<script>
           console.log('test');
@@ -59,7 +43,7 @@ if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) 
           })
         </script>";
 
-  header('refresh: 1; url=../page/users/userIndex.php');
+  header('refresh: 1; url=../page/admin/adminIndex.php');
 } else {
   echo "<script>
         console.log('test');
@@ -73,7 +57,7 @@ if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) 
         })
       </script>";
 
-  header('refresh: 1; url=../page/users/signin.php');
+  header('refresh: 1; url=../page/admin/signin.php');
 
 
   session_destroy();

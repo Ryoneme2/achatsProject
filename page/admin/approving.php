@@ -49,7 +49,7 @@
 
           require_once "../../config/dbcon.php";
 
-          $sql = 'SELECT * FROM tmp_seller';
+          $sql = 'SELECT * FROM seller_info WHERE isApprove = 0';
 
           $result = mysqli_query($con, $sql);
 
