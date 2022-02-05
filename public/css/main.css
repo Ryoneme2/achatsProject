@@ -145,3 +145,12 @@ a:hover {
   background-color: #fff;
   border-radius: 50%;
 }
+.border-self {
+  border: solid 1px #bfa2db;
+}
+.hr-purple {
+  margin: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #8034c7;
+}

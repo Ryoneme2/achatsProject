@@ -53,7 +53,7 @@
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
         <div>
-          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="#">
+          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="./userIndex.php">
             achats<span class="fs-1 text-light text-decoration-none">.</span>
           </a>
 
@@ -73,7 +73,7 @@
           </div>
           <div class="me-3 d-flex align-items-center">
             <div>
-              <a href="">
+              <a href="./cart.php">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                     <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -318,7 +318,7 @@
         </div>
         <!-- review -->
 
-        <div class="container mb-3">
+        <div class="container p-0 util my-4">
           <h3 class="fs-4 text-color-dark">review</h3>
           <hr style="width:100%;" class="mx-auto">
 

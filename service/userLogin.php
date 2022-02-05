@@ -39,7 +39,6 @@ if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) 
 
   $sqlCartQuery = "SELECT * FROM carts WHERE usr_id = " . $_SESSION['usr_id'];
   $resCartQuery = mysqli_query($con, $sqlCartQuery);
-
   $CartRow = mysqli_fetch_assoc($resCartQuery);
   $numCartRow = mysqli_num_rows($resCartQuery);
 
