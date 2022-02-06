@@ -24,9 +24,9 @@
     require_once '../../config/dbcon.php';
     $warning_context = '';
 
-    if (isset($_GET['voucher_code'])) {
-      $total_price_param = $_GET['total_price'];
-      $voucher_code = $_GET['voucher_code'];
+    if (isset($_POST['voucher_code'])) {
+      $total_price_param = $_POST['total_price'];
+      $voucher_code = $_POST['voucher_code'];
 
       $sqlVoucherQuery = "SELECT * FROM voucher WHERE voucher_code = '$voucher_code'";
       $resVoucherQuery = mysqli_query($con, $sqlVoucherQuery);
@@ -46,7 +46,7 @@
 
         if ($voucher_expire > $time_now) {
           if ($voucher_discount_type == 'percent') {
-            echo "true";
+            // echo "true";
             $discount = $total_price_param * ($voucher_discount / 100);
           }
           if ($voucher_discount_type == 'baht') {
@@ -405,7 +405,7 @@
           </form>
 
           <div class="checkout-info-bg p-3 mt-3 border-self">
-            <form action="./cart.php">
+            <form action="./cart.php" method="post">
               <div class="row d-flex align-items-center">
                 <div class="col-3 d-flex">
                   <div class="me-2">
