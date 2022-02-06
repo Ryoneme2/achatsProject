@@ -22,10 +22,72 @@
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
     require_once '../../config/dbcon.php';
+    $warning_context = '';
 
-    $sql = "SELECT * FROM carts INNER JOIN product ON carts.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'];
+    if (isset($_GET['voucher_code'])) {
+      $total_price_param = $_GET['total_price'];
+      $voucher_code = $_GET['voucher_code'];
 
+      $sqlVoucherQuery = "SELECT * FROM voucher WHERE voucher_code = '$voucher_code'";
+      $resVoucherQuery = mysqli_query($con, $sqlVoucherQuery);
+      $voucherNumRow = mysqli_num_rows($resVoucherQuery);
+      $voucherRow = mysqli_fetch_assoc($resVoucherQuery);
+
+      if ($voucherNumRow == 0) {
+        $warning_context = 'Voucher code is not valid';
+      } else {
+        $voucher_code_db = $voucherRow['voucher_code'];
+
+        $voucher_discount = $voucherRow['vocher_discount'];
+        $voucher_discount_type = $voucherRow['voucher_discount_type'];
+        $voucher_expire = $voucherRow['voucher_expire'];
+
+        $time_now = time();
+
+        if ($voucher_expire > $time_now) {
+          if ($voucher_discount_type == 'percent') {
+            echo "true";
+            $discount = $total_price_param * ($voucher_discount / 100);
+          }
+          if ($voucher_discount_type == 'baht') {
+            $discount = $voucher_discount;
+          }
+        } else {
+          $warning_context = "Voucher has expired";
+        }
+      }
+    } else {
+      $voucher_code = '';
+      $discount = 0;
+    }
+
+
+    $sql = "SELECT * FROM carts INNER JOIN product ON carts.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'] . " ORDER BY seller_id";
     $result = mysqli_query($con, $sql);
+
+    $i = 0;
+    $cartItems = [];
+
+    while ($prodRow = mysqli_fetch_assoc($result)) {
+      $tmpData = [];
+
+      $tmpData[0] = $prodRow['prod_id'];
+      $tmpData[1] = $prodRow['prod_name'];
+      $tmpData[2] = $prodRow['prod_photo'];
+      // $tmpData[2] = 'photo';
+      $tmpData[3] = $prodRow['prod_type'];
+      $tmpData[4] = $prodRow['prod_size'];
+      $tmpData[5] = $prodRow['prod_color'];
+      $tmpData[6] = $prodRow['prod_details'];
+      $tmpData[7] = $prodRow['prod_price'];
+      $tmpData[8] = $prodRow['seller_id'];
+      $tmpData[9] = $prodRow['cart_qty'];
+
+      $i++;
+      $cartItems[$i] = $tmpData;
+    }
+
+    // print("<pre>" . print_r($cartItems, true) . "</pre>");
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
@@ -177,37 +239,63 @@
         <div class="col-lg-7 col-md-12">
           <div class="row">
             <?php
-            while ($prodRow = mysqli_fetch_assoc($result)) {
+            $sellerID = 0;
+            for ($index = 1; $index <= count($cartItems); $index++) {
+
+              if ($cartItems[$index][8] != $sellerID) {
+                $isNewSeller = true;
+              } else {
+                $isNewSeller = false;
+              }
+              $sellerID = $cartItems[$index][8];
+
+              if ($isNewSeller) {
+                $cartCmd = "SELECT seller_shopname FROM seller_info WHERE seller_id = $sellerID";
+                // echo $cartCmd;
+                $result2 = mysqli_query($con, $cartCmd);
+                $sellerRow = mysqli_fetch_assoc($result2);
+                $shopname = $sellerRow['seller_shopname'];
+                $isNewSeller = false;
+
             ?>
+                <div class="col-12 p-3 ">
+                  <div class="seller_banner bg-color-one70 rounded p-3">
+                    <h3 class="fs-3 text-light m-0"><?php echo $shopname ?></h3>
+                  </div>
+                </div>
+
+              <?php
+              }
+              ?>
 
               <div class="col-12 p-3">
                 <div class="cart-bg p-3">
                   <div class="row">
                     <div class="col-md-4 col-sm-12 d-flex justify-content-center">
                       <div class="img_cart_thumnail">
-                        <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
+                        <img src="<?php echo $cartItems[$index][2] ?>" alt="">
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-12 d-flex flex-column justify-content-between">
                       <div class="cart-info">
                         <div class="cart-info-title">
-                          <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
-                            <h5 class="fs-3 m-0"><?php echo $prodRow['prod_name'] ?></h5>
+                          <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cartItems[$index][0] ?>">
+                            <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
                           </a>
                         </div>
                         <div>
-                          <h5 class="fs-6 text-secondary fw-light"><?php echo $prodRow['prod_details'] ?></h5>
+                          <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
                         </div>
                       </div>
                       <div class="cart-sub-info mt-4">
                         <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-5 text-color-dark fw-normal">Price : ฿<?php echo number_format($prodRow['prod_price']) ?></h5>
+                          <h5 class="fs-5 text-color-dark fw-normal">Price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-2 col-sm-12 d-flex flex-column justify-content-between align-items-end">
                       <div>
-                        <a href="<?php echo '../../service/delCartItem.php?p_id=' . $prodRow['prod_id'] ?>">
+                        <a href="<?php echo '../../service/delCartItem.php?p_id=' . $cartItems[$index][0] ?>">
                           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
                             <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                               <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -220,15 +308,15 @@
                       </div>
                       <div class="d-flex justify-content-evenly align-items-center de-inCart">
                         <div class="d-flex justify-content-center align-items-center">
-                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $prodRow['prod_id'] . '&isUpdate=0' ?>">
+                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $cartItems[$index][0] . '&isUpdate=0' ?>">
                             <p class="fs-4 m-0 px-2">-</p>
                           </a>
                         </div>
                         <div class="d-flex justify-content-center align-items-center px-4">
-                          <p class="fs-4 m-0 pt-1"><?php echo $prodRow['cart_qty'] ?></p>
+                          <p class="fs-4 m-0 pt-1"><?php echo $cartItems[$index][9] ?></p>
                         </div>
                         <div class="d-flex justify-content-center align-items-center ">
-                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $prodRow['prod_id'] . '&isUpdate=1' ?>">
+                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $cartItems[$index][0] . '&isUpdate=1' ?>">
                             <p class="fs-4 m-0 px-2">+</p>
                           </a>
                         </div>
@@ -239,13 +327,13 @@
               </div>
 
             <?php
-              $totol_qty += $prodRow['cart_qty'];
-              $total_price += $prodRow['cart_qty'] * $prodRow['prod_price'];
+              $totol_qty += $cartItems[$index][9];
+              $total_price += $cartItems[$index][9] * $cartItems[$index][7];
             }
-
             ?>
           </div>
         </div>
+
         <div class="col-lg-5 col-md-12 p-3">
           <form action="">
 
@@ -290,10 +378,22 @@
               </div>
               <div class="checkout-info-subtitle d-flex justify-content-between my-3">
                 <div>
+                  <h5 class="m-0 text-color-dark">discount</h5>
+                </div>
+                <div>
+                  <h5 class="m-0 text-color-dark">฿ <?php echo number_format($discount) ?></h5>
+                </div>
+              </div>
+              <div class="checkout-info-subtitle d-flex justify-content-between my-3">
+                <div>
                   <h5 class="m-0 text-color-dark">total price</h5>
                 </div>
                 <div>
-                  <h5 class="m-0 text-color-dark">฿ <?php echo number_format($total_price) ?></h5>
+                  <h5 class="m-0 text-color-dark">฿ <?php
+                                                    $total_price = $total_price - $discount;
+                                                    echo number_format($total_price)
+                                                    ?>
+                  </h5>
                 </div>
               </div>
               <hr class="hr-purple my-3">
@@ -302,7 +402,10 @@
                 <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
               </div>
             </div>
-            <div class="checkout-info-bg p-3 mt-3 border-self">
+          </form>
+
+          <div class="checkout-info-bg p-3 mt-3 border-self">
+            <form action="./cart.php">
               <div class="row d-flex align-items-center">
                 <div class="col-3 d-flex">
                   <div class="me-2">
@@ -320,14 +423,20 @@
                   </div>
                 </div>
                 <div class="col-9 d-flex">
-                  <input class="voucher_input ps-2" type="text" placeholder="voucher code...">
-                  <button class="apply_code_btn bg-color-one text-light">apply</button>
+                  <input class="voucher_input ps-2" type="text" name="voucher_code" placeholder="voucher code...">
+                  <input class="voucher_input ps-2" type="hidden" name="total_price" value="<?php echo $total_price ?>" placeholder="voucher code...">
+                  <input type="submit" class="apply_code_btn bg-color-one text-light" value="apply">
                 </div>
 
               </div>
-
-            </div>
-          </form>
+              <div class="row">
+                <div class="col-3"></div>
+                <div class="col-9">
+                  <small class="text-danger"><?php echo $warning_context ?></small>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
