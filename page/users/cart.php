@@ -269,14 +269,17 @@
                   </div>
                 </div>
               </div>
+              <hr class="hr-purple mb-3">
               <div>
                 <div class="mb-1">
-                  <h5 class="m-0 text-color-dark">shipping</h5>
+                  <h5 class="m-0 text-color-dark">delivery address</h5>
                 </div>
                 <div>
-                  <textarea class="input-textarea px-2" name="address" rows="4"><?php echo $_SESSION['usr_address'] ?></textarea>
+                  <textarea class="input-address-textarea px-2" name="address" rows="4"><?php echo $_SESSION['usr_address'] ?></textarea>
                 </div>
               </div>
+              <hr class="hr-purple my-3">
+
               <div class=" checkout-info-subtitle d-flex justify-content-between my-3">
                 <div>
                   <h5 class="m-0 text-color-dark">total quantity</h5>
@@ -293,8 +296,10 @@
                   <h5 class="m-0 text-color-dark">฿ <?php echo number_format($total_price) ?></h5>
                 </div>
               </div>
-              <div class="d-flex justify-content-center">
-                <input class="buy_btn bg-color-one rounded-pill text-light fs-5" type="submit" value="buy now">
+              <hr class="hr-purple my-3">
+
+              <div class="d-flex justify-content-center px-5">
+                <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
               </div>
             </div>
             <div class="checkout-info-bg p-3 mt-3 border-self">
@@ -314,9 +319,11 @@
                     <h4 class="m-0 text-color-dark text-center">voucher</h4>
                   </div>
                 </div>
-                <div class="col-9">
-                  <input class="input-text ps-2" type="text" placeholder="voucher code...">
+                <div class="col-9 d-flex">
+                  <input class="voucher_input ps-2" type="text" placeholder="voucher code...">
+                  <button class="apply_code_btn bg-color-one text-light">apply</button>
                 </div>
+
               </div>
 
             </div>
