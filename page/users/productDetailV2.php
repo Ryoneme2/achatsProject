@@ -11,7 +11,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product : catagory</title>
+  <title>Product : details</title>
 </head>
 
 <body>
@@ -21,44 +21,33 @@
 
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
-
-
     require_once '../../config/dbcon.php';
 
-    $address = $_POST['address'];
-    $total_discount = $_POST['total_discount'];
-    $shipping_fee = $_SESSION['user_cart_num'] * 60;
-    if ($_SESSION['page'] == 'cart') {
-      $_SESSION['discount'] = $total_discount;
-      $_SESSION['page'] = 'cartConfirm';
+    $_SESSION['comment'] = [];
+
+    $id = $_GET['id'];
+    $isFav = false;
+
+    $sqlCmd = "SELECT product.prod_id,product.prod_name,product.prod_photo,product.prod_type,product.prod_size,product.prod_rating,product.prod_color,
+    product.prod_details,product.prod_warranty,product.prod_price,seller_info.seller_id,seller_info.seller_name,seller_info.seller_shopname,
+    seller_info.seller_photo,seller_info.seller_rating,seller_info.seller_follower,seller_info.seller_id
+    FROM product
+    LEFT JOIN seller_info 
+    ON seller_info.seller_id = product.seller_id WHERE product.prod_id = $id";
+
+    $favSql = "SELECT * FROM faverite_user WHERE prod_id = $id AND usr_id = " . $_SESSION['usr_id'];
+
+    $resProduct = mysqli_query($con, $sqlCmd);
+    $favRes = mysqli_query($con, $favSql);
+
+    $numRow = mysqli_num_rows($favRes);
+    if ($numRow > 0) {
+      $isFav = true;
+    } else {
+      $isFav = false;
     }
 
-    $sql = "SELECT * FROM carts INNER JOIN product ON carts.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'] . " ORDER BY seller_id";
-    $result = mysqli_query($con, $sql);
-
-    $i = 0;
-    $cartItems = [];
-
-    while ($prodRow = mysqli_fetch_assoc($result)) {
-      $tmpData = [];
-
-      $tmpData[0] = $prodRow['prod_id'];
-      $tmpData[1] = $prodRow['prod_name'];
-      $tmpData[2] = $prodRow['prod_photo'];
-      // $tmpData[2] = 'photo';
-      $tmpData[3] = $prodRow['prod_type'];
-      $tmpData[4] = $prodRow['prod_size'];
-      $tmpData[5] = $prodRow['prod_color'];
-      $tmpData[6] = $prodRow['prod_details'];
-      $tmpData[7] = $prodRow['prod_price'];
-      $tmpData[8] = $prodRow['seller_id'];
-      $tmpData[9] = $prodRow['cart_qty'];
-
-      $i++;
-      $cartItems[$i] = $tmpData;
-    }
-
-    // print("<pre>" . print_r($cartItems, true) . "</pre>");
+    $rowProduct = mysqli_fetch_assoc($resProduct);
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
@@ -84,7 +73,7 @@
           </div>
           <div class="me-3 d-flex align-items-center">
             <div>
-              <a href="">
+              <a href="./cart.php">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                     <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -200,208 +189,182 @@
     </div>
 
     <script src="../../public/js/close.js"></script>
-
-    <div class="container bg-white rounded p-3 my-3">
-      <div class="header-address d-flex align-items-center mb-3">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
-            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-              <path d="M0,172v-172h172v172z" fill="none"></path>
-              <g fill="#bfa2db">
-                <path d="M86,3.44c-30.34187,0 -55.04,24.69813 -55.04,55.04c0,48.54969 50.32344,106.45188 52.46,108.8975c0.65844,0.7525 1.58563,1.1825 2.58,1.1825c1.06156,-0.06719 1.92156,-0.43 2.58,-1.1825c2.13656,-2.48594 52.46,-61.3825 52.46,-108.8975c0,-30.34187 -24.69812,-55.04 -55.04,-55.04zM86,41.28c11.395,0 20.64,9.245 20.64,20.64c0,11.395 -9.245,20.64 -20.64,20.64c-11.395,0 -20.64,-9.245 -20.64,-20.64c0,-11.395 9.245,-20.64 20.64,-20.64z"></path>
-              </g>
-            </g>
-          </svg>
+    <div class="container mt-5">
+      <a class="text-light text-decoration-none" href="shopPage.php?shop_id=<?php echo $rowProduct['seller_id'] ?>">
+        <div class="head-content d-flex align-items-center ps-5">
+          <div class="profile-image me-3">
+            <img src="<?php echo $rowProduct['seller_photo'] ?>" alt="">
+          </div>
+          <div class="profile-image mt-2">
+            <h3 class="fs-4 text-color-light"><?php echo $rowProduct['seller_shopname'] ?></h3>
+          </div>
         </div>
-        <div>
-          <h3 class="mb-0 ms-2 text-color-one">delivery address</h3>
-        </div>
-      </div>
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="">
-          <p class="text-color-dark mb-0 ms-3"><?php echo $address ?></p>
-        </div>
-        <div class="me-3">
-          <h3 class="mb-0 ms-3"><a class="text-color-one text-decoration-none" href="./cart.php">edit</a></h3>
-        </div>
-      </div>
-    </div>
-
-
-    <section class="container my-4">
-      <div class="row">
-        <div class="col-lg-7 col-md-12">
-          <div class="row bg-white rounded py-4">
-            <div class="col-12 p-2">
-              <h2 class="px-2 text-color-dark">products ordered</h2>
-              <hr class="hr-purple mb-3">
-
+      </a>
+      <div class="bg-content container py-5 px-3">
+        <div class="row">
+          <div class="col-md-4 col-sm-12 d-flex justify-content-center">
+            <div class="img_details d-flex justify-content-center align-items-center py-3">
+              <img src="<?php echo $rowProduct['prod_photo'] ?>" alt="">
             </div>
-            <?php
-            $sellerID = 0;
-            for ($index = 1; $index <= count($cartItems); $index++) {
+          </div>
+          <div class="col-md-8 col-sm-12">
 
-            ?>
-
-              <div class="col-12 p-2">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-3 col-sm-12 d-flex justify-content-center">
-                      <div class="img_cart_thumnail">
-                        <img src="<?php echo $cartItems[$index][2] ?>" alt="">
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 mt-2 d-flex justify-content-center">
-                      <div class="cart-info">
-                        <div class="cart-info-title">
-                          <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cartItems[$index][0] ?>">
-                            <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
+            <div class="row d-flex justify-content-start">
+              <div class="col-12 util">
+                <div class="px-2">
+                  <h3 class="fs-4 text-color-dark"><span class="fs-2"><?php echo $rowProduct['prod_name']  ?></span> </h3>
+                </div>
+                <div class="mt-2 d-flex justify-content-between align-items-end mb-1 px-2">
+                  <div>
+                    <h3 class="fs-5 text-color-dark mb-0">rating : <span class="fw-light fs-6"><?php echo $rowProduct['prod_rating']  ?></span> </h3>
+                  </div>
+                  <div>
+                    <div class="d-flex">
+                      <div class="me-3">
+                        <!-- faverite -->
+                        <?php if (!$isFav) {  ?>
+                          <a href="<?php echo '../../service/favAdd.php?p_id=' . $rowProduct['prod_id'] ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 172 172" style=" fill:#000000;">
+                              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <g id="original-icon" fill="#666666">
+                                  <path d="M118.25,21.5c-20.7475,0 -32.25,14.97833 -32.25,14.97833c0,0 -11.5025,-14.97833 -32.25,-14.97833c-21.77233,0 -39.41667,17.64433 -39.41667,39.41667c0,29.89217 35.20267,58.85983 45.01383,68.01167c11.30183,10.535 26.65283,24.08 26.65283,24.08c0,0 15.351,-13.545 26.65283,-24.08c9.81117,-9.15183 45.01383,-38.1195 45.01383,-68.01167c0,-21.77233 -17.64433,-39.41667 -39.41667,-39.41667zM106.1455,115.455c-1.2685,1.14667 -2.37217,2.14283 -3.268,2.98133c-5.38217,5.01667 -11.74617,10.7715 -16.8775,15.3725c-5.13133,-4.601 -11.5025,-10.363 -16.8775,-15.3725c-0.903,-0.8385 -2.00667,-1.84183 -3.268,-2.98133c-10.17667,-9.19483 -37.18783,-33.61883 -37.18783,-54.53833c0,-13.83167 11.25167,-25.08333 25.08333,-25.08333c13.0935,0 20.683,9.1375 20.88367,9.374l11.36633,12.126l11.36633,-12.126c0.07167,-0.09317 7.79017,-9.374 20.88367,-9.374c13.83167,0 25.08333,11.25167 25.08333,25.08333c0,20.9195 -27.01117,45.3435 -37.18783,54.53833z"></path>
+                                </g>
+                              </g>
+                            </svg>
                           </a>
-                        </div>
-                        <div>
-                          <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 d-flex justify-content-center">
+                        <?php } else {  ?>
+                          <a href="<?php echo '../../service/favDel.php?p_id=' . $rowProduct['prod_id'] ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 172 172" style=" fill:#000000;">
+                              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <g fill="#e74c3c">
+                                  <path d="M118.25,21.5c-20.7475,0 -32.25,14.97833 -32.25,14.97833c0,0 -11.5025,-14.97833 -32.25,-14.97833c-21.77233,0 -39.41667,17.64433 -39.41667,39.41667c0,29.89217 35.20267,58.85983 45.01383,68.01167c11.30183,10.535 26.65283,24.08 26.65283,24.08c0,0 15.351,-13.545 26.65283,-24.08c9.81117,-9.15183 45.01383,-38.1195 45.01383,-68.01167c0,-21.77233 -17.64433,-39.41667 -39.41667,-39.41667zM106.1455,115.455c-1.2685,1.14667 -2.37217,2.14283 -3.268,2.98133c-5.38217,5.01667 -11.74617,10.7715 -16.8775,15.3725c-5.13133,-4.601 -11.5025,-10.363 -16.8775,-15.3725c-0.903,-0.8385 -2.00667,-1.84183 -3.268,-2.98133c-10.17667,-9.19483 -37.18783,-33.61883 -37.18783,-54.53833c0,-13.83167 11.25167,-25.08333 25.08333,-25.08333c13.0935,0 20.683,9.1375 20.88367,9.374l11.36633,12.126l11.36633,-12.126c0.07167,-0.09317 7.79017,-9.374 20.88367,-9.374c13.83167,0 25.08333,11.25167 25.08333,25.08333c0,20.9195 -27.01117,45.3435 -37.18783,54.53833z"></path>
+                                </g>
+                              </g>
+                            </svg>
+                          </a>
+                        <?php }  ?>
 
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-6 text-color-dark fw-normal">price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
-                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-2 col-sm-12 d-flex justify-content-center">
 
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-6 text-color-dark fw-normal">qty : <?php echo $cartItems[$index][9] ?></h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-1 col-sm-12 d-flex flex-column justify-content-between align-items-end">
-                      <div>
-                        <a href="<?php echo '../../service/delCartItem.php?p_id=' . $cartItems[$index][0] ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
+                      <div class="me-2">
+                        <!-- compare -->
+                        <a href="">
+                          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 172 172" style=" fill:#000000;">
                             <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                               <path d="M0,172v-172h172v172z" fill="none"></path>
                               <g fill="#666666">
-                                <path d="M80.625,21.5c-2.81347,0 -5.68994,0.98682 -7.72656,3.02344c-2.03662,2.03662 -3.02344,4.91309 -3.02344,7.72656v5.375h-32.25v10.75h5.375v86c0,8.83935 7.28565,16.125 16.125,16.125h64.5c8.83935,0 16.125,-7.28565 16.125,-16.125v-86h5.375v-10.75h-32.25v-5.375c0,-2.81347 -0.98682,-5.68994 -3.02344,-7.72656c-2.03662,-2.03662 -4.91308,-3.02344 -7.72656,-3.02344zM80.625,32.25h21.5v5.375h-21.5zM53.75,48.375h75.25v86c0,2.98145 -2.39355,5.375 -5.375,5.375h-64.5c-2.98144,0 -5.375,-2.39355 -5.375,-5.375zM64.5,64.5v59.125h10.75v-59.125zM86,64.5v59.125h10.75v-59.125zM107.5,64.5v59.125h10.75v-59.125z"></path>
+                                <path d="M83.3125,0c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v8.0625h-61.8125c-4.44067,0 -8.0625,3.62183 -8.0625,8.0625v129c0,4.44067 3.62183,8.0625 8.0625,8.0625h61.8125v8.0625c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-8.0625h61.8125c4.44067,0 8.0625,-3.62183 8.0625,-8.0625v-129c0,-4.44067 -3.62183,-8.0625 -8.0625,-8.0625h-61.8125v-8.0625c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM18.8125,16.125h61.8125v13.4375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-13.4375h61.8125c1.48022,0 2.6875,1.20728 2.6875,2.6875v129c0,1.48022 -1.20728,2.6875 -2.6875,2.6875h-61.8125v-13.4375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v13.4375h-61.8125c-1.48022,0 -2.6875,-1.20728 -2.6875,-2.6875v-129c0,-1.48022 1.20728,-2.6875 2.6875,-2.6875zM96.75,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM110.1875,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM123.625,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM137.0625,21.5c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM83.3125,37.625c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM49.71875,53.75c-1.18628,0 -2.22559,0.76636 -2.57202,1.90015l-14.78125,48.375c-0.43042,1.41724 0.36743,2.91846 1.78467,3.34888c0.26245,0.08398 0.5249,0.12598 0.78735,0.12598c1.15479,0 2.21509,-0.74536 2.56152,-1.90015l4.35669,-14.22485h14.31934c0.34643,0 0.66138,-0.07349 0.97632,-0.19946l4.24121,14.39282c0.40942,1.42773 1.90015,2.25708 3.32788,1.82666c1.42773,-0.41992 2.23609,-1.92114 1.82666,-3.33838l-14.25635,-48.375c-0.33594,-1.14429 -1.37524,-1.92114 -2.56152,-1.93164zM83.3125,53.75c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM104.84399,53.75c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v21.09058c-0.021,0.13648 -0.03149,0.27295 -0.03149,0.40942c0,0.13647 0.0105,0.27295 0.03149,0.40942v26.46558c0,1.49072 1.20728,2.6875 2.6875,2.6875h16.125c7.41162,0 13.4375,-6.02588 13.4375,-13.4375v-5.375c0,-5.354 -3.14941,-9.99414 -7.69507,-12.14624c1.44873,-1.83716 2.32007,-4.15723 2.32007,-6.66626v-5.375c0,-5.9314 -4.8186,-10.75 -10.75,-10.75zM107.5,59.125h10.78149c2.96045,0 5.375,2.41455 5.375,5.375v5.375c0,2.96045 -2.41455,5.375 -5.375,5.375h-10.78149zM49.67676,65.79126l5.9419,20.20874h-12.11475zM83.3125,69.875c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM107.5,80.625h13.46899c4.44067,0 8.0625,3.62183 8.0625,8.0625v5.375c0,4.44067 -3.62183,8.0625 -8.0625,8.0625h-13.46899zM83.3125,86c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM83.3125,102.125c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM83.3125,118.25c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM29.5625,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM43,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM56.4375,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875zM69.875,134.375c-1.48022,0 -2.6875,1.19678 -2.6875,2.6875v5.375c0,1.49072 1.20728,2.6875 2.6875,2.6875c1.48022,0 2.6875,-1.19678 2.6875,-2.6875v-5.375c0,-1.49072 -1.20728,-2.6875 -2.6875,-2.6875z"></path>
                               </g>
                             </g>
                           </svg>
                         </a>
                       </div>
-
                     </div>
                   </div>
                 </div>
+                <hr style="width:100%" class="hr-purple">
               </div>
+            </div>
+            <div class="me-2">
+              <!-- cart -->
+              <a href="<?php echo '../../service/addCart.php?p_id=' . $rowProduct['prod_id'] ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 172 172" style=" fill:#000000;">
+                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                    <g fill="#666666">
+                      <path d="M21.5,24.1875c-1.48427,0 -2.6875,1.20323 -2.6875,2.6875c0,1.48427 1.20323,2.6875 2.6875,2.6875h13.9624c5.06191,23.14636 0.75358,3.44564 17.63672,80.625h-10.09912c-5.93706,0 -10.75,4.81294 -10.75,10.75c0,5.93706 4.81294,10.75 10.75,10.75h12.24597c-0.96859,1.6264 -1.48505,3.48206 -1.49597,5.375c0,5.93706 4.81294,10.75 10.75,10.75c5.93706,0 10.75,-4.81294 10.75,-10.75c-0.01092,-1.89294 -0.52739,-3.7486 -1.49597,-5.375h29.86695c-0.96859,1.6264 -1.48505,3.48206 -1.49597,5.375c0,5.93706 4.81294,10.75 10.75,10.75c5.93706,0 10.75,-4.81294 10.75,-10.75c-0.01092,-1.89294 -0.52739,-3.7486 -1.49597,-5.375h20.30847c1.48427,0 2.6875,-1.20323 2.6875,-2.6875c0,-1.48427 -1.20323,-2.6875 -2.6875,-2.6875h-99.4375c-2.96853,0 -5.375,-2.40647 -5.375,-5.375c0,-2.96853 2.40647,-5.375 5.375,-5.375h80.625c1.08558,0.00088 2.06509,-0.65143 2.48279,-1.65344l26.875,-64.5c0.34592,-0.82983 0.25399,-1.77766 -0.24495,-2.52554c-0.49894,-0.74788 -1.3388,-1.19675 -2.23784,-1.19602h-48.375v5.375h44.34375l-24.63367,59.125h-63.23498l-12.93359,-59.125h34.95849v-5.375h-36.13428l-4.24121,-19.38989c-0.27107,-1.23223 -1.36282,-2.11 -2.62451,-2.11011zM88.6875,29.5625v47.26221l-8.84985,-8.84985l-3.80029,3.80029l15.33765,15.33765l15.33765,-15.33765l-3.80029,-3.80029l-8.84985,8.84985v-47.26221zM64.43176,131.6875c0.02275,-0.00014 0.04549,-0.00014 0.06824,0c2.9673,0.00296 5.37204,2.4077 5.375,5.375c-0.00024,2.95959 -2.39297,5.36215 -5.35254,5.37452c-2.95957,0.01237 -5.3723,-2.37011 -5.39727,-5.3296c-0.02497,-2.95949 2.34721,-5.38234 5.30657,-5.41992zM112.80676,131.6875c0.02275,-0.00014 0.04549,-0.00014 0.06824,0c2.9673,0.00296 5.37204,2.4077 5.375,5.375c-0.00024,2.95959 -2.39297,5.36215 -5.35254,5.37452c-2.95957,0.01237 -5.3723,-2.37011 -5.39727,-5.3296c-0.02497,-2.95949 2.34721,-5.38234 5.30657,-5.41992z"></path>
+                    </g>
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- review -->
+
+        <div class="container p-0 util my-4">
+          <h3 class="fs-4 text-color-dark">review</h3>
+          <hr style="width:100%;" class="mx-auto">
+
+          <div class="my-3 px-3">
+            <?php
+
+            $sqlProdComment = "SELECT * FROM comment WHERE prod_id =" . $id;
+
+            $resCommentCmd = mysqli_query($con, $sqlProdComment);
+
+            while ($rowCommentCmd = mysqli_fetch_assoc($resCommentCmd)) {
+            ?>
+
+              <h3 class="fs-5 text-color-dark"><?php echo $rowCommentCmd['comment_username'] ?> : <span class="fw-light fs-5"><?php echo $rowCommentCmd['comment_context'] ?></span> </h3>
 
             <?php
-              $totol_qty += $cartItems[$index][9];
-              $total_price += $cartItems[$index][9] * $cartItems[$index][7];
             }
             ?>
           </div>
+
+
+
+          <form action="../../service/comment.php" method="get">
+            <div class="my-3 px-3">
+              <!-- <div class="mt-2">
+                <h3 class="fs-4 text-color-dark">add comment</h3>
+              </div> -->
+              <div class="d-flex align-items-center">
+                <input type="text" name="comment" class="comment-form ps-2" placeholder="add a review...">
+                <input type="hidden" name="p_id" value="<?php echo $rowProduct['prod_id'] ?>">
+                <input type="hidden" name="id" value="<?php echo $rowProduct['prod_id'] ?>">
+                <input type="submit" name="comment-add" class="comment-btn text-light" value="add">
+              </div>
+            </div>
+          </form>
+
         </div>
 
-        <div class="col-lg-5 col-md-12 ps-3 pe-0">
-          <div class="checkout-info-bg border-self rounded">
-            <div class="checkout-info-title bg-color-one p-4">
-              <h3 class="m-0 text-color-light text-center">cart summary</h3>
-            </div>
-            <hr class="hr-purple">
-            <div class="checkout-info-subtitle my-3 px-4">
-              <div class="me-4 mb-2">
-                <h5 class="m-0 text-color-dark">select payment method</h5>
-              </div>
-              <div class="px-4">
-                <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
-                  <div class="col-4 d-flex justify-content-center align-items-center">
-                    <img src="../../public/img/promtpay.png" alt="" height="30px">
-                  </div>
-                  <div class="col-5 d-flex justify-content-center align-items-center">promtpay</div>
-                  <div class="col-3 d-flex justify-content-center align-items-center">
-                    <input class="input-radio" type="radio" name="pay_type">
-                  </div>
+        <div class="container my-5">
+          <h3 class="fs-4 text-color-dark">more</h3>
+          <hr style="width:100%;" class="mx-auto mb-5">
+
+          <div class="row">
+            <?php
+
+            $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product ORDER BY RAND() LIMIT 3';
+
+            $prodRes = mysqli_query($con, $sqlprodCmd);
+
+            while ($prodRow = mysqli_fetch_assoc($prodRes)) {
+            ?>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 p-3">
+                <div class="recom-bg p-3">
+                  <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
+                    <div class="d-flex flex-column">
+                      <div class="img_thumnail2 d-flex justify-content-center">
+                        <div class="mb-2">
+                          <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
+                        </div>
+                      </div>
+                      <div class="detail-content">
+                        <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
+                        <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
-                  <div class="col-4 d-flex justify-content-center align-items-center">
-                    <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-bank-banking-and-finance-kiranshastry-gradient-kiranshastry.png" height="40px" />
-                  </div>
-                  <div class="col-5 d-flex justify-content-center align-items-center">
-                    bank transfer
-                  </div>
-                  <div class="col-3 d-flex justify-content-center align-items-center">
-                    <input class="input-radio" type="radio" name="pay_type">
-                  </div>
+              </div>
 
-                </div>
-
-              </div>
-            </div>
-            <div class="d-flex justify-content-center">
-              <hr class="hr-purple w-80 my-3">
-            </div>
-            <div class=" checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total quantity</h5>
-              </div>
-              <div>
-                <h5 class="m-0 text-color-dark"><?php echo $totol_qty ?></h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total price</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-4 text-color-dark">฿ <?php echo number_format($total_price) ?>
-                </h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">shipping fee</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-5 text-color-dark">฿ <?php echo number_format($shipping_fee) ?></h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">discount</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-5 text-color-dark">฿ -<?php echo number_format($_SESSION['discount']) ?></h5>
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-center">
-              <hr class="hr-purple w-80 my-3">
-            </div>
-
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total price</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-4 text-color-one">฿ <?php
-                                                      $total_price = $total_price + $shipping_fee - $_SESSION['discount'];
-                                                      echo number_format($total_price)
-                                                      ?>
-                </h5>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center px-5 py-4">
-              <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
-            </div>
+            <?php } ?>
           </div>
+
         </div>
+        <!-- no -->
       </div>
-    </section>
+    </div>
 
 
     <footer class="container-fulid py-4 mt-5">
@@ -441,6 +404,24 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      function myFunction() {
+        // var dots = document.getElementById("dots");
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
+
+        if (moreText.style.display === "block") {
+          // dots.style.display = "inline";
+          btnText.innerHTML = "Read more";
+          moreText.style.display = "none";
+        } else {
+          // dots.style.display = "none";
+          btnText.innerHTML = "Read less";
+          moreText.style.display = "block";
+        }
+      }
+    </script>
   <?php
 
   } else {

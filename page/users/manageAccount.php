@@ -11,7 +11,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product : catagory</title>
+  <title>Product: search</title>
 </head>
 
 <body>
@@ -21,44 +21,13 @@
 
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
-
-
     require_once '../../config/dbcon.php';
 
-    $address = $_POST['address'];
-    $total_discount = $_POST['total_discount'];
-    $shipping_fee = $_SESSION['user_cart_num'] * 60;
-    if ($_SESSION['page'] == 'cart') {
-      $_SESSION['discount'] = $total_discount;
-      $_SESSION['page'] = 'cartConfirm';
-    }
+    $search = $_GET['search_context'];
 
-    $sql = "SELECT * FROM carts INNER JOIN product ON carts.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'] . " ORDER BY seller_id";
+    $sql = "SELECT * FROM product WHERE prod_name LIKE '%$search%'";
+
     $result = mysqli_query($con, $sql);
-
-    $i = 0;
-    $cartItems = [];
-
-    while ($prodRow = mysqli_fetch_assoc($result)) {
-      $tmpData = [];
-
-      $tmpData[0] = $prodRow['prod_id'];
-      $tmpData[1] = $prodRow['prod_name'];
-      $tmpData[2] = $prodRow['prod_photo'];
-      // $tmpData[2] = 'photo';
-      $tmpData[3] = $prodRow['prod_type'];
-      $tmpData[4] = $prodRow['prod_size'];
-      $tmpData[5] = $prodRow['prod_color'];
-      $tmpData[6] = $prodRow['prod_details'];
-      $tmpData[7] = $prodRow['prod_price'];
-      $tmpData[8] = $prodRow['seller_id'];
-      $tmpData[9] = $prodRow['cart_qty'];
-
-      $i++;
-      $cartItems[$i] = $tmpData;
-    }
-
-    // print("<pre>" . print_r($cartItems, true) . "</pre>");
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
@@ -84,7 +53,7 @@
           </div>
           <div class="me-3 d-flex align-items-center">
             <div>
-              <a href="">
+              <a href="./cart.php">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                     <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -201,208 +170,36 @@
 
     <script src="../../public/js/close.js"></script>
 
-    <div class="container bg-white rounded p-3 my-3">
-      <div class="header-address d-flex align-items-center mb-3">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
-            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-              <path d="M0,172v-172h172v172z" fill="none"></path>
-              <g fill="#bfa2db">
-                <path d="M86,3.44c-30.34187,0 -55.04,24.69813 -55.04,55.04c0,48.54969 50.32344,106.45188 52.46,108.8975c0.65844,0.7525 1.58563,1.1825 2.58,1.1825c1.06156,-0.06719 1.92156,-0.43 2.58,-1.1825c2.13656,-2.48594 52.46,-61.3825 52.46,-108.8975c0,-30.34187 -24.69812,-55.04 -55.04,-55.04zM86,41.28c11.395,0 20.64,9.245 20.64,20.64c0,11.395 -9.245,20.64 -20.64,20.64c-11.395,0 -20.64,-9.245 -20.64,-20.64c0,-11.395 9.245,-20.64 20.64,-20.64z"></path>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div>
-          <h3 class="mb-0 ms-2 text-color-one">delivery address</h3>
-        </div>
-      </div>
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="">
-          <p class="text-color-dark mb-0 ms-3"><?php echo $address ?></p>
-        </div>
-        <div class="me-3">
-          <h3 class="mb-0 ms-3"><a class="text-color-one text-decoration-none" href="./cart.php">edit</a></h3>
-        </div>
-      </div>
-    </div>
-
 
     <section class="container my-4">
+      <h3 class="fs-4 text-color-dark">product</h3>
+      <hr style="width:100%;" class="mx-auto mb-5">
       <div class="row">
-        <div class="col-lg-7 col-md-12">
-          <div class="row bg-white rounded py-4">
-            <div class="col-12 p-2">
-              <h2 class="px-2 text-color-dark">products ordered</h2>
-              <hr class="hr-purple mb-3">
+        <?php
+        while ($prodRow = mysqli_fetch_assoc($result)) {
+        ?>
 
-            </div>
-            <?php
-            $sellerID = 0;
-            for ($index = 1; $index <= count($cartItems); $index++) {
-
-            ?>
-
-              <div class="col-12 p-2">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-3 col-sm-12 d-flex justify-content-center">
-                      <div class="img_cart_thumnail">
-                        <img src="<?php echo $cartItems[$index][2] ?>" alt="">
-                      </div>
+          <div class="col-lg-3 col-md-6 col-sm-12 p-3">
+            <div class="recom-bg p-3">
+              <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
+                <div class="d-flex flex-column">
+                  <div class="img_thumnail2 d-flex justify-content-center">
+                    <div class="mb-2">
+                      <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
                     </div>
-                    <div class="col-md-3 col-sm-12 mt-2 d-flex justify-content-center">
-                      <div class="cart-info">
-                        <div class="cart-info-title">
-                          <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cartItems[$index][0] ?>">
-                            <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
-                          </a>
-                        </div>
-                        <div>
-                          <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 d-flex justify-content-center">
-
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-6 text-color-dark fw-normal">price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-2 col-sm-12 d-flex justify-content-center">
-
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-6 text-color-dark fw-normal">qty : <?php echo $cartItems[$index][9] ?></h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-1 col-sm-12 d-flex flex-column justify-content-between align-items-end">
-                      <div>
-                        <a href="<?php echo '../../service/delCartItem.php?p_id=' . $cartItems[$index][0] ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
-                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                              <path d="M0,172v-172h172v172z" fill="none"></path>
-                              <g fill="#666666">
-                                <path d="M80.625,21.5c-2.81347,0 -5.68994,0.98682 -7.72656,3.02344c-2.03662,2.03662 -3.02344,4.91309 -3.02344,7.72656v5.375h-32.25v10.75h5.375v86c0,8.83935 7.28565,16.125 16.125,16.125h64.5c8.83935,0 16.125,-7.28565 16.125,-16.125v-86h5.375v-10.75h-32.25v-5.375c0,-2.81347 -0.98682,-5.68994 -3.02344,-7.72656c-2.03662,-2.03662 -4.91308,-3.02344 -7.72656,-3.02344zM80.625,32.25h21.5v5.375h-21.5zM53.75,48.375h75.25v86c0,2.98145 -2.39355,5.375 -5.375,5.375h-64.5c-2.98144,0 -5.375,-2.39355 -5.375,-5.375zM64.5,64.5v59.125h10.75v-59.125zM86,64.5v59.125h10.75v-59.125zM107.5,64.5v59.125h10.75v-59.125z"></path>
-                              </g>
-                            </g>
-                          </svg>
-                        </a>
-                      </div>
-
-                    </div>
+                  </div>
+                  <div class="detail-content">
+                    <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
+                    <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
                   </div>
                 </div>
-              </div>
-
-            <?php
-              $totol_qty += $cartItems[$index][9];
-              $total_price += $cartItems[$index][9] * $cartItems[$index][7];
-            }
-            ?>
-          </div>
-        </div>
-
-        <div class="col-lg-5 col-md-12 ps-3 pe-0">
-          <div class="checkout-info-bg border-self rounded">
-            <div class="checkout-info-title bg-color-one p-4">
-              <h3 class="m-0 text-color-light text-center">cart summary</h3>
-            </div>
-            <hr class="hr-purple">
-            <div class="checkout-info-subtitle my-3 px-4">
-              <div class="me-4 mb-2">
-                <h5 class="m-0 text-color-dark">select payment method</h5>
-              </div>
-              <div class="px-4">
-                <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
-                  <div class="col-4 d-flex justify-content-center align-items-center">
-                    <img src="../../public/img/promtpay.png" alt="" height="30px">
-                  </div>
-                  <div class="col-5 d-flex justify-content-center align-items-center">promtpay</div>
-                  <div class="col-3 d-flex justify-content-center align-items-center">
-                    <input class="input-radio" type="radio" name="pay_type">
-                  </div>
-                </div>
-                <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
-                  <div class="col-4 d-flex justify-content-center align-items-center">
-                    <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-bank-banking-and-finance-kiranshastry-gradient-kiranshastry.png" height="40px" />
-                  </div>
-                  <div class="col-5 d-flex justify-content-center align-items-center">
-                    bank transfer
-                  </div>
-                  <div class="col-3 d-flex justify-content-center align-items-center">
-                    <input class="input-radio" type="radio" name="pay_type">
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-            <div class="d-flex justify-content-center">
-              <hr class="hr-purple w-80 my-3">
-            </div>
-            <div class=" checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total quantity</h5>
-              </div>
-              <div>
-                <h5 class="m-0 text-color-dark"><?php echo $totol_qty ?></h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total price</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-4 text-color-dark">฿ <?php echo number_format($total_price) ?>
-                </h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">shipping fee</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-5 text-color-dark">฿ <?php echo number_format($shipping_fee) ?></h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">discount</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-5 text-color-dark">฿ -<?php echo number_format($_SESSION['discount']) ?></h5>
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-center">
-              <hr class="hr-purple w-80 my-3">
-            </div>
-
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total price</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-4 text-color-one">฿ <?php
-                                                      $total_price = $total_price + $shipping_fee - $_SESSION['discount'];
-                                                      echo number_format($total_price)
-                                                      ?>
-                </h5>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center px-5 py-4">
-              <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
+              </a>
             </div>
           </div>
-        </div>
+
+        <?php } ?>
       </div>
     </section>
-
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">
@@ -445,7 +242,6 @@
 
   } else {
     session_destroy();
-
     echo "<script>
         console.log('test');
         $(document).ready(function() {
