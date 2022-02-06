@@ -19,7 +19,11 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
 
   if ($resCartQuery) {
-    header('refresh:0; url=../page/users/cart.php');
+    if ($_SESSION['page'] == 'cartConfirm') {
+      header('location:../page/users/cartConfirm.php');
+    } else {
+      header('refresh:0; url=../page/users/cart.php');
+    }
   } else {
 
     echo "<script>
