@@ -1,0 +1,1 @@
+SELECT * FROM faverite_user INNER JOIN product ON faverite_user.prod_id = product.prod_id WHERE usr_id = 11

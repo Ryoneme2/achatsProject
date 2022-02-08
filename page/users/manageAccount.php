@@ -11,7 +11,8 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product: search</title>
+  <link rel="stylesheet" href="../../public/css/register.css">
+  <title>Manage account</title>
 </head>
 
 <body>
@@ -23,11 +24,11 @@
 
     require_once '../../config/dbcon.php';
 
-    $search = $_GET['search_context'];
-
-    $sql = "SELECT * FROM product WHERE prod_name LIKE '%$search%'";
+    $sql = "SELECT * FROM achats WHERE usr_id= " . $_SESSION['usr_id'];
 
     $result = mysqli_query($con, $sql);
+
+    $row = mysqli_fetch_assoc($result);
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
@@ -74,7 +75,7 @@
             </div>
           </div>
           <div class="me-3">
-            <a href="">
+            <a href="./compareProd.php">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -170,35 +171,91 @@
 
     <script src="../../public/js/close.js"></script>
 
-
-    <section class="container my-4">
-      <h3 class="fs-4 text-color-dark">product</h3>
-      <hr style="width:100%;" class="mx-auto mb-5">
+    <section class="container mt-5">
+      <!-- <div class="d-flex justify-content-center"> -->
       <div class="row">
-        <?php
-        while ($prodRow = mysqli_fetch_assoc($result)) {
-        ?>
+        <h1 class="text-center my-4">manage account</h1>
+        <div class="col-12 d-flex justify-content-center">
+          <div class="regis-form p-5">
+            <form action="../../service/insertUserData.php" method="post" enctype='multipart/form-data'>
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="name">Name</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <input class="input-text" name="name" type="text" value="<?php echo $row['usr_name'] ?>" placeholder="Enter firstname...">
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="sername">Sername</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <input class="input-text" name="sername" value="<?php echo $row['usr_sername'] ?>" type="text" placeholder="Enter Sername...">
+                </div>
+              </div>
 
-          <div class="col-lg-3 col-md-6 col-sm-12 p-3">
-            <div class="recom-bg p-3">
-              <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
-                <div class="d-flex flex-column">
-                  <div class="img_thumnail2 d-flex justify-content-center">
-                    <div class="mb-2">
-                      <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="Email">Email</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <input class="input-text" name="email" value="<?php echo $row['usr_email'] ?>" type="email" placeholder="Enter Email...">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="Address">Address</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <textarea class="input-textarea" name="address" rows="4" cols="50" placeholder="Enter Address..."><?php echo $row['usr_address'] ?></textarea>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="Phone">Phone</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <input class="input-text" name="phone" value="<?php echo $row['usr_phone'] ?>" type="text" placeholder="Enter Phone...">
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="Bank Account">Bank Account</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <input class="input-text" name="bank_account" type="text" placeholder="Enter Bank Account...">
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="Profile Image">Profile Image</label>
+                </div>
+                <div class="col-md-8 col-sm-12 d-flex align-items-center">
+                  <div>
+                    <div id="preview" class="d-flex justify-content-center align-items-center">
+                      <img id="img-exist" src="<?php echo $row['usr_photo'] ?>" alt="">
                     </div>
                   </div>
-                  <div class="detail-content">
-                    <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
-                    <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
+                  <div class="ms-4">
+                    <label class="uploadLabel">
+                      <input type="file" name="profile" id="file" class="uploadButton" onchange="encodeImageFileAsURLUpdate()" />
+                      Upload
+                    </label>
                   </div>
                 </div>
-              </a>
-            </div>
-          </div>
+              </div>
 
-        <?php } ?>
+              <div class="mt-5 d-flex justify-content-center">
+                <input class="sign-up-btn bg-color-one text-light fs-4" type="submit">
+              </div>
+
+            </form>
+          </div>
+        </div>
       </div>
+      <!-- </div> -->
     </section>
 
     <footer class="container-fulid py-4 mt-5">
@@ -238,6 +295,8 @@
         </div>
       </div>
     </footer>
+    <script src="../../public/js/signin.js"></script>
+
   <?php
 
   } else {

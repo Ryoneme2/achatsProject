@@ -77,6 +77,11 @@
   height: 230px;
   border-radius: 15px;
 }
+.img_thumnail_compare img {
+  width: 80%;
+  height: 290px;
+  border-radius: 20px;
+}
 .img_cart_thumnail img {
   width: 100%;
   max-width: 130px;
@@ -201,4 +206,8 @@
   height: 30px;
   filter: hue-rotate(75deg);
   opacity: 70%;
+}
+.compare-bg {
+  border-radius: 7px;
+  border: 1px solid #a271cf;
 }

@@ -11,7 +11,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product: search</title>
+  <title>Product : catagory</title>
 </head>
 
 <body>
@@ -22,12 +22,6 @@
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
     require_once '../../config/dbcon.php';
-
-    $search = $_GET['search_context'];
-
-    $sql = "SELECT * FROM product WHERE prod_name LIKE '%$search%'";
-
-    $result = mysqli_query($con, $sql);
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
@@ -74,7 +68,7 @@
             </div>
           </div>
           <div class="me-3">
-            <a href="./compareProd.php">
+            <a href="">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -146,7 +140,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="./faveriteDisplay.php">my faverite</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="#">my faverite</a></li>
           </div>
         </div>
         <hr class="hr-drop">
@@ -170,36 +164,88 @@
 
     <script src="../../public/js/close.js"></script>
 
-
-    <section class="container my-4">
-      <h3 class="fs-4 text-color-dark">product</h3>
+    <section class="container mt-4">
+      <h3 class="fs-4 text-color-dark">compare</h3>
       <hr style="width:100%;" class="mx-auto mb-5">
+
       <div class="row">
         <?php
-        while ($prodRow = mysqli_fetch_assoc($result)) {
-        ?>
 
-          <div class="col-lg-3 col-md-6 col-sm-12 p-3">
-            <div class="recom-bg p-3">
-              <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
-                <div class="d-flex flex-column">
-                  <div class="img_thumnail2 d-flex justify-content-center">
-                    <div class="mb-2">
-                      <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
-                    </div>
-                  </div>
-                  <div class="detail-content">
-                    <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
-                    <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
+        $where_context = '';
+
+        // print_r($_SESSION['product_compare']);
+
+        for ($i = 1; $i <= count($_SESSION['product_compare']); $i++) {
+          if ($i == count($_SESSION['product_compare'])) {
+            $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]);
+          } else {
+            $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]) . ' OR ';
+          }
+        }
+
+        $sql = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE ' . $where_context . " ORDER BY prod_id";
+        echo $sql;
+        $result = mysqli_query($con, $sql);
+        $index = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+
+        ?>
+          <div class="col-md-4 col-sm-6">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="text-info"></div>
+              <div><a class="text-danger text-decoration-none fs-4" href="<?php echo "../../service/delCompare.php?p_id=" . $row['prod_id'] ?>">X</a></div>
+            </div>
+            <div class="compare-bg p-3 bg-white">
+              <div class="d-flex flex-column">
+                <div class="img_thumnail_compare rounded-3 mb-5 d-flex justify-content-center">
+                  <img src="<?php echo $row['prod_photo']; ?>" alt="">
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">product name: </h4>
+                  <p class="fs-4 fw-light text-color-dark"><?php echo $row['prod_name']; ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">shop name: </h4>
+                  <p class="fs-4 fw-light text-color-dark"><?php echo $row['seller_shopname']; ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">type: </h4>
+                  <p class="fs-4 fw-light text-color-dark"><?php echo $row['prod_type'] . '.'; ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">color: </h4>
+                  <p class="fs-4 fw-light text-color-dark"><?php echo $row['prod_color']; ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">size: </h4>
+                  <p class="fs-4 fw-light text-color-dark"><?php echo $row['prod_size']; ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">rating: </h4>
+                  <p class="fs-4 fw-light text-color-dark"><?php echo $row['prod_rating']; ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">price: </h4>
+                  <p class="fs-4 fw-light text-color-dark">$<?php echo number_format($row['prod_price']); ?></p>
+                </div>
+                <div class="mb-3">
+                  <h4 class="fs-4 text-color-dark mb-3">location: </h4>
+                  <div class="d-flex justify-content-center">
+                    <iframe width="90%" height="200" src="<?php echo "https://maps.google.com/maps?q=" . $row['seller_map'] . "&t=&z=17&ie=UTF8&iwloc=&output=embed" ?>" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
 
-        <?php } ?>
+        <?php
+          $index++;
+        }
+        ?>
+
       </div>
     </section>
+
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">
@@ -242,6 +288,7 @@
 
   } else {
     session_destroy();
+
     echo "<script>
         console.log('test');
         $(document).ready(function() {

@@ -23,8 +23,6 @@ $row = mysqli_fetch_assoc($allData);
 
 if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) {
 
-
-
   $_SESSION['usr_id'] = $row['usr_id'];
   $_SESSION['usr_name'] = $row['usr_name'];
   $_SESSION['usr_sername'] = $row['usr_sername'];
@@ -36,6 +34,7 @@ if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) 
   $_SESSION['usr_phone'] = $row['usr_phone'];
   $_SESSION['isLogin'] = true;
   $_SESSION['role'] = 'user';
+  $_SESSION['product_compare'] = array();
 
   $sqlCartQuery = "SELECT * FROM carts WHERE usr_id = " . $_SESSION['usr_id'];
   $resCartQuery = mysqli_query($con, $sqlCartQuery);

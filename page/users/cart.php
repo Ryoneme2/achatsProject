@@ -23,6 +23,7 @@
 
     require_once '../../config/dbcon.php';
     $_SESSION['page'] = 'cart';
+    $_SESSION['discount'] = 0;
     $warning_context = '';
 
 
@@ -122,7 +123,7 @@
           </div>
           <div class="me-3 d-flex align-items-center">
             <div>
-              <a href="">
+              <a href="./compareProd.php">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                     <path d="M0,172v-172h172v172z" fill="none"></path>

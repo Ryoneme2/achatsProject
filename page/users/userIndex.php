@@ -23,6 +23,7 @@
 
     require_once '../../config/dbcon.php';
 
+
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
@@ -68,7 +69,7 @@
             </div>
           </div>
           <div class="me-3">
-            <a href="">
+            <a href="./compareProd.php">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -107,8 +108,9 @@
                 </g>
               </g>
             </svg></div>
+
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="#">manage account</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="./manageAccount.php">manage account</a></li>
           </div>
         </div>
         <hr class="hr-drop">

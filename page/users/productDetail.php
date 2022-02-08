@@ -25,6 +25,8 @@
 
     $_SESSION['comment'] = [];
 
+    // print_r($_SESSION['product_compare']);
+
     $id = $_GET['id'];
     $isFav = false;
 
@@ -94,7 +96,7 @@
             </div>
           </div>
           <div class="me-3">
-            <a href="">
+            <a href="./compareProd.php">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -254,7 +256,7 @@
                 </div>
                 <div class="me-2">
                   <!-- compare -->
-                  <a href="">
+                  <a href="<?php echo '../../service/addCompare.php?p_id=' . $rowProduct['prod_id'] ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 172 172" style=" fill:#000000;">
                       <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,172v-172h172v172z" fill="none"></path>

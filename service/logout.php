@@ -16,4 +16,5 @@ if ($_SESSION['role'] == 'admin') {
   header('refresh: 1; url=../page/admin/signin.php');
 }
 
+
 session_destroy();

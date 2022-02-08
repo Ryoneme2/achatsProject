@@ -62,46 +62,46 @@
                   <h4 class="fs-4 text-color-dark mt-2">request</h4>
                 </div>
                 <div>
-                  <button class="cancel-btn bg-color-light text-color-dark"><a class="text-color-dark text-decoration-none" href="<?php echo "../../service/approveSeller.php?id=" . $row['tmp_seller_id'] . '&allow=false' ?>">cancel</a></button>
-                  <button class="allow-btn bg-color-one"><a class="text-color-light text-decoration-none" href="<?php echo "../../service/approveSeller.php?id=" . $row['tmp_seller_id'] . '&allow=true' ?>">allow</a></button>
+                  <button class="cancel-btn bg-color-light text-color-dark"><a class="text-color-dark text-decoration-none" href="<?php echo "../../service/approveSeller.php?id=" . $row['seller_id'] . '&allow=false' ?>">cancel</a></button>
+                  <button class="allow-btn bg-color-one"><a class="text-color-light text-decoration-none" href="<?php echo "../../service/approveSeller.php?id=" . $row['seller_id'] . '&allow=true' ?>">allow</a></button>
                 </div>
               </div>
               <div class="body-content container py-5">
                 <div class="row">
                   <div class="col-6">
                     <div>
-                      <h5>Name : <span><?php echo $row['tmp_seller_name'] . " " . $row['tmp_seller_sername'] ?></span></h5>
+                      <h5>Name : <span><?php echo $row['seller_name'] . " " . $row['seller_sername'] ?></span></h5>
                     </div>
                     <div>
-                      <h5>Shop name : <span><?php echo $row['tmp_seller_shopname'] ?></span></h5>
+                      <h5>Shop name : <span><?php echo $row['seller_shopname'] ?></span></h5>
                     </div>
                     <div>
-                      <h5>Username : <span><?php echo $row['tmp_seller_username'] ?></span></h5>
+                      <h5>Username : <span><?php echo $row['seller_username'] ?></span></h5>
                     </div>
                     <div>
-                      <h5>email : <span><?php echo $row['tmp_seller_email'] ?></span></h5>
+                      <h5>email : <span><?php echo $row['seller_email'] ?></span></h5>
                     </div>
                     <div>
                       <h5>Photo : </h5>
                       <div class="preview-photo">
-                        <img src="<?php echo $row['tmp_seller_photo'] ?>" alt="<?php echo 'profilePic' . $row['tmp_seller_id'] ?>">
+                        <img src="<?php echo $row['seller_photo'] ?>" alt="<?php echo 'profilePic' . $row['seller_id'] ?>">
                       </div>
                     </div>
                   </div>
                   <div class="col-6">
                     <div>
-                      <h5>Address : <span><?php echo $row['tmp_seller_address'] ?></span></h5>
+                      <h5>Address : <span><?php echo $row['seller_address'] ?></span></h5>
                     </div>
                     <div>
-                      <h5>Phone : <span><?php echo $row['tmp_seller_phone'] ?></span></h5>
+                      <h5>Phone : <span><?php echo $row['seller_phone'] ?></span></h5>
                     </div>
                     <div>
-                      <h5>citizen id : <span><?php echo $row['tmp_seller_citizenid'] ?></span></h5>
+                      <h5>citizen id : <span><?php echo $row['seller_citizenid'] ?></span></h5>
                     </div>
                     <div>
                       <h5>Photo with citizen card : </h5>
                       <div class="preview-photo">
-                        <img src="<?php echo $row['tmp_seller_withcitizen'] ?>" alt="<?php echo 'citizenPic' . $row['tmp_seller_id'] ?>">
+                        <img src="<?php echo $row['seller_withcitizen'] ?>" alt="<?php echo 'citizenPic' . $row['seller_id'] ?>">
                       </div>
                     </div>
                   </div>

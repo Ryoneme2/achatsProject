@@ -37,6 +37,7 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 // echo $base64;
 
 
+
 // // Get all the submitted data from the form
 $sql = "INSERT INTO achats (usr_name,usr_sername,usr_username,usr_email,usr_password,usr_address,usr_phone,usr_photo)
 VALUES('$name','$sername','$username','$email','$password','$address','$phone','$base64')";
