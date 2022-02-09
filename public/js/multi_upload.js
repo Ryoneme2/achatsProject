@@ -24,15 +24,16 @@ function encodeImageFileAsURL() {
 }
 
 const sendPayload = async () => {
+  const payload = allImg.join("-");
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/testService.php");
+  xhr.open("POST", "../service/testService.php");
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onload = function () {
-    console.log(xhr.responseText);
-  };
+  // xhr.onload = function () {
+  //   console.log(xhr.responseText);
+  // };
   xhr.send(
     JSON.stringify({
-      img: allImg,
+      payload,
     })
   );
 };

@@ -1,8 +1,14 @@
 <?php
 
-$postData = file_get_contents('php://input');
-$jsondata = json_decode($postData);
-// echo "postData =".json_encode($jsondata->name,JSON_UNESCAPED_UNICODE);
-$data =  json_encode($jsondata->img);
+require_once '../config/dbcon.php';
 
-echo $data;
+$data = json_decode(file_get_contents('php://input'));
+// print_r($data);
+$payload = json_encode($data->payload);
+// var_dump($payload);
+// save data to database
+
+
+$sql = "INSERT INTO test_table (photo) VALUES ('$payload')";
+var_dump($sql);
+$result = mysqli_query($con, $sql);

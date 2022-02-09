@@ -103,26 +103,24 @@
       <h1 class="text-center my-4 fs-0 text-color-dark">add product</h1>
       <div class="col-12 d-flex justify-content-center">
         <div class="addprod-form p-5">
-          <form>
-            <div class="col-md-8 col-sm-12">
-              <div class="mb-2">
-                <label class="uploadLabel">
-                  <input type="file" name="prod_photo" id="file" class="uploadButton" multiple="multiple" onchange="encodeImageFileAsURL()" />
-                  choose
-                </label>
-              </div>
-              <div>
-                <div id="preview" class="d-flex justify-content-center align-items-center"></div>
-              </div>
+          <div class="col-md-8 col-sm-12">
+            <div class="mb-2">
+              <label class="uploadLabel">
+                <input type="file" name="prod_photo" id="file" class="uploadButton" multiple="multiple" onchange="encodeImageFileAsURL()" />
+                choose
+              </label>
+            </div>
+            <div>
+              <div id="preview" class="d-flex justify-content-center align-items-center"></div>
+            </div>
 
-              <div class="mt-5 d-flex justify-content-center">
-                <input class="sign-up-btn bg-color-one text-light fs-4" id="allProd-btn" type="submit" onclick="sendPayload()">
-              </div>
+            <div class="mt-5 d-flex justify-content-center">
+              <input class="sign-up-btn bg-color-one text-light fs-4" id="allProd-btn" type="submit" onclick="sendPayload()">
+            </div>
 
-          </form>
+          </div>
         </div>
       </div>
-    </div>
 
   </section>
 

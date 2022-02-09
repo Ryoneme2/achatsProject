@@ -106,104 +106,105 @@
         <h1 class="text-center my-4 fs-0 text-color-dark">add product</h1>
         <div class="col-12 d-flex justify-content-center">
           <div class="addprod-form p-5">
-            <form action="../../service/addProduct.php" method="post" enctype='multipart/form-data'>
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Product name</label>
+            <!-- <form action="../../service/addProduct.php" method="post" enctype='multipart/form-data'> -->
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">Product name</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <input class="input-text" name="productname" type="text" placeholder="Enter Productname...">
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">Color</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <input class="input-text color" name="color" type="text" placeholder="Enter Color1, Color2,...">
+                <div class="list-color mt-1">
+                  <!-- border border-1 rounded px-2 py-1 -->
                 </div>
-                <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="productname" type="text" placeholder="Enter Productname...">
-                </div>
+                <!-- <small class="text-secondary">Format : value,value,value</small> -->
               </div>
 
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="Product Image">Product Image</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <div class="mb-2">
-                    <label class="uploadLabel">
-                      <input type="file" name="prod_photo" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
-                      choose
-                    </label>
-                  </div>
-                  <div>
-                    <div id="preview" class="d-flex justify-content-center align-items-center"></div>
-                  </div>
+            </div>
+
+
+
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="Product Image">Product Image</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <div class="row row-img">
                 </div>
               </div>
+            </div>
 
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Type</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <select class="input-text" name="prod_type" id="types">
-                    <option style="color: #f0d9ff;" disabled selected>Please select one</option>
-                    <?php
-
-                    require_once "../../config/dbcon.php";
-
-                    $cataCmd = 'SELECT cata_name FROM catagory';
-
-                    $cataResult = mysqli_query($con, $cataCmd);
-
-                    while ($cataRow = mysqli_fetch_assoc($cataResult)) {
-                      echo "<option value='" . $cataRow['cata_name'] . "'>" . $cataRow['cata_name'] . "</option>";
-                    }
-                    ?>
-                  </select>
-                </div>
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">Type</label>
               </div>
+              <div class="col-md-9 col-sm-12">
+                <select class="input-text" name="prod_type" id="types">
+                  <option style="color: #f0d9ff;" disabled selected>Please select one</option>
+                  <?php
 
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Size</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="size" type="text" placeholder="Enter Size1, Size2,...">
-                  <!-- <small class="text-secondary">Format : value,value,value</small> -->
-                </div>
-              </div>
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Color</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="color" type="text" placeholder="Enter Color1, Color2,...">
-                  <!-- <small class="text-secondary">Format : value,value,value</small> -->
-                </div>
-              </div>
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="Address">Details</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <textarea class="input-textarea" name="details" rows="4" cols="50" placeholder="Enter Details..."></textarea>
-                </div>
-              </div>
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Warranty</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="warranty" type="text" placeholder="Enter Warranty...">
-                </div>
-              </div>
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Price</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="price" type="text" placeholder="Enter Price...">
-                </div>
-              </div>
+                  require_once "../../config/dbcon.php";
 
-              <div class="mt-5 d-flex justify-content-center">
-                <input class="sign-up-btn bg-color-one text-light fs-4" type="submit" value="add">
-              </div>
+                  $cataCmd = 'SELECT cata_name FROM catagory';
 
-            </form>
+                  $cataResult = mysqli_query($con, $cataCmd);
+
+                  while ($cataRow = mysqli_fetch_assoc($cataResult)) {
+                    echo "<option value='" . $cataRow['cata_name'] . "'>" . $cataRow['cata_name'] . "</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">Size</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <input class="input-text" name="size" type="text" placeholder="Enter Size1, Size2,...">
+                <!-- <small class="text-secondary">Format : value,value,value</small> -->
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="Address">Details</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <textarea class="input-textarea" name="details" rows="4" cols="50" placeholder="Enter Details..."></textarea>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">Warranty</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <input class="input-text" name="warranty" type="text" placeholder="Enter Warranty...">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">Price</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <input class="input-text" name="price" type="text" placeholder="Enter Price...">
+              </div>
+            </div>
+
+            <div class="mt-5 d-flex justify-content-center">
+              <input class="sign-up-btn bg-color-one text-light fs-4" type="submit" value="add">
+            </div>
+
+            <!-- </form> -->
           </div>
         </div>
       </div>
@@ -250,6 +251,7 @@
     </footer>
 
     <script src="../../public/js/signin.js"></script>
+    <script src="../../public/js/addProd.js"></script>
   <?php
 
   } else {
