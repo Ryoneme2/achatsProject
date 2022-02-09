@@ -8,12 +8,20 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
   $p_id = $_GET['p_id'];
 
   // echo $p_id;
-
-  for ($i = 1; $i <= count($_SESSION['product_compare']); $i++) {
-    if ($_SESSION['product_compare'][$i] == $p_id) {
-      unset($_SESSION['product_compare'][$i]);
+  if (isset($_SESSION['compare_product'][0])) {
+    for ($i = 0; $i < count($_SESSION['product_compare']); $i++) {
+      if ($_SESSION['product_compare'][$i] == $p_id) {
+        unset($_SESSION['product_compare'][$i]);
+      }
+    }
+  } else {
+    for ($i = 1; $i <= count($_SESSION['product_compare']); $i++) {
+      if ($_SESSION['product_compare'][$i] == $p_id) {
+        unset($_SESSION['product_compare'][$i]);
+      }
     }
   }
+
 
   print_r($_SESSION['product_compare']);
 

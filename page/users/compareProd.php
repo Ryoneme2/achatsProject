@@ -173,15 +173,27 @@
 
         $where_context = '';
 
-        // print_r($_SESSION['product_compare']);
+        print_r($_SESSION['product_compare']);
 
-        for ($i = 1; $i <= count($_SESSION['product_compare']); $i++) {
-          if ($i == count($_SESSION['product_compare'])) {
-            $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]);
-          } else {
-            $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]) . ' OR ';
+        if (isset($_SESSION['product_compare'][0])) {
+          for ($i = 0; $i < count($_SESSION['product_compare']); $i++) {
+            if ($i == count($_SESSION['product_compare']) - 1) {
+              $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]);
+            } else {
+              $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]) . ' OR ';
+            }
+          }
+        } else {
+          for ($i = 1; $i <= count($_SESSION['product_compare']); $i++) {
+            if ($i == count($_SESSION['product_compare'])) {
+              $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]);
+            } else {
+              $where_context = $where_context . ' product.prod_id = ' . strval($_SESSION['product_compare'][$i]) . ' OR ';
+            }
           }
         }
+
+
 
         $sql = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE ' . $where_context . " ORDER BY prod_id";
         echo $sql;
@@ -190,6 +202,7 @@
         while ($row = mysqli_fetch_assoc($result)) {
 
         ?>
+
           <div class="col-md-4 col-sm-6">
             <div class="d-flex justify-content-between align-items-center">
               <div class="text-info"></div>
