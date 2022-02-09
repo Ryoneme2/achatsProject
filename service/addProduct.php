@@ -18,7 +18,6 @@ $price = $_POST['price'];
 
 $id = $_SESSION['seller_id'];
 
-
 $tmp_name = $_FILES["prod_photo"]["tmp_name"];
 $t = explode('.', $photo); // split name and type ( image.jpg => Array( [0]->image, [1]->jpg ))
 $type = end($t); //stored late array of $t
@@ -33,8 +32,8 @@ $sqlSellCmd = "SELECT seller_product_qty FROM seller_info WHERE seller_id = $id"
 
 // echo $sqlCmd;
 $result2 = mysqli_query($con, $sqlSellCmd);
-$row = mysqli_fetch_array($result2);
-$qty = $row['seller_product_qty '];
+$row = mysqli_fetch_assoc($result2);
+$qty = $row['seller_product_qty'];
 $qty2 = $qty + 1;
 
 $sqlSellQtyCmd = "UPDATE seller_info SET seller_product_qty = $qty2 WHERE seller_id = $id";

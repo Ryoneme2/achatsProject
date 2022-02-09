@@ -1,29 +1,4 @@
 var allImg = [];
-var classNameImg = [];
-var allColorList = [];
-
-function encodeImageFileAsURL() {
-  const filesSelected = document.getElementById("file").files;
-  if (filesSelected.length > 0) {
-    const fileToLoad = Array.from(filesSelected).map((file) => {
-      const fileReader = new FileReader();
-
-      fileReader.onload = function (fileLoadedEvent) {
-        const srcData = fileLoadedEvent.target.result; // <--- data: base64
-
-        allImg.push(srcData);
-        // allImg.push("-");
-
-        const newImage = document.createElement("img");
-        newImage.src = srcData;
-
-        document.getElementById("preview").appendChild(newImage);
-      };
-      fileReader.readAsDataURL(file);
-    });
-    console.log(allImg);
-  }
-}
 
 const color = document.querySelector(".color");
 const classListColorDiv = [
@@ -34,9 +9,11 @@ const classListColorDiv = [
   "py-1",
 ];
 
+var i = 0;
+var classNameImg = [];
+var allColorList = [];
+
 color.addEventListener("keydown", (event) => {
-  // <input type="file" name="prod_photo" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
-  // <div id="preview" class="d-flex justify-content-center align-items-center"></div>
   const row = document.querySelector(".row-img");
   const col4 = document.createElement("div");
   const mb2 = document.createElement("div");
@@ -54,16 +31,24 @@ color.addEventListener("keydown", (event) => {
   inputFile.setAttribute("name", "prod_photo");
   inputFile.setAttribute("id", "file");
   inputFile.setAttribute("class", "uploadButton");
-  inputFile.setAttribute("onchange", "encodeImageFileAsURL()");
 
   preview.classList.add(
     "d-flex",
     "justify-content-center",
     "align-items-center"
   );
-  preview.setAttribute("id", "preview");
 
   if (event.keyCode === 13) {
+    inputFile.setAttribute("onchange", `encodeImageFileAsURLIndiv(${i})`);
+    preview.setAttribute("id", `preview`);
+    preview.classList.add(
+      "d-flex",
+      "justify-content-center",
+      "align-items-center",
+      `preview${i}`
+    );
+    classNameImg.push(`preview${i}`);
+
     const cvalue = color.value;
     const colorList = document.querySelector(".list-color");
 
@@ -83,5 +68,71 @@ color.addEventListener("keydown", (event) => {
     col4.appendChild(bDiv);
     row.appendChild(col4);
     color.value = "";
+    i++;
   }
 });
+
+function encodeImageFileAsURLIndiv(id) {
+  const filesSelected = document.querySelectorAll(".uploadButton")[id].files;
+
+  // console.log(filesSelected);
+
+  if (filesSelected.length > 0) {
+    var fileToLoad = filesSelected[0];
+
+    var fileReader = new FileReader();
+
+    fileReader.onload = function (fileLoadedEvent) {
+      var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+      allImg.push(srcData);
+
+      var newImage = document.createElement("img");
+      newImage.classList.add("rounded");
+      newImage.src = srcData;
+
+      document.querySelector(`.preview${id}`).innerHTML = newImage.outerHTML;
+    };
+    fileReader.readAsDataURL(fileToLoad);
+  }
+}
+
+const sendPayload = async () => {
+  // input something incorrect please check
+  const unValidateData = document.querySelectorAll(".input-text");
+  const textArea = document.querySelector(".input-textarea");
+  const validate_text = document.querySelector(".validate-text");
+  const unValidateDataAll = [...Array.from(unValidateData), textArea];
+  const dataPayload = [];
+  let isValidate = true;
+
+  unValidateDataAll.forEach((data) => {
+    // console.log(data.value);
+    if (data.value === "" || data.value === "Please select one") {
+      validate_text.innerHTML = "input something incorrect please check";
+      // return;
+      isValidate = false;
+    }
+
+    dataPayload.push(data.value);
+  });
+
+  console.log(dataPayload);
+  if (isValidate) {
+    const payload = {
+      prod_name: dataPayload[0],
+      prod_color: dataPayload[1],
+      prod_type: dataPayload[2],
+      prod_size: dataPayload[3],
+      prod_warrenty: dataPayload[4],
+      prod_price: dataPayload[5],
+      prod_detail: dataPayload[6],
+      prod_img: allImg.join("-"),
+    };
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../service/testService.php");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(payload));
+  }
+};

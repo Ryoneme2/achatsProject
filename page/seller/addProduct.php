@@ -127,17 +127,16 @@
                 </div>
                 <!-- <small class="text-secondary">Format : value,value,value</small> -->
               </div>
-
             </div>
-
-
 
             <div class="row mb-4">
               <div class="col-md-3 col-sm-12">
                 <label class="text-color-dark d-block" for="Product Image">Product Image</label>
               </div>
               <div class="col-md-9 col-sm-12">
-                <div class="row row-img">
+                <h5 class="text-color-dark">add image to "color" variations</h5>
+                <hr class="hr-purple">
+                <div class="row row-img mt-3">
                 </div>
               </div>
             </div>
@@ -150,7 +149,6 @@
                 <select class="input-text" name="prod_type" id="types">
                   <option style="color: #f0d9ff;" disabled selected>Please select one</option>
                   <?php
-
                   require_once "../../config/dbcon.php";
 
                   $cataCmd = 'SELECT cata_name FROM catagory';
@@ -185,6 +183,14 @@
             </div>
             <div class="row mb-4">
               <div class="col-md-3 col-sm-12">
+                <label class="text-color-dark d-block" for="productname">weight</label>
+              </div>
+              <div class="col-md-9 col-sm-12">
+                <input class="input-text" name="weight" type="text" placeholder="Enter weight...">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-3 col-sm-12">
                 <label class="text-color-dark d-block" for="productname">Warranty</label>
               </div>
               <div class="col-md-9 col-sm-12">
@@ -201,7 +207,10 @@
             </div>
 
             <div class="mt-5 d-flex justify-content-center">
-              <input class="sign-up-btn bg-color-one text-light fs-4" type="submit" value="add">
+              <input class="sign-up-btn bg-color-one text-light fs-4" onclick="sendPayload()" type="submit" value="add">
+            </div>
+            <div class="mt-1 d-flex justify-content-center">
+              <small class="text-danger validate-text"></small>
             </div>
 
             <!-- </form> -->
