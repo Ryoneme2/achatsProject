@@ -12,6 +12,7 @@ const classListColorDiv = [
 var i = 0;
 var classNameImg = [];
 var allColorList = [];
+var colorValue = [];
 
 color.addEventListener("keydown", (event) => {
   const row = document.querySelector(".row-img");
@@ -57,12 +58,13 @@ color.addEventListener("keydown", (event) => {
       div.classList.add(className);
     });
 
-    div.innerHTML = `<span class="text-center">${cvalue}</span>`;
+    div.innerHTML = `<span class="color-elem text-center">${cvalue}</span>`;
     colorList.appendChild(div);
     allColorList.push(color.value);
     label.appendChild(inputFile);
     mb2.appendChild(label);
     preview.innerHTML = cvalue;
+    colorValue.push(cvalue);
     bDiv.appendChild(preview);
     col4.appendChild(mb2);
     col4.appendChild(bDiv);
@@ -109,7 +111,7 @@ const sendPayload = async () => {
   unValidateDataAll.forEach((data) => {
     // console.log(data.value);
     if (data.value === "" || data.value === "Please select one") {
-      validate_text.innerHTML = "input something incorrect please check";
+      validate_text.innerHTML = "";
       // return;
       isValidate = false;
     }
@@ -118,20 +120,23 @@ const sendPayload = async () => {
   });
 
   console.log(dataPayload);
-  if (isValidate) {
+  if (true) {
     const payload = {
       prod_name: dataPayload[0],
-      prod_color: dataPayload[1],
+      prod_color: colorValue,
       prod_type: dataPayload[2],
       prod_size: dataPayload[3],
-      prod_warrenty: dataPayload[4],
-      prod_price: dataPayload[5],
-      prod_detail: dataPayload[6],
+      prod_weight: dataPayload[4],
+      prod_warrenty: dataPayload[5],
+      prod_price: dataPayload[6],
+      prod_detail: dataPayload[7],
       prod_img: allImg.join("-"),
     };
 
+    console.log(payload);
+
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "../service/testService.php");
+    xhr.open("POST", "http://localhost/achatsProject/service/addProductV2.php");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(payload));
   }

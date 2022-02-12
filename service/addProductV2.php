@@ -13,57 +13,45 @@ $product_name = json_encode($data->prod_name);
 $color = json_encode($data->prod_color);
 $prod_type = json_encode($data->prod_type);
 $size = json_encode($data->prod_size);
-$warranty = json_encode($data->prod_warranty);
+$warranty = json_encode($data->prod_warrenty);
+$weight = json_encode($data->prod_weight);
 $price = json_encode($data->prod_price);
 $detail = json_encode($data->prod_detail);
 $photoBase64 = json_encode($data->prod_img);
 
+// echo str_split($weight);
+
+$weightStr = '';
+
+for ($i = 1; $i < count(str_split($weight)) - 1; $i++) {
+  $weightStr .= str_split($weight)[$i];
+}
+$weightDouble = (float) $weightStr;
+
+// echo $weightDouble;
 
 $sqlCmd = "INSERT INTO product (prod_name,prod_photo,prod_type,prod_size,prod_color,prod_details,prod_warranty,prod_weight,prod_price,seller_id)
-           VALUES ('$product_name','$photoBase64','$prod_type','$size','$color','$detail','$warranty',$price,$id)";
+           VALUES ($product_name,$photoBase64,$prod_type,$size,'$color',$detail,$warranty,$weightDouble,$price,$id)";
 
-echo $sqlCmd;
-// $sqlSellCmd = "SELECT seller_product_qty FROM seller_info WHERE seller_id = $id";
+// echo $sqlCmd;
+/* Just printing the query to the console. */
+$sqlSellCmd = "SELECT seller_product_qty FROM seller_info WHERE seller_id = $id";
 
-// // echo $sqlCmd;
-// $result2 = mysqli_query($con, $sqlSellCmd);
-// $row = mysqli_fetch_assoc($result2);
-// $qty = $row['seller_product_qty'];
-// $qty2 = $qty + 1;
+// echo $sqlCmd;
+$result2 = mysqli_query($con, $sqlSellCmd);
+$row = mysqli_fetch_assoc($result2);
+$qty = $row['seller_product_qty'];
+$qty2 = $qty + 1;
 
-// $sqlSellQtyCmd = "UPDATE seller_info SET seller_product_qty = $qty2 WHERE seller_id = $id";
+$sqlSellQtyCmd = "UPDATE seller_info SET seller_product_qty = $qty2 WHERE seller_id = $id";
 
-// $result = mysqli_query($con, $sqlCmd);
-// $result3 = mysqli_query($con, $sqlSellQtyCmd);
+// echo $sqlSellQtyCmd;
 
-// if ($result && $result3) {
+$result = mysqli_query($con, $sqlCmd);
+$result3 = mysqli_query($con, $sqlSellQtyCmd);
 
-//   echo "<script>
-//           console.log('test');
-//           $(document).ready(function() {
-//             Swal.fire({
-//               title: 'success',
-//               text: 'Added product',
-//               icon: 'success',
-//               timer: 5000,
-//               showConfirmButton: false
-//             });
-//           })
-//         </script>";
-
-//   header('refresh:1; url=../page/seller/dashboard.php');
-// } else {
-
-//   echo "<script>
-//         console.log('test');
-//         $(document).ready(function() {
-//           Swal.fire({
-//             title: 'Oops!!',
-//             text: 'Something went wrong! Please try again',
-//             icon: 'error',
-//             showConfirmButton: false
-//         });
-//         })
-//       </script>";
-//   header('refresh:1; url=../page/seller/addProduct.php');
-// }
+if ($result && $result3) {
+  echo 'done';
+} else {
+  echo 'fail';
+}
