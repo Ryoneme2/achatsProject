@@ -120,10 +120,12 @@ const sendPayload = async () => {
   });
 
   console.log(dataPayload);
+  colorValueString = colorValue.join(",");
+
   if (true) {
     const payload = {
       prod_name: dataPayload[0],
-      prod_color: colorValue,
+      prod_color: colorValueString,
       prod_type: dataPayload[2],
       prod_size: dataPayload[3],
       prod_weight: dataPayload[4],
@@ -135,9 +137,9 @@ const sendPayload = async () => {
 
     console.log(payload);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost/achatsProject/service/addProductV2.php");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify(payload));
+    // const xhr = new XMLHttpRequest();
+    // xhr.open("POST", "http://localhost/achatsProject/service/addProductV2.php");
+    // xhr.setRequestHeader("Content-Type", "application/json");
+    // xhr.send(JSON.stringify(payload));
   }
 };

@@ -130,7 +130,7 @@
 }
 .img_details img {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   height: auto;
 }
 .btn_buy {
@@ -209,5 +209,13 @@
 }
 .compare-bg {
   border-radius: 7px;
+  border: 1px solid #a271cf;
+}
+.border-cart {
+  border: 1px solid #a271cf;
+  width: 180px;
+  height: 50px;
+}
+.border-purple {
   border: 1px solid #a271cf;
 }

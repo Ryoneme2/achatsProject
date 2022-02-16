@@ -1,0 +1,125 @@
+@startuml name
+  skinparam linetype ortho
+  skinparam packageStyle rectangle
+  skinparam shadowing false
+  skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+  }
+  ' hide members
+  hide circle
+
+  entity achats {
+    **usr_id**
+    --
+    usr_name
+    usr_sername
+    usr_username
+    usr_email
+    usr_password
+    usr_address
+    usr_phone
+    usr_bank_acc
+    usr_photo
+  }
+
+  entity admin_info {
+    **admin_id**
+    --
+    admin_username
+    admin_password
+    admin_name
+    admin_sername
+  }
+
+  entity seller_info {
+    **seller_id**
+    --
+    seller_name
+    seller_sername
+    seller_shopname
+    seller_username
+    seller_email
+    seller_password
+    seller_address
+    seller_phone
+    seller_photo
+    seller_map
+    seller_citizenid
+    seller_withcitizen
+    seller_follower
+    seller_product_qty
+    seller_rating
+    isApprove
+  }
+
+  entity carts {
+    **cart_id**
+    --
+    usr_id
+    prod_id
+    --
+    cart_qty
+    cart_date
+  }
+
+  entity product {
+    **prod_id**
+    --
+    prod_name
+    prod_photo
+    prod_type
+    prod_size
+    prod_color
+    prod_details
+    prod_weight
+    prod_rating
+    prod_warranty
+    prod_price
+    --
+    seller_id
+  }
+
+  entity catagory {
+    **cata_id**
+    --
+    cata_name
+    cata_photo
+  }
+
+  entity faverite_user {
+    **fav_id**
+    --
+    usr_id
+    prod_id
+  }
+
+  entity comment {
+    **comment_id**
+    --
+    comment_username
+    comment_context
+    --
+    prod_id
+  }
+
+  entity voucher {
+    **voucher_id**
+    --
+    voucher_code
+    voucher_dicount
+    voucher_discount_type
+    voucher_date_create
+    voucher_expire
+  }
+
+  achats ||-up-|{ faverite_user
+  achats ||-down-|{ comment
+  achats ||-left-o{ carts
+  product ||-right-|{ faverite_user
+  seller_info ||-right-|{ product
+  product ||-right-|{ carts
+  admin_info ||-left-|{ catagory
+
+@enduml
