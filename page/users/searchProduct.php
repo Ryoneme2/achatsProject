@@ -177,15 +177,16 @@
       <div class="row">
         <?php
         while ($prodRow = mysqli_fetch_assoc($result)) {
+          $Allphoto = explode('-', $prodRow['prod_photo']);
         ?>
 
           <div class="col-lg-3 col-md-6 col-sm-12 p-3">
             <div class="recom-bg p-3">
-              <a class="text-decoration-none" href="./productDetail.php?id=<?php echo $prodRow['prod_id'] ?>">
+              <a class="text-decoration-none" href="./productDetailV2.php?id=<?php echo $prodRow['prod_id'] ?>">
                 <div class="d-flex flex-column">
                   <div class="img_thumnail2 d-flex justify-content-center">
                     <div class="mb-2">
-                      <img src="<?php echo $prodRow['prod_photo'] ?>" alt="">
+                      <img src="<?php echo $Allphoto[0] ?>" alt="">
                     </div>
                   </div>
                   <div class="detail-content">
