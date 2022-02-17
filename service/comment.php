@@ -29,5 +29,5 @@ if ($_GET['comment-add'] == 'add' && $_SESSION['isLogin'] && $_SESSION['role'] =
 
   $resCommentCmd = mysqli_query($con, $sqlCommentCmd);
 
-  header('refresh:0; url=../page/users/productDetail.php?id=' . $p_id);
+  header('refresh:0; url=../page/users/productDetailV2.php?id=' . $p_id);
 }

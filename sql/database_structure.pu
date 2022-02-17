@@ -81,6 +81,17 @@
     seller_id
   }
 
+  entity orders {
+    **order_id**
+    --
+    order_type
+    order_size
+    order_qty
+    --
+    usr_id
+    prod_id
+  }
+
   entity catagory {
     **cata_id**
     --
@@ -117,9 +128,12 @@
   achats ||-up-|{ faverite_user
   achats ||-down-|{ comment
   achats ||-left-o{ carts
+  achats ||-left-o{ orders
   product ||-right-|{ faverite_user
+  carts ||-up-|{ orders
   seller_info ||-right-|{ product
   product ||-right-|{ carts
+  product ||-right-|{ orders
   admin_info ||-left-|{ catagory
 
 @enduml

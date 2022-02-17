@@ -1,5 +1,5 @@
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
 <?php
 
@@ -33,7 +33,7 @@ $weightDouble = (float) $weightStr;
 $sqlCmd = "INSERT INTO product (prod_name,prod_photo,prod_type,prod_size,prod_color,prod_details,prod_warranty,prod_weight,prod_price,seller_id)
            VALUES ($product_name,$photoBase64,$prod_type,$size,'$color',$detail,$warranty,$weightDouble,$price,$id)";
 
-// echo $sqlCmd;
+echo $sqlCmd;
 /* Just printing the query to the console. */
 $sqlSellCmd = "SELECT seller_product_qty FROM seller_info WHERE seller_id = $id";
 
@@ -52,6 +52,7 @@ $result3 = mysqli_query($con, $sqlSellQtyCmd);
 
 if ($result && $result3) {
   echo 'done';
+  location . reload();
 } else {
   echo 'fail';
 }

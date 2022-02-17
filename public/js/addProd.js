@@ -137,9 +137,10 @@ const sendPayload = async () => {
 
     console.log(payload);
 
-    // const xhr = new XMLHttpRequest();
-    // xhr.open("POST", "http://localhost/achatsProject/service/addProductV2.php");
-    // xhr.setRequestHeader("Content-Type", "application/json");
-    // xhr.send(JSON.stringify(payload));
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost/achatsProject/service/addProductV2.php");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(payload));
+    location.reload();
   }
 };

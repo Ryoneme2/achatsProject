@@ -193,12 +193,13 @@
         $prodData =  mysqli_query($con, $prodDataCmd);
 
         while ($prod_row = mysqli_fetch_array($prodData)) {
+          $Allphoto = explode('-', $prod_row['prod_photo']);
         ?>
 
           <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail mx-2 my-2 p-2">
             <a class="text-decoration-none" href="<?php echo "./editProduct.php?id=" . $prod_row['prod_id'] ?>">
               <div class="img-thumnail d-flex justify-content-center mb-3">
-                <img src="<?php echo $prod_row['prod_photo'] ?>">
+                <img src="<?php echo $Allphoto[0] ?>">
               </div>
               <div class="ms-2">
                 <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>

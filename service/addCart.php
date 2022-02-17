@@ -44,7 +44,7 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
               })
             </script>";
 
-    header('refresh:1; url=../page/users/productDetail.php?id=' . $p_id);
+    header('refresh:1; url=../page/users/productDetailV2.php?id=' . $p_id);
   } else {
 
     echo "<script>
@@ -58,6 +58,6 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
             });
             })
           </script>";
-    header('refresh:1; url=../page/users/productDetail.php?id=' . $p_id);
+    header('refresh:1; url=../page/users/productDetailV2.php?id=' . $p_id);
   }
 }
