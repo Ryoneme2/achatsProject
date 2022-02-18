@@ -231,27 +231,50 @@
     <section class="container my-4">
       <div class="row">
         <div class="col-lg-7 col-md-12">
-          <div class="row bg-white rounded py-4">
-            <div class="col-12 p-2">
-              <h2 class="px-2 text-color-dark">products ordered</h2>
-              <hr class="hr-purple mb-3">
-
-            </div>
+          <div class="row ">
             <?php
             $sellerID = 0;
             for ($index = 1; $index <= count($cartItems); $index++) {
 
-            ?>
+              if ($cartItems[$index][8] != $sellerID) {
+                $isNewSeller = true;
+                $isFooter = true;
+              } else {
+                $isFooter = false;
+                $isNewSeller = false;
+              }
+              $sellerID = $cartItems[$index][8];
 
-              <div class="col-12 p-2">
-                <div class="p-3">
+              if ($isNewSeller) {
+                $cartCmd = "SELECT seller_shopname FROM seller_info WHERE seller_id = $sellerID";
+                // echo $cartCmd;
+                $result2 = mysqli_query($con, $cartCmd);
+                $sellerRow = mysqli_fetch_assoc($result2);
+                $shopname = $sellerRow['seller_shopname'];
+                $isNewSeller = false;
+
+            ?>
+                <div class="col-12 p-3 bg-white">
+                  <div class="seller_banner bg-white rounded-3">
+                    <h3 class="fs-3 text-color-one m-0"><?php echo $shopname ?> : product orders</h3>
+                    <hr class="hr-purple">
+                  </div>
+                </div>
+
+              <?php
+              }
+              $photo = explode("-", $cartItems[$index][2]);
+              ?>
+
+              <div class="col-12 p-2 bg-white rounded">
+                <div class="cart-bg p-3">
                   <div class="row">
-                    <div class="col-md-3 col-sm-12 d-flex justify-content-center">
+                    <div class="col-md-4 col-sm-12 d-flex justify-content-center">
                       <div class="img_cart_thumnail">
-                        <img src="<?php echo $cartItems[$index][2] ?>" alt="">
+                        <img src="<?php echo $photo[0] ?>" alt="">
                       </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 mt-2 d-flex justify-content-center">
+                    <div class="col-md-6 col-sm-12 d-flex justify-content-between align-items-start">
                       <div class="cart-info">
                         <div class="cart-info-title">
                           <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cartItems[$index][0] ?>">
@@ -262,25 +285,13 @@
                           <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 d-flex justify-content-center">
-
                       <div class="cart-sub-info">
                         <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-6 text-color-dark fw-normal">price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
+                          <h5 class="fs-5 text-color-dark fw-normal">Price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-2 col-sm-12 d-flex justify-content-center">
-
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-6 text-color-dark fw-normal">qty : <?php echo $cartItems[$index][9] ?></h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-1 col-sm-12 d-flex flex-column justify-content-between align-items-end">
+                    <div class="col-md-2 col-sm-12 d-flex flex-column justify-content-between align-items-end">
                       <div>
                         <a href="<?php echo '../../service/delCartItem.php?p_id=' . $cartItems[$index][0] ?>">
                           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
@@ -293,11 +304,42 @@
                           </svg>
                         </a>
                       </div>
-
+                      <div class="d-flex justify-content-evenly align-items-center de-inCart">
+                        <div class="d-flex justify-content-center align-items-center">
+                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $cartItems[$index][0] . '&isUpdate=0' ?>">
+                            <p class="fs-4 m-0 px-2">-</p>
+                          </a>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center px-4">
+                          <p class="fs-4 m-0 pt-1"><?php echo $cartItems[$index][9] ?></p>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center ">
+                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $cartItems[$index][0] . '&isUpdate=1' ?>">
+                            <p class="fs-4 m-0 px-2">+</p>
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <?php
+              if ($isFooter) {
+                $cartCmd = "SELECT seller_shopname FROM seller_info WHERE seller_id = $sellerID";
+                // echo $cartCmd;
+                $result2 = mysqli_query($con, $cartCmd);
+                $sellerRow = mysqli_fetch_assoc($result2);
+                $shopname = $sellerRow['seller_shopname'];
+                $isFooter = false;
+
+              ?>
+                <div class="border-purple"></div>
+
+
+              <?php
+              }
+              $photo = explode("-", $cartItems[$index][2]);
+              ?>
 
             <?php
               $totol_qty += $cartItems[$index][9];
