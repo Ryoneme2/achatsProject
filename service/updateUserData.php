@@ -3,16 +3,17 @@
 
 <?php
 
+session_start();
+
 require_once "../config/dbcon.php";
 
 $name = $_POST['name'];
 $sername = $_POST['sername'];
-$username = $_POST['username'];
 $email = $_POST['email'];
-$password = $_POST['password'];
 $address = $_POST['address'];
 $phone = $_POST['phone'];
 $bank = $_POST['bank_acc'];
+
 $profile = $_FILES['profile']['name'];
 // echo "<br>" . $name . "<br>";
 // echo "<br>" . $sername . "<br>";
@@ -26,22 +27,26 @@ $profile = $_FILES['profile']['name'];
 // TODO: check dupicated username
 
 
-$tmp_name = $_FILES["profile"]["tmp_name"];
+if (isset($profile)) {
+  $sql = "UPDATE achats SET usr_name='$name',usr_sername='$sername',usr_email='$email',usr_address='$address',usr_phone='$phone',usr_bank_acc='$bank' WHERE usr_id=" . $_SESSION['usr_id'];
+  // echo $sql;
+} else {
+  $tmp_name = $_FILES["profile"]["tmp_name"];
 
-$t = explode('.', $profile); // split name and type ( image.jpg => Array( [0]->image, [1]->jpg ))
-$type = end($t); //stored late array of $t
+  $t = explode('.', $profile); // split name and type ( image.jpg => Array( [0]->image, [1]->jpg ))
+  $type = end($t); //stored late array of $t
 
-// Create temp path
-// $type = pathinfo($tmp_name, PATHINFO_EXTENSION);
-$data = file_get_contents($tmp_name);
-$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-// echo $base64;
-
-
+  // Create temp path
+  // $type = pathinfo($tmp_name, PATHINFO_EXTENSION);
+  $data = file_get_contents($tmp_name);
+  $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+  // echo $base64;
+  $sql = "UPDATE achats SET usr_name='$name',usr_sername='$sername',usr_email='$email',usr_address='$address',usr_phone='$phone',usr_bank_acc='$bank',usr_photo='$base64' WHERE usr_id=" . $_SESSION['usr_id'];
+  // echo $sql;
+}
 
 // // Get all the submitted data from the form
-$sql = "INSERT INTO achats (usr_name,usr_sername,usr_username,usr_email,usr_password,usr_address,usr_phone,usr_bank_acc,usr_photo)
-VALUES('$name','$sername','$username','$email','$password','$address','$phone','$bank','$base64')";
+
 
 // Execute query
 $result = mysqli_query($con, $sql);
@@ -53,7 +58,7 @@ if ($result) {
           $(document).ready(function() {
             Swal.fire({
               title: 'success',
-              text: 'Signed up',
+              text: 'Updated data',
               icon: 'success',
               timer: 5000,
               showConfirmButton: false
@@ -61,7 +66,7 @@ if ($result) {
           })
         </script>";
 
-  header('refresh:1; url=../page/users/signin.php');
+  header('refresh:1; url=../page/users/manageAccount.php');
 } else {
 
   echo "<script>
@@ -75,5 +80,5 @@ if ($result) {
         });
         })
       </script>";
-  header('refresh:1; url=../page/users/signup.php');
+  header('refresh:1; url=../page/users/manageAccount.php');
 }

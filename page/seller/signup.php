@@ -102,6 +102,15 @@
             </div>
             <div class="row mb-4">
               <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Phone">Map</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" name="map" type="text" placeholder="18.3943, 40.32483...">
+                <small><a class="text-decoration-none" href="https://map.google.com" target="_blank">google map click</a></small>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
                 <label class="text-color-dark d-block" for="Phone">Phone</label>
               </div>
               <div class="col-md-8 col-sm-12">

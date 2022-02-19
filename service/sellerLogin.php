@@ -22,7 +22,7 @@ $row = mysqli_fetch_assoc($allData);
 // echo $row['seller_username'];
 // echo $row['seller_password'];
 
-if ($row['seller_username'] == $user_input && $row['seller_password'] == $pass_input) {
+if ($row['seller_username'] == $user_input && $row['seller_password'] == $pass_input && $row['isApprove'] == 1) {
 
   $_SESSION['seller_id'] = $row['seller_id'];
   $_SESSION['seller_name'] = $row['seller_name'];

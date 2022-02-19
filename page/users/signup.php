@@ -74,7 +74,7 @@
                 <label class="text-color-dark d-block" for="Password">Password</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" name="password" type="password" placeholder="Enter Password...">
+                <input class="input-text" name="password" autocomplete="new-passowred" type="password" placeholder="Enter Password...">
               </div>
             </div>
             <div class="row mb-4">
@@ -82,7 +82,7 @@
                 <label class="text-color-dark d-block" for="ConfirmPassword">Confirm Password</label>
               </div>
               <div class="col-md-8 col-sm-12">
-                <input class="input-text" type="password" placeholder="Enter Confirm Password...">
+                <input class="input-text" autocomplete="new-passowred" type="password" placeholder="Enter Confirm Password...">
               </div>
             </div>
             <div class="row mb-4">
@@ -91,6 +91,14 @@
               </div>
               <div class="col-md-8 col-sm-12">
                 <textarea class="input-textarea" name="address" rows="4" cols="50" placeholder="Enter Address..."></textarea>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4 col-sm-12">
+                <label class="text-color-dark d-block" for="Bank account">Bank account</label>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <input class="input-text" name="bank_acc" type="text" placeholder="Enter Bank account...">
               </div>
             </div>
             <div class="row mb-4">

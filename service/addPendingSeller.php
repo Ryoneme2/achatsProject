@@ -13,6 +13,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $address = $_POST['address'];
 $phone = $_POST['phone'];
+$map = $_POST['map'];
 $citizenId = $_POST['citizenId'];
 $profile = $_FILES['profile']['name'];
 $profile2 = $_FILES['profile2']['name'];
@@ -38,9 +39,8 @@ $base64_2 = 'data:image/' . $type2 . ';base64,' . base64_encode($data2);
 
 
 // Get all the submitted data from the form
-$sql = "INSERT INTO seller_info (seller_name,seller_sername,seller_shopname,seller_username,seller_email,seller_password,seller_address,seller_phone,seller_photo,seller_citizenid,seller_withcitizen,seller_follower,seller_rating,isApprove)
-VALUES('$name','$sername','$shopname','$username','$email','$password','$address','$phone','$base64','$citizenId','$base64_2',0,0,0)";
-
+$sql = "INSERT INTO seller_info (seller_name,seller_sername,seller_shopname,seller_username,seller_email,seller_password,seller_address,seller_phone,seller_photo,seller_map,seller_citizenid,seller_withcitizen)
+VALUES('$name','$sername','$shopname','$username','$email','$password','$address','$phone','$base64','$map','$citizenId','$base64_2')";
 
 // Execute query
 // $isDone = true;
@@ -63,11 +63,12 @@ if ($isDone) {
   header("refresh:2; url=../page/seller/signin.php");
 } else {
   echo "fail";
+  echo $sql;
 }
 
 
-// if ($result) {
-//   echo "SAVE DONE";
-// } else {
-//   mysqli_error($connect);
-// }
+if ($result) {
+  echo "SAVE DONE";
+} else {
+  mysqli_error($connect);
+}

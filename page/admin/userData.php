@@ -49,7 +49,7 @@
               <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
               </svg>
-              <a class="fs-6 fw-bold text-decoration-underline" href="#">Dashboard</a>
+              <a class="fs-6" href="./dashboard.php">Dashboard</a>
             </div>
             <div class="d-flex item-sidebar align-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
@@ -97,11 +97,11 @@
                   </g>
                 </g>
               </svg>
-              <a class="fs-6" href="javascript:void(0)">data</a>
+              <a class="fs-6 fw-bold text-decoration-underline" href="javascript:void(0)">data</a>
             </div>
             <div class="d-flex item-sidebar py-1 ps-5 mb-0 align-items-center">
 
-              <a class="fs-6" href="./userData.php">user data</a>
+              <a class="fs-6 fw-bold text-decoration-underline" href="./userData.php">user data</a>
             </div>
             <div class="d-flex item-sidebar py-1 ps-5 mb-2 align-items-center">
 

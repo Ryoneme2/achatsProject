@@ -177,7 +177,7 @@
         <h1 class="text-center my-4">manage account</h1>
         <div class="col-12 d-flex justify-content-center">
           <div class="regis-form p-5">
-            <form action="../../service/insertUserData.php" method="post" enctype='multipart/form-data'>
+            <form action="../../service/updateUserData.php" method="post" enctype='multipart/form-data'>
               <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
                   <label class="text-color-dark d-block" for="name">Name</label>
@@ -225,7 +225,7 @@
                   <label class="text-color-dark d-block" for="Bank Account">Bank Account</label>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <input class="input-text" name="bank_account" type="text" placeholder="Enter Bank Account...">
+                  <input class="input-text" name="bank_acc" type="text" value="<?php echo $row['usr_bank_acc'] ?>" placeholder="Enter Bank Account...">
                 </div>
               </div>
               <div class="row mb-4">
