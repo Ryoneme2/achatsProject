@@ -175,7 +175,7 @@
                     </div>
                     <div class="d-flex">
                       <a class="btn_edit text-white bg-info px-3 py-2 rounded-pill ms-2 text-decoration-none" href="edit_cata.php?id=<?php echo $row['cata_id']; ?>">edit</a>
-                      <a class="btn_delete text-white bg-danger px-3 py-2 rounded-pill ms-2 text-decoration-none" href="../../service/delete_cata.php?id=<?php echo $row['cata_id']; ?>">delete</a>
+                      <a class="btn_delete text-white bg-danger px-3 py-2 rounded-pill ms-2 text-decoration-none" href="../../service/delCata.php?id=<?php echo $row['cata_id']; ?>">delete</a>
                     </div>
                   </div>
                 </div>
