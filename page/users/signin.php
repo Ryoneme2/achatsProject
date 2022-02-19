@@ -43,11 +43,11 @@
           <form action="../../service/userLogin.php" method="post">
             <div>
               <label class="text-color-dark d-block fs-4 mb-1" for="username">username</label>
-              <input class="input-text mb-4" name="username" type="text" placeholder="Username...">
+              <input class="input-text mb-4" name="username" autocomplete="username" type="text" placeholder="Username...">
             </div>
             <div>
               <label class="text-color-dark d-block fs-4 mb-1" for="username">password</label>
-              <input class="input-text mb-1" name="password" type="password" placeholder="Password...">
+              <input class="input-text mb-1" name="password" autocomplete="current-password" type="password" placeholder="Password...">
             </div>
             <small><a class="text-color-one text-decoration-underline fs-7 d-block" href="#">Forgot the password?</a></small>
             <div class="d-flex justify-content-center mt-5">

@@ -21,7 +21,7 @@ $row = mysqli_fetch_assoc($allData);
 // echo $row['usr_username'];
 // 
 
-if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) {
+if ($row['admin_username'] == $user_input && $row['admin_password'] == $pass_input) {
 
 
   $_SESSION['admin_id'] = $row['admin_id'];
@@ -43,7 +43,7 @@ if ($row['usr_username'] == $user_input && $row['usr_password'] == $pass_input) 
           })
         </script>";
 
-  header('refresh: 1; url=../page/admin/adminIndex.php');
+  header('refresh: 1; url=../page/admin/dashboard.php');
 } else {
   echo "<script>
         console.log('test');

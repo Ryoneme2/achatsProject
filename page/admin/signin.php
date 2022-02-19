@@ -41,7 +41,7 @@
         <div class="form-login container py-5">
           <h1 class="text-center text-color-dark fs-0 mb-0">Sign in</h1>
           <h4 class="text-center text-color-dark fs-6 mb-3">(for Admin)</h4>
-          <form action="../../service/sellerLogin.php" method="post">
+          <form action="../../service/adminLogin.php" method="post">
             <div>
               <label class="text-color-dark d-block fs-4 mb-1" for="username">username</label>
               <input class="input-text mb-4" name="username" type="text" placeholder="Username...">
