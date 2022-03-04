@@ -52,7 +52,6 @@ $result3 = mysqli_query($con, $sqlSellQtyCmd);
 
 if ($result && $result3) {
   echo 'done';
-  location . reload();
 } else {
   echo 'fail';
 }

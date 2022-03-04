@@ -11,7 +11,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product : catagory</title>
+  <title>Product : category</title>
 </head>
 
 <body>
@@ -42,10 +42,10 @@
     while ($prodRow = mysqli_fetch_assoc($result)) {
       $tmpData = [];
 
+      /* This code is taking the information from the database and putting it into an array. */
       $tmpData[0] = $prodRow['prod_id'];
       $tmpData[1] = $prodRow['prod_name'];
       $tmpData[2] = $prodRow['prod_photo'];
-      // $tmpData[2] = 'photo';
       $tmpData[3] = $prodRow['prod_type'];
       $tmpData[4] = $prodRow['prod_size'];
       $tmpData[5] = $prodRow['prod_color'];
@@ -231,21 +231,20 @@
     <section class="container my-4">
       <div class="row">
         <div class="col-lg-7 col-md-12">
-          <div class="row ">
+          <div class="row">
             <?php
             $sellerID = 0;
             for ($index = 1; $index <= count($cartItems); $index++) {
 
               if ($cartItems[$index][8] != $sellerID) {
                 $isNewSeller = true;
-                $isFooter = true;
               } else {
-                $isFooter = false;
                 $isNewSeller = false;
               }
               $sellerID = $cartItems[$index][8];
 
               if ($isNewSeller) {
+
                 $cartCmd = "SELECT seller_shopname FROM seller_info WHERE seller_id = $sellerID";
                 // echo $cartCmd;
                 $result2 = mysqli_query($con, $cartCmd);
@@ -254,10 +253,32 @@
                 $isNewSeller = false;
 
             ?>
-                <div class="col-12 p-3 bg-white">
+                <div class="col-12 p-3 bg-white mt-3 rounded-top border-purple-soft border-1">
                   <div class="seller_banner bg-white rounded-3">
                     <h3 class="fs-3 text-color-one m-0"><?php echo $shopname ?> : product orders</h3>
-                    <hr class="hr-purple">
+                  </div>
+                </div>
+                <div class="col-12 bg-white border-top-0 border-purple-soft border-1">
+                  <div class="row justify-content-between align-items">
+                    <div class="col-6 p-3 d-flex justify-content-evenly align-items-center">
+                      <div>
+                        <h5 class="mb-0 fs-5 text-color-dark">message:</h5>
+                      </div>
+                      <div>
+                        <input type="text" name="msg_to_admin" class="input-text" placeholder="(option)to seller">
+                      </div>
+                    </div>
+                    <div class="col-6 d-flex justify-content-evenly align-items-center border-purple-soft border-1 border-top-0 border-bottom-0 border-end-0">
+                      <div>
+                        <h5 class="mb-0 fs-6 fw-normal text-color-dark">delivery option:</h5>
+                      </div>
+                      <div>
+                        <h5 class="mb-0 fs-6 fw-normal text-color-dark">standard delivery</h5>
+                      </div>
+                      <div>
+                        <h5 class="mb-0 fs-6 fw-normal text-color-one cursor-pointer">select</h5>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -266,7 +287,7 @@
               $photo = explode("-", $cartItems[$index][2]);
               ?>
 
-              <div class="col-12 p-2 bg-white rounded">
+              <div class="col-12 p-2 bg-white rounded-bottom border-purple-soft border-top-0 border-1">
                 <div class="cart-bg p-3">
                   <div class="row">
                     <div class="col-md-4 col-sm-12 d-flex justify-content-center">
@@ -277,7 +298,7 @@
                     <div class="col-md-6 col-sm-12 d-flex justify-content-between align-items-start">
                       <div class="cart-info">
                         <div class="cart-info-title">
-                          <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cartItems[$index][0] ?>">
+                          <a class="text-decoration-none text-color-dark" href="./productDetailV2.php?id=<?php echo $cartItems[$index][0] ?>">
                             <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
                           </a>
                         </div>
@@ -323,126 +344,113 @@
                   </div>
                 </div>
               </div>
-              <?php
-              if ($isFooter) {
-                $cartCmd = "SELECT seller_shopname FROM seller_info WHERE seller_id = $sellerID";
-                // echo $cartCmd;
-                $result2 = mysqli_query($con, $cartCmd);
-                $sellerRow = mysqli_fetch_assoc($result2);
-                $shopname = $sellerRow['seller_shopname'];
-                $isFooter = false;
-
-              ?>
-                <div class="border-purple"></div>
-
-
-              <?php
-              }
-              $photo = explode("-", $cartItems[$index][2]);
-              ?>
 
             <?php
-              $totol_qty += $cartItems[$index][9];
+              $total_qty += $cartItems[$index][9];
               $total_price += $cartItems[$index][9] * $cartItems[$index][7];
             }
             ?>
           </div>
         </div>
 
-        <div class="col-lg-5 col-md-12 ps-3 pe-0">
-          <div class="checkout-info-bg border-self rounded">
-            <div class="checkout-info-title bg-color-one p-4">
-              <h3 class="m-0 text-color-light text-center">cart summary</h3>
-            </div>
-            <hr class="hr-purple">
-            <div class="checkout-info-subtitle my-3 px-4">
-              <div class="me-4 mb-2">
-                <h5 class="m-0 text-color-dark">select payment method</h5>
+        <div class="col-lg-5 col-md-12 ps-3 pe-0 mt-3">
+          <form action="../../service/addToOrder.php">
+            <div class="checkout-info-bg border-self rounded">
+              <div class="checkout-info-title bg-color-one p-4">
+                <h3 class="m-0 text-color-light text-center">cart summary</h3>
               </div>
-              <div class="px-4">
-                <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
-                  <div class="col-4 d-flex justify-content-center align-items-center">
-                    <img src="../../public/img/promtpay.png" alt="" height="30px">
-                  </div>
-                  <div class="col-5 d-flex justify-content-center align-items-center">promtpay</div>
-                  <div class="col-3 d-flex justify-content-center align-items-center">
-                    <input class="input-radio" type="radio" name="pay_type">
-                  </div>
+              <hr class="hr-purple">
+              <div class="checkout-info-subtitle my-3 px-4">
+                <div class="me-4 mb-2">
+                  <h5 class="m-0 text-color-dark">select payment method</h5>
                 </div>
-                <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
-                  <div class="col-4 d-flex justify-content-center align-items-center">
-                    <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-bank-banking-and-finance-kiranshastry-gradient-kiranshastry.png" height="40px" />
+                <div class="px-4">
+                  <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                      <img src="../../public/img/promtpay.png" alt="" height="30px">
+                    </div>
+                    <div class="col-5 d-flex justify-content-center align-items-center">promtpay</div>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                      <input class="input-radio" type="radio" name="pay_type">
+                    </div>
                   </div>
-                  <div class="col-5 d-flex justify-content-center align-items-center">
-                    bank transfer
-                  </div>
-                  <div class="col-3 d-flex justify-content-center align-items-center">
-                    <input class="input-radio" type="radio" name="pay_type">
+                  <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                      <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-bank-banking-and-finance-kiranshastry-gradient-kiranshastry.png" height="40px" />
+                    </div>
+                    <div class="col-5 d-flex justify-content-center align-items-center">
+                      bank transfer
+                    </div>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                      <input class="input-radio" type="radio" name="pay_type">
+                    </div>
+
                   </div>
 
                 </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <hr class="hr-purple w-80 my-3">
+              </div>
+              <div class=" checkout-info-subtitle d-flex justify-content-between my-3 px-4">
+                <div>
+                  <h5 class="m-0 text-color-dark">total quantity</h5>
+                </div>
+                <div>
+                  <h5 class="m-0 text-color-dark"><?php echo $total_qty ?></h5>
+                </div>
+              </div>
+              <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
+                <div>
+                  <h5 class="m-0 text-color-dark">total price</h5>
+                </div>
+                <div>
+                  <h5 class="m-0 fs-4 text-color-dark">฿ <?php echo number_format($total_price) ?>
+                  </h5>
+                </div>
+              </div>
+              <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
+                <div>
+                  <h5 class="m-0 text-color-dark">shipping fee</h5>
+                </div>
+                <div>
+                  <h5 class="m-0 fs-5 text-color-dark">฿ <?php echo number_format($shipping_fee) ?></h5>
+                </div>
+              </div>
+              <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
+                <div>
+                  <h5 class="m-0 text-color-dark">discount</h5>
+                </div>
+                <div>
+                  <h5 class="m-0 fs-5 text-color-dark">฿ -<?php echo number_format($_SESSION['discount']) ?></h5>
+                </div>
+              </div>
 
+              <div class="d-flex justify-content-center">
+                <hr class="hr-purple w-80 my-3">
               </div>
-            </div>
-            <div class="d-flex justify-content-center">
-              <hr class="hr-purple w-80 my-3">
-            </div>
-            <div class=" checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total quantity</h5>
-              </div>
-              <div>
-                <h5 class="m-0 text-color-dark"><?php echo $totol_qty ?></h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total price</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-4 text-color-dark">฿ <?php echo number_format($total_price) ?>
-                </h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">shipping fee</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-5 text-color-dark">฿ <?php echo number_format($shipping_fee) ?></h5>
-              </div>
-            </div>
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">discount</h5>
-              </div>
-              <div>
-                <h5 class="m-0 fs-5 text-color-dark">฿ -<?php echo number_format($_SESSION['discount']) ?></h5>
-              </div>
-            </div>
 
-            <div class="d-flex justify-content-center">
-              <hr class="hr-purple w-80 my-3">
-            </div>
-
-            <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
-              <div>
-                <h5 class="m-0 text-color-dark">total price</h5>
+              <div class="checkout-info-subtitle d-flex justify-content-between my-3 px-4">
+                <div>
+                  <h5 class="m-0 text-color-dark">total price</h5>
+                </div>
+                <div>
+                  <h5 class="m-0 fs-4 text-color-one">฿ <?php
+                                                        $total_price = $total_price + $shipping_fee - $_SESSION['discount'];
+                                                        echo number_format($total_price)
+                                                        ?>
+                  </h5>
+                </div>
               </div>
-              <div>
-                <h5 class="m-0 fs-4 text-color-one">฿ <?php
-                                                      $total_price = $total_price + $shipping_fee - $_SESSION['discount'];
-                                                      echo number_format($total_price)
-                                                      ?>
-                </h5>
+              <div class="d-flex justify-content-center px-5 py-4">
+                <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
+                <input type="hidden" name="totalPrice" value="<?php echo $total_price ?>">
               </div>
             </div>
-            <div class="d-flex justify-content-center px-5 py-4">
-              <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
-            </div>
-          </div>
         </div>
+        </form>
       </div>
+
     </section>
 
 

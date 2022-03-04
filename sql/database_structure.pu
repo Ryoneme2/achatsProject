@@ -60,6 +60,8 @@
     usr_id
     prod_id
     --
+    cart_color
+    cart_size
     cart_qty
     cart_date
   }

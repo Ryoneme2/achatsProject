@@ -290,7 +290,7 @@
                     <div class="col-md-6 col-sm-12 d-flex justify-content-between align-items-start">
                       <div class="cart-info">
                         <div class="cart-info-title">
-                          <a class="text-decoration-none text-color-dark" href="./productDetail.php?id=<?php echo $cartItems[$index][0] ?>">
+                          <a class="text-decoration-none text-color-dark" href="./productDetailV2.php?id=<?php echo $cartItems[$index][0] ?>">
                             <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
                           </a>
                         </div>

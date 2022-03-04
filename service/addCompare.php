@@ -15,5 +15,5 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
   print_r($_SESSION['product_compare']);
 
-  header('refresh:0; url=../page/users/productDetail.php?id=' . $p_id);
+  header('refresh:0; url=../page/users/productDetailV2.php?id=' . $p_id);
 }

@@ -24,6 +24,7 @@
     require_once '../../config/dbcon.php';
 
     $_SESSION['comment'] = [];
+    $_SESSION['qty_start'] = 1;
 
     $id = $_GET['id'];
     $isFav = false;
@@ -293,102 +294,106 @@
                   <hr style="width:100%" class="hr-purple">
                 </div>
               </div>
-              <div class="mt-3 d-flex flex-column align-items-start justify-content-between h-75">
-                <div>
-                  <h2 class="text-color-dark">price: <span class="fs-1"><?php echo number_format($rowProduct['prod_price']) ?></span> baht</h2>
-                </div>
-                <div class=" w-75">
-                  <div class="d-flex align-items-center mb-2">
-                    <div>
-                      <h5 class="text-color-dark mb-0 me-3 fw-normal">color:</h5>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <?php
-                      $colorAll = explode(',', $rowProduct['prod_color']);
-                      foreach ($colorAll as $color) {
-                      ?>
-                        <div>
-                          <input class="form-check-input" type="radio" name="color">
-                        </div>
-                        <div>
-                          <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="color"><?php echo $color ?></label>
-                        </div>
-                      <?php
-                      }
-                      ?>
-                    </div>
+              <form action="../../service/addCart.php">
+                <div class="mt-5 d-flex flex-column align-items-start justify-content-between h-100">
+                  <div>
+                    <h2 class="text-color-dark">price: <span class="fs-1"><?php echo number_format($rowProduct['prod_price']) ?></span> baht</h2>
                   </div>
-                  <div class="d-flex align-items-center mb-2">
-                    <div>
-                      <h5 class="text-color-dark mb-0 me-3 fw-normal">size:</h5>
+                  <div class="w-75">
+                    <div class="d-flex align-items-center mb-2">
+                      <div>
+                        <h5 class="text-color-dark mb-0 me-3 fw-normal">color:</h5>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <?php
+                        $colorAll = explode(',', $rowProduct['prod_color']);
+                        foreach ($colorAll as $color) {
+                        ?>
+                          <div>
+                            <input class="form-check-input" type="radio" name="color">
+                          </div>
+                          <div>
+                            <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="color"><?php echo $color ?></label>
+                          </div>
+                        <?php
+                        }
+                        ?>
+                      </div>
                     </div>
-                    <div class="d-flex align-items-center">
-                      <?php
-                      $sizeAll = explode(',', $rowProduct['prod_size']);
-                      foreach ($sizeAll as $size) {
-                      ?>
-                        <div>
-                          <input class="form-check-input" type="radio" name="size">
-                        </div>
-                        <div>
-                          <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="size"><?php echo $size ?></label>
-                        </div>
-                      <?php
-                      }
-                      ?>
+                    <div class="d-flex align-items-center mb-2">
+                      <div>
+                        <h5 class="text-color-dark mb-0 me-3 fw-normal">size:</h5>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <?php
+                        $sizeAll = explode(',', $rowProduct['prod_size']);
+                        foreach ($sizeAll as $size) {
+                        ?>
+                          <div>
+                            <input class="form-check-input" type="radio" name="size">
+                          </div>
+                          <div>
+                            <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="size"><?php echo $size ?></label>
+                          </div>
+                        <?php
+                        }
+                        ?>
+                      </div>
                     </div>
-                  </div>
-                  <div class="d-flex mb-3">
-                    <div class="me-3">
-                      <h5 class="text-color-dark mb-0 me-3 fw-normal">quantity:</h5>
-                    </div>
-                    <div>
-                      <div class="d-flex justify-content-start align-items-center de-inCart mb-1">
-                        <div class="d-flex justify-content-center align-items-center">
-                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=0' ?>">
-                            <p class="fs-4 m-0 px-2">-</p>
-                          </a>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-center px-4">
-                          <p class="fs-4 m-0 pt-1"><?php echo $_SESSION['qty'] ?></p>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-center ">
-                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=1' ?>">
-                            <p class="fs-4 m-0 px-2">+</p>
-                          </a>
+                    <div class="d-flex mb-3">
+                      <div class="me-3">
+                        <h5 class="text-color-dark mb-0 me-3 fw-normal">quantity:</h5>
+                      </div>
+                      <div>
+                        <div class="d-flex justify-content-start align-items-center de-inCart mb-1">
+                          <div class="d-flex justify-content-center align-items-center">
+                            <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=0' ?>">
+                              <p class="fs-4 m-0 px-2">-</p>
+                            </a>
+                          </div>
+                          <div class="d-flex justify-content-center align-items-center px-4">
+                            <p class="fs-4 m-0 pt-1"><?php echo $_SESSION['qty_start'] ?></p>
+                            <input type="hidden" name="qty_start" value="<?php echo $_SESSION['qty_start'] ?>">
+                            <input type="hidden" name="p_id" value="<?php echo $rowProduct['prod_id'] ?>">
+                          </div>
+                          <div class="d-flex justify-content-center align-items-center ">
+                            <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=1' ?>">
+                              <p class="fs-4 m-0 px-2">+</p>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- cart -->
-                  <div class="d-flex justify-content-between">
-                    <a class="text-decoration-none text-color-one" href="<?php echo '../../service/addCart.php?p_id=' . $rowProduct['prod_id'] ?>">
-                      <div class="d-flex justify-content-center align-items-center border-cart px-3 me-4 rounded">
-                        <div class="me-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 172 172" style=" fill:#000000;">
-                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                              <path d="M0,172v-172h172v172z" fill="none"></path>
-                              <g fill="#666666">
-                                <path d="M21.5,24.1875c-1.48427,0 -2.6875,1.20323 -2.6875,2.6875c0,1.48427 1.20323,2.6875 2.6875,2.6875h13.9624c5.06191,23.14636 0.75358,3.44564 17.63672,80.625h-10.09912c-5.93706,0 -10.75,4.81294 -10.75,10.75c0,5.93706 4.81294,10.75 10.75,10.75h12.24597c-0.96859,1.6264 -1.48505,3.48206 -1.49597,5.375c0,5.93706 4.81294,10.75 10.75,10.75c5.93706,0 10.75,-4.81294 10.75,-10.75c-0.01092,-1.89294 -0.52739,-3.7486 -1.49597,-5.375h29.86695c-0.96859,1.6264 -1.48505,3.48206 -1.49597,5.375c0,5.93706 4.81294,10.75 10.75,10.75c5.93706,0 10.75,-4.81294 10.75,-10.75c-0.01092,-1.89294 -0.52739,-3.7486 -1.49597,-5.375h20.30847c1.48427,0 2.6875,-1.20323 2.6875,-2.6875c0,-1.48427 -1.20323,-2.6875 -2.6875,-2.6875h-99.4375c-2.96853,0 -5.375,-2.40647 -5.375,-5.375c0,-2.96853 2.40647,-5.375 5.375,-5.375h80.625c1.08558,0.00088 2.06509,-0.65143 2.48279,-1.65344l26.875,-64.5c0.34592,-0.82983 0.25399,-1.77766 -0.24495,-2.52554c-0.49894,-0.74788 -1.3388,-1.19675 -2.23784,-1.19602h-48.375v5.375h44.34375l-24.63367,59.125h-63.23498l-12.93359,-59.125h34.95849v-5.375h-36.13428l-4.24121,-19.38989c-0.27107,-1.23223 -1.36282,-2.11 -2.62451,-2.11011zM88.6875,29.5625v47.26221l-8.84985,-8.84985l-3.80029,3.80029l15.33765,15.33765l15.33765,-15.33765l-3.80029,-3.80029l-8.84985,8.84985v-47.26221zM64.43176,131.6875c0.02275,-0.00014 0.04549,-0.00014 0.06824,0c2.9673,0.00296 5.37204,2.4077 5.375,5.375c-0.00024,2.95959 -2.39297,5.36215 -5.35254,5.37452c-2.95957,0.01237 -5.3723,-2.37011 -5.39727,-5.3296c-0.02497,-2.95949 2.34721,-5.38234 5.30657,-5.41992zM112.80676,131.6875c0.02275,-0.00014 0.04549,-0.00014 0.06824,0c2.9673,0.00296 5.37204,2.4077 5.375,5.375c-0.00024,2.95959 -2.39297,5.36215 -5.35254,5.37452c-2.95957,0.01237 -5.3723,-2.37011 -5.39727,-5.3296c-0.02497,-2.95949 2.34721,-5.38234 5.30657,-5.41992z"></path>
+                    <!-- cart -->
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <div class="d-flex justify-content-center align-items-center border-cart px-3 me-4 rounded">
+                          <div class="me-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 172 172" style=" fill:#000000;">
+                              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <g fill="#666666">
+                                  <path d="M21.5,24.1875c-1.48427,0 -2.6875,1.20323 -2.6875,2.6875c0,1.48427 1.20323,2.6875 2.6875,2.6875h13.9624c5.06191,23.14636 0.75358,3.44564 17.63672,80.625h-10.09912c-5.93706,0 -10.75,4.81294 -10.75,10.75c0,5.93706 4.81294,10.75 10.75,10.75h12.24597c-0.96859,1.6264 -1.48505,3.48206 -1.49597,5.375c0,5.93706 4.81294,10.75 10.75,10.75c5.93706,0 10.75,-4.81294 10.75,-10.75c-0.01092,-1.89294 -0.52739,-3.7486 -1.49597,-5.375h29.86695c-0.96859,1.6264 -1.48505,3.48206 -1.49597,5.375c0,5.93706 4.81294,10.75 10.75,10.75c5.93706,0 10.75,-4.81294 10.75,-10.75c-0.01092,-1.89294 -0.52739,-3.7486 -1.49597,-5.375h20.30847c1.48427,0 2.6875,-1.20323 2.6875,-2.6875c0,-1.48427 -1.20323,-2.6875 -2.6875,-2.6875h-99.4375c-2.96853,0 -5.375,-2.40647 -5.375,-5.375c0,-2.96853 2.40647,-5.375 5.375,-5.375h80.625c1.08558,0.00088 2.06509,-0.65143 2.48279,-1.65344l26.875,-64.5c0.34592,-0.82983 0.25399,-1.77766 -0.24495,-2.52554c-0.49894,-0.74788 -1.3388,-1.19675 -2.23784,-1.19602h-48.375v5.375h44.34375l-24.63367,59.125h-63.23498l-12.93359,-59.125h34.95849v-5.375h-36.13428l-4.24121,-19.38989c-0.27107,-1.23223 -1.36282,-2.11 -2.62451,-2.11011zM88.6875,29.5625v47.26221l-8.84985,-8.84985l-3.80029,3.80029l15.33765,15.33765l15.33765,-15.33765l-3.80029,-3.80029l-8.84985,8.84985v-47.26221zM64.43176,131.6875c0.02275,-0.00014 0.04549,-0.00014 0.06824,0c2.9673,0.00296 5.37204,2.4077 5.375,5.375c-0.00024,2.95959 -2.39297,5.36215 -5.35254,5.37452c-2.95957,0.01237 -5.3723,-2.37011 -5.39727,-5.3296c-0.02497,-2.95949 2.34721,-5.38234 5.30657,-5.41992zM112.80676,131.6875c0.02275,-0.00014 0.04549,-0.00014 0.06824,0c2.9673,0.00296 5.37204,2.4077 5.375,5.375c-0.00024,2.95959 -2.39297,5.36215 -5.35254,5.37452c-2.95957,0.01237 -5.3723,-2.37011 -5.39727,-5.3296c-0.02497,-2.95949 2.34721,-5.38234 5.30657,-5.41992z"></path>
+                                </g>
                               </g>
-                            </g>
-                          </svg>
-                        </div>
-                        <div>
-                          add to cart
-                        </div>
-                      </div>
-                    </a>
-                    <a class="text-decoration-none text-light" href="<?php echo '../../service/addCart.php?p_id=' . $rowProduct['prod_id'] ?>">
-                      <div class="d-flex justify-content-center align-items-center border-cart bg-color-one px-3 rounded">
-                        <div>
-                          buy now
+                            </svg>
+                          </div>
+                          <div>
+                            <input class="text-decoration-none text-color-one bg-white border-0" type="submit" value="add to cart">
+                          </div>
                         </div>
                       </div>
-                    </a>
+                      <div>
+                        <div class="d-flex justify-content-center align-items-center border-cart bg-color-one px-3 rounded">
+                          <div>
+                            <input class="text-decoration-none text-light bg-color-one border-0" type="submit" value="buy now">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

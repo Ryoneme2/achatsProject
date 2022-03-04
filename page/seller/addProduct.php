@@ -210,7 +210,7 @@
               <input class="sign-up-btn bg-color-one text-light fs-4" onclick="sendPayload()" type="submit" value="add">
             </div>
             <div class="mt-1 d-flex justify-content-center">
-              <small class="text-danger validate-text"></small>
+              <small class="text-success validate-text"></small>
             </div>
 
             <!-- </form> -->
