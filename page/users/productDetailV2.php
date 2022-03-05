@@ -314,7 +314,7 @@
                         foreach ($colorAll as $color) {
                         ?>
                           <div>
-                            <input class="form-check-input" type="radio" name="color">
+                            <input class="form-check-input" type="radio" name="color" value="<?php echo $color ?>">
                           </div>
                           <div>
                             <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="color"><?php echo $color ?></label>
@@ -334,7 +334,7 @@
                         foreach ($sizeAll as $size) {
                         ?>
                           <div>
-                            <input class="form-check-input" type="radio" name="size">
+                            <input class="form-check-input" type="radio" name="size" value="<?php echo $size ?>">
                           </div>
                           <div>
                             <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="size"><?php echo $size ?></label>

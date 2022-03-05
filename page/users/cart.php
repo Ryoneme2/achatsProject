@@ -346,8 +346,7 @@
         </div>
 
         <div class="col-lg-5 col-md-12 p-3">
-          <form action="./cartConfirm.php" method="post">
-
+          <form action="../../service/cartConfirm.php" method="post">
             <div class="checkout-info-bg p-4 border-self">
               <div class="checkout-info-title">
                 <h3 class="m-0 text-color-dark text-center">cart summary</h3>
@@ -359,11 +358,11 @@
                 </div>
                 <div>
                   <div class="mb-3 mt-1">
-                    <input class="form-check-input" type="radio" name="shipping_type" id="ch1">
+                    <input class="form-check-input" type="radio" name="shipping_type" value="pick_up">
                     <label class="fs-6 text-color-dark" for="ch1">pick up at store</label>
                   </div>
                   <div class="mb-1">
-                    <input class="form-check-input" type="radio" name="shipping_type" id="ch2">
+                    <input class="form-check-input" type="radio" name="shipping_type" value="delivery">
                     <label class="fs-6 text-color-dark" for="ch1">delivery</label>
                   </div>
                 </div>

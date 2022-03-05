@@ -12,8 +12,8 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
   product to the cart, update the cart. */
   $p_id = $_GET['p_id'];
   $p_type = $_GET['color'];
-  $p_size = $_GET['type'];
-  $p_qty = $_SESSION['qty_start'];
+  $p_size = $_GET['size'];
+  $p_qty = $_SESSION['qty_start' . $p_id];
   $user_id = $_SESSION['usr_id'];
 
   $sqlCartQuery = "SELECT * FROM carts WHERE usr_id = $user_id AND prod_id = $p_id";
@@ -26,16 +26,19 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
     $sqlCartCmd = "INSERT INTO carts (usr_id,prod_id,cart_type,cart_size,cart_qty) VALUES ($user_id,$p_id,'$p_type','$p_size',$p_qty)";
     $resCartCmd = mysqli_query($con, $sqlCartCmd);
     $_SESSION['user_cart_num'] = $_SESSION['user_cart_num'] + 1;
+    // echo "1 " . $sqlCartCmd;
   } else if ($p_qty > 1) { // in case add more than 1 and exist in cart
     $qty = $CartRow['cart_qty'] + $p_qty;
 
     $sqlCartCmd = "UPDATE carts SET usr_id = $user_id , prod_id = $p_id , cart_qty = $qty WHERE usr_id = $user_id AND prod_id = $p_id";
     $resCartCmd = mysqli_query($con, $sqlCartCmd);
+    // echo "2 " . $sqlCartCmd;
   } else { // in case add more 1 and exist in cart
     $qty = $CartRow['cart_qty'] + 1;
 
     $sqlCartCmd = "UPDATE carts SET usr_id = $user_id , prod_id = $p_id , cart_qty = $qty WHERE usr_id = $user_id AND prod_id = $p_id";
     $resCartCmd = mysqli_query($con, $sqlCartCmd);
+    // echo "3 " . $sqlCartCmd;
   }
 
 
