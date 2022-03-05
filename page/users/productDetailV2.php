@@ -24,7 +24,6 @@
     require_once '../../config/dbcon.php';
 
     $_SESSION['comment'] = [];
-    $_SESSION['qty_start'] = 1;
 
     $id = $_GET['id'];
     $isFav = false;
@@ -49,6 +48,11 @@
     }
 
     $rowProduct = mysqli_fetch_assoc($resProduct);
+
+    if (!isset($_SESSION['qty_start' . $rowProduct['prod_id']])) {
+      $_SESSION['qty_start' . $rowProduct['prod_id']] = 1;
+    }
+
 
     $allProductPhoto = explode('-', $rowProduct['prod_photo']);
 
@@ -347,17 +351,17 @@
                       <div>
                         <div class="d-flex justify-content-start align-items-center de-inCart mb-1">
                           <div class="d-flex justify-content-center align-items-center">
-                            <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=0' ?>">
+                            <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty_start.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=0' ?>">
                               <p class="fs-4 m-0 px-2">-</p>
                             </a>
                           </div>
                           <div class="d-flex justify-content-center align-items-center px-4">
-                            <p class="fs-4 m-0 pt-1"><?php echo $_SESSION['qty_start'] ?></p>
-                            <input type="hidden" name="qty_start" value="<?php echo $_SESSION['qty_start'] ?>">
+                            <p class="fs-4 m-0 pt-1"><?php echo  $_SESSION['qty_start' . $rowProduct['prod_id']] ?></p>
+                            <input type="hidden" name="qty_start" value="<?php echo  $_SESSION['qty_start' . $rowProduct['prod_id']] ?>">
                             <input type="hidden" name="p_id" value="<?php echo $rowProduct['prod_id'] ?>">
                           </div>
                           <div class="d-flex justify-content-center align-items-center ">
-                            <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=1' ?>">
+                            <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/addQty_start.php?p_id=' . $rowProduct['prod_id'] . '&isUpdate=1' ?>">
                               <p class="fs-4 m-0 px-2">+</p>
                             </a>
                           </div>

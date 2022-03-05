@@ -7,10 +7,10 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
   $isUpdate = $_GET['isUpdate'];
 
   if ($isUpdate == 1) {
-    $_SESSION['qty_start'] = $_SESSION['qty_start'] + 1;
+    $_SESSION['qty_start' . $p_id] = $_SESSION['qty_start' . $p_id] + 1;
   } else {
-    if ($_SESSION['qty_start'] != 1) {
-      $_SESSION['qty_start'] = $_SESSION['qty_start'] - 1;
+    if ($_SESSION['qty_start' . $p_id] != 1) {
+      $_SESSION['qty_start' . $p_id] = $_SESSION['qty_start' . $p_id] - 1;
     }
   }
 

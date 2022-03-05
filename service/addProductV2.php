@@ -31,7 +31,7 @@ $weightDouble = (float) $weightStr;
 // echo $weightDouble;
 
 $sqlCmd = "INSERT INTO product (prod_name,prod_photo,prod_type,prod_size,prod_color,prod_details,prod_warranty,prod_weight,prod_price,seller_id)
-           VALUES ($product_name,$photoBase64,$prod_type,$size,'$color',$detail,$warranty,$weightDouble,$price,$id)";
+          VALUES ($product_name,$photoBase64,$prod_type,$size,'$color',$detail,$warranty,$weightDouble,$price,$id)";
 
 echo $sqlCmd;
 /* Just printing the query to the console. */
