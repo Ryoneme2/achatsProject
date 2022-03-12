@@ -311,13 +311,21 @@
                       <div class="d-flex align-items-center">
                         <?php
                         $colorAll = explode(',', $rowProduct['prod_color']);
+                        $tmpIndex = 1;
                         foreach ($colorAll as $color) {
+                          // for formatted letter like "red -> red || blue" -> blue
+                          if ($tmpIndex == 1) {
+                            $formattedColor = explode('"', $color)[count(explode('"', $color)) - 1];
+                          } else {
+                            $formattedColor = explode('"', $color)[0];
+                          }
+                          $tmpIndex++;
                         ?>
                           <div>
-                            <input class="form-check-input" type="radio" name="color" value="<?php echo $color ?>">
+                            <input class="form-check-input" type="radio" name="color" value="<?php echo $formattedColor ?>">
                           </div>
                           <div>
-                            <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="color"><?php echo $color ?></label>
+                            <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="color"><?php echo $formattedColor ?></label>
                           </div>
                         <?php
                         }
@@ -332,12 +340,18 @@
                         <?php
                         $sizeAll = explode(',', $rowProduct['prod_size']);
                         foreach ($sizeAll as $size) {
+                          if ($tmpIndex == 1) {
+                            $formattedSize = explode('"', $size)[count(explode('"', $size)) - 1];
+                          } else {
+                            $formattedSize = explode('"', $size)[0];
+                          }
+                          $tmpIndex++;
                         ?>
                           <div>
-                            <input class="form-check-input" type="radio" name="size" value="<?php echo $size ?>">
+                            <input class="form-check-input" type="radio" name="size" value="<?php echo $formattedSize ?>">
                           </div>
                           <div>
-                            <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="size"><?php echo $size ?></label>
+                            <label class="text-color-dark fw-light me-3 ms-1   fs-6" for="size"><?php echo $formattedSize ?></label>
                           </div>
                         <?php
                         }

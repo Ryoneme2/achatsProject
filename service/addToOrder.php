@@ -11,32 +11,32 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
   $isError = false;
 
   $getCartSql = "SELECT * FROM carts WHERE usr_id = " . $_SESSION['usr_id'];
+  echo $getCartSql;
+
   $getCartQuery = mysqli_query($con, $getCartSql);
 
   // insert all rows getCartQuery into orders table
-  while ($row = mysqli_fetch_assoc($getCartQuery) && !$isError) {
+  while ($row = mysqli_fetch_assoc($getCartQuery)) {
     $insertOrderSql = "INSERT INTO orders (prod_id, usr_id, order_type, order_size, order_qty, order_address) 
     VALUES (" . "'$row[prod_id]'" . "," . "'$row[usr_id]'" . "," . "'$row[cart_type]'" . "," . "'$row[cart_size]'" . "," . "'$row[cart_qty]'" . ",'" . $_SESSION['address'] . "')";
     echo $insertOrderSql . "<br><br>";
     $insertOrderQuery = mysqli_query($con, $insertOrderSql);
-
-    /* This is a way to check if the query is successful or not. */
+    // check if insertOrderQuery is successful
     if (!$insertOrderQuery) {
       $isError = true;
+      break;
     }
   }
+
   if (!$isError) {
     /* This is deleting all rows in carts table where usr_id = ['usr_id'] */
     $deleteCartSql = "DELETE FROM carts WHERE usr_id = " . $_SESSION['usr_id'];
     $deleteCartQuery = mysqli_query($con, $deleteCartSql);
-    if (!$deleteCartQuery) {
-      $isError = true;
-    }
+
+    $_SESSION['user_cart_num'] = 0;
   }
 
-
-
-  if (!$isError) {
+  if ($deleteCartQuery) {
 
     echo "<script>
               console.log('test');
