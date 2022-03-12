@@ -54,7 +54,7 @@
               <button class="sign-up-btn bg-color-one text-light fs-5">Sign in</button>
             </div>
             <div class="d-flex justify-content-center mt-3">
-              <p class="text-color-one text-center">Don't have an account yet? <a href="#" class="fw-bold text-color-one text-decoration-underline">sign up</a></p>
+              <p class="text-color-one text-center">Don't have an account yet? <a href="./signup.php" class="fw-bold text-color-one text-decoration-underline">sign up</a></p>
             </div>
           </form>
         </div>

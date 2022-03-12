@@ -11,7 +11,8 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/user.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Product : catagory</title>
+  <link rel="stylesheet" href="../../public/css/register.css">
+  <title>Product: search</title>
 </head>
 
 <body>
@@ -22,90 +23,12 @@
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
     require_once '../../config/dbcon.php';
-    $_SESSION['page'] = 'cart';
-    $_SESSION['discount'] = 0;
-    $warning_context = '';
-
-
-    if (isset($_POST['voucher_code'])) {
-      $total_price_param = $_POST['total_price'];
-      $voucher_code = $_POST['voucher_code'];
-
-      $sqlVoucherQuery = "SELECT * FROM voucher WHERE voucher_code = '$voucher_code'";
-      $resVoucherQuery = mysqli_query($con, $sqlVoucherQuery);
-      $voucherNumRow = mysqli_num_rows($resVoucherQuery);
-      $voucherRow = mysqli_fetch_assoc($resVoucherQuery);
-
-      if ($voucherNumRow == 0) {
-        $warning_context = 'Voucher code is not valid';
-      } else {
-        $voucher_code_db = $voucherRow['voucher_code'];
-        if ($_SESSION['voucher_code'] != $voucher_code_db) {
-          $_SESSION['voucher_code'] = $voucher_code_db;
-
-          $voucher_discount = $voucherRow['vocher_discount'];
-          $voucher_discount_type = $voucherRow['voucher_discount_type'];
-          $voucher_expire = $voucherRow['voucher_expire'];
-
-          $time_now = time();
-
-          if ($voucher_expire > $time_now) {
-            if ($voucher_discount_type == 'percent') {
-              // echo "true";
-              $discount = $total_price_param * ($voucher_discount / 100);
-              $_SESSION['discount'] = $discount;
-            }
-            if ($voucher_discount_type == 'baht') {
-              $discount = $voucher_discount;
-              $_SESSION['discount'] = $discount;
-            }
-          } else {
-            $warning_context = "Voucher has expired";
-          }
-        } else {
-          $warning_context = "Voucher code is already used";
-        }
-      }
-    } else {
-      $voucher_code = '';
-      $discount = 0;
-    }
-
-
-    $sql = "SELECT * FROM carts INNER JOIN product ON carts.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'] . " ORDER BY seller_id";
-    $result = mysqli_query($con, $sql);
-
-    $i = 0;
-    $cartItems = [];
-
-    while ($prodRow = mysqli_fetch_assoc($result)) {
-      $tmpData = [];
-
-      $tmpData[0] = $prodRow['prod_id'];
-      $tmpData[1] = $prodRow['prod_name'];
-      $tmpData[2] = $prodRow['prod_photo'];
-      // $tmpData[2] = 'photo';
-      $tmpData[3] = $prodRow['prod_type'];
-      $tmpData[4] = $prodRow['prod_size'];
-      $tmpData[5] = $prodRow['prod_color'];
-      $tmpData[6] = $prodRow['prod_details'];
-      $tmpData[7] = $prodRow['prod_price'];
-      $tmpData[8] = $prodRow['seller_id'];
-      $tmpData[9] = $prodRow['cart_qty'];
-      $tmpData[10] = $prodRow['cart_type'];
-      $tmpData[11] = $prodRow['cart_size'];
-
-      $i++;
-      $cartItems[$i] = $tmpData;
-    }
-
-    // print("<pre>" . print_r($cartItems, true) . "</pre>");
 
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
         <div>
-          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="./userIndex.php">
+          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="#">
             achats<span class="fs-1 text-light text-decoration-none">.</span>
           </a>
 
@@ -125,7 +48,7 @@
           </div>
           <div class="me-3 d-flex align-items-center">
             <div>
-              <a href="">
+              <a href="./cart.php">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                     <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -146,7 +69,7 @@
             </div>
           </div>
           <div class="me-3">
-            <a href="./compareProd.php">
+            <a href="">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -218,7 +141,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="./faveriteDisplay.php">my faverite</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="#">my faverite</a></li>
           </div>
         </div>
         <hr class="hr-drop">
@@ -242,221 +165,45 @@
 
     <script src="../../public/js/close.js"></script>
 
-
-    <section class="container my-4">
-      <h3 class="fs-2 text-color-dark">cart</h3>
-      <hr style="width:100%;" class="mx-auto mb-5">
-
+    <section class="container">
       <div class="row">
-        <div class="col-lg-7 col-md-12">
-          <div class="row">
-            <?php
-            $sellerID = 0;
-            for ($index = 1; $index <= count($cartItems); $index++) {
-
-              if ($cartItems[$index][8] != $sellerID) {
-                $isNewSeller = true;
-              } else {
-                $isNewSeller = false;
-              }
-              $sellerID = $cartItems[$index][8];
-
-              if ($isNewSeller) {
-                $cartCmd = "SELECT seller_shopname FROM seller_info WHERE seller_id = $sellerID";
-                // echo $cartCmd;
-                $result2 = mysqli_query($con, $cartCmd);
-                $sellerRow = mysqli_fetch_assoc($result2);
-                $shopname = $sellerRow['seller_shopname'];
-                $isNewSeller = false;
-
-            ?>
-                <div class="col-12 p-2 mt-4 ">
-                  <div class="seller_banner bg-color-one70 rounded-3 p-3">
-                    <h3 class="fs-3 text-light m-0"><?php echo $shopname ?></h3>
+        <div class="col-md-12 mt-5">
+          <div class="card">
+            <div class="card-header bg-color-one d-flex align-items-center">
+              <h3 class="card-title text-white">
+                Proof of Payment
+              </h3>
+            </div>
+            <div class="card-body px-2 py-5">
+              <div class="row mb-6 justify-content-center align-items-center">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block text-center" for="Profile Image">Payment information</label>
+                </div>
+                <div class="col-md-6 col-sm-12 d-flex align-items-center">
+                  <div>
+                    <div id="preview" class="d-flex justify-content-center align-items-center"></div>
+                  </div>
+                  <div class="ms-4">
+                    <label class="uploadLabel">
+                      <input type="file" name="profile" id="file" class="uploadButton" onchange="encodeImageFileAsURL()" />
+                      Upload
+                    </label>
                   </div>
                 </div>
-
-              <?php
-              }
-              $photo = explode("-", $cartItems[$index][2]);
-              ?>
-
-              <div class="col-12 p-2">
-                <div class="cart-bg p-3">
-                  <div class="row">
-                    <div class="col-md-4 col-sm-12 d-flex justify-content-center">
-                      <div class="img_cart_thumnail">
-                        <img src="<?php echo $photo[0] ?>" alt="">
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12 d-flex justify-content-between align-items-start">
-                      <div class="cart-info d-flex flex-column justify-content-between align-items-start">
-                        <div>
-                          <div class="cart-info-title">
-                            <a class="text-decoration-none text-color-dark" href="./productDetailV2.php?id=<?php echo $cartItems[$index][0] ?>">
-                              <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
-                            </a>
-                          </div>
-                          <div>
-                            <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
-                          </div>
-                        </div>
-                        <div>
-                          <div>
-                            <h5 class="fs-6 text-secondary fw-light"><span class="fw-normal">type: </span><?php echo $cartItems[$index][10] ?></h5>
-                            <h5 class="fs-6 text-secondary fw-light"><span class="fw-normal">size: </span> <?php echo $cartItems[$index][11] ?></h5>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-5 text-color-dark fw-normal">Price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-2 col-sm-12 d-flex flex-column justify-content-between align-items-end">
-                      <div>
-                        <a href="<?php echo '../../service/delCartItem.php?p_id=' . $cartItems[$index][0] ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
-                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                              <path d="M0,172v-172h172v172z" fill="none"></path>
-                              <g fill="#666666">
-                                <path d="M80.625,21.5c-2.81347,0 -5.68994,0.98682 -7.72656,3.02344c-2.03662,2.03662 -3.02344,4.91309 -3.02344,7.72656v5.375h-32.25v10.75h5.375v86c0,8.83935 7.28565,16.125 16.125,16.125h64.5c8.83935,0 16.125,-7.28565 16.125,-16.125v-86h5.375v-10.75h-32.25v-5.375c0,-2.81347 -0.98682,-5.68994 -3.02344,-7.72656c-2.03662,-2.03662 -4.91308,-3.02344 -7.72656,-3.02344zM80.625,32.25h21.5v5.375h-21.5zM53.75,48.375h75.25v86c0,2.98145 -2.39355,5.375 -5.375,5.375h-64.5c-2.98144,0 -5.375,-2.39355 -5.375,-5.375zM64.5,64.5v59.125h10.75v-59.125zM86,64.5v59.125h10.75v-59.125zM107.5,64.5v59.125h10.75v-59.125z"></path>
-                              </g>
-                            </g>
-                          </svg>
-                        </a>
-                      </div>
-                      <div class="d-flex justify-content-evenly align-items-center de-inCart">
-                        <div class="d-flex justify-content-center align-items-center">
-                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $cartItems[$index][0] . '&isUpdate=0' ?>">
-                            <p class="fs-4 m-0 px-2">-</p>
-                          </a>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-center px-4">
-                          <p class="fs-4 m-0 pt-1"><?php echo $cartItems[$index][9] ?></p>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-center ">
-                          <a class="text-color-dark text-decoration-none" href="<?php echo '../../service/cartUpdate.php?p_id=' . $cartItems[$index][0] . '&isUpdate=1' ?>">
-                            <p class="fs-4 m-0 px-2">+</p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            <?php
-              $totol_qty += $cartItems[$index][9];
-              $total_price += $cartItems[$index][9] * $cartItems[$index][7];
-            }
-            ?>
-          </div>
-        </div>
-
-        <div class="col-lg-5 col-md-12 p-3">
-          <form action="../../service/cartConfirm.php" method="post">
-            <div class="checkout-info-bg p-4 border-self">
-              <div class="checkout-info-title">
-                <h3 class="m-0 text-color-dark text-center">cart summary</h3>
-              </div>
-              <hr class="hr-purple">
-              <div class="checkout-info-subtitle d-flex justify-content-start my-3">
-                <div class="me-4">
-                  <h5 class="m-0 text-color-dark">shipping</h5>
-                </div>
-                <div>
-                  <div class="mb-3 mt-1">
-                    <input class="form-check-input" type="radio" name="shipping_type" value="pick_up">
-                    <label class="fs-6 text-color-dark" for="ch1">pick up at store</label>
-                  </div>
-                  <div class="mb-1">
-                    <input class="form-check-input" type="radio" name="shipping_type" value="delivery">
-                    <label class="fs-6 text-color-dark" for="ch1">delivery</label>
-                  </div>
-                </div>
-              </div>
-              <hr class="hr-purple mb-3">
-              <div>
-                <div class="mb-1">
-                  <h5 class="m-0 text-color-dark">delivery address</h5>
-                </div>
-                <div>
-                  <textarea class="input-address-textarea px-2" name="address" rows="4"><?php echo $_SESSION['usr_address'] ?></textarea>
-                </div>
-              </div>
-              <hr class="hr-purple my-3">
-
-              <div class=" checkout-info-subtitle d-flex justify-content-between my-3">
-                <div>
-                  <h5 class="m-0 text-color-dark">total quantity</h5>
-                </div>
-                <div>
-                  <h5 class="m-0 text-color-dark"><?php echo $totol_qty ?></h5>
-                </div>
-              </div>
-              <div class="checkout-info-subtitle d-flex justify-content-between my-3">
-                <div>
-                  <h5 class="m-0 text-color-dark">discount</h5>
-                </div>
-                <div>
-                  <h5 class="m-0 fs-5 text-color-dark">฿ -<?php echo number_format($_SESSION['discount']) ?></h5>
-                  <input type="hidden" name="total_discount" value="<?php echo $_SESSION['discount'] ?>">
-                </div>
-              </div>
-              <div class="checkout-info-subtitle d-flex justify-content-between my-3">
-                <div>
-                  <h5 class="m-0 text-color-dark">total price</h5>
-                </div>
-                <div>
-                  <h5 class="m-0 fs-3 text-color-dark">฿ <?php
-                                                          $total_price = $total_price - $_SESSION['discount'];
-                                                          echo number_format($total_price)
-                                                          ?>
-                  </h5>
-                </div>
-              </div>
-              <hr class="hr-purple my-3">
-
-              <div class="d-flex justify-content-center px-5">
-                <input class="buy_btn bg-color-one rounded-pill text-light fs-5 " type="submit" value="checkout">
               </div>
             </div>
-          </form>
-
-          <div class="checkout-info-bg p-3 mt-3 border-self">
-            <form action="./cart.php" method="post">
-              <div class="row d-flex align-items-center">
-                <div class="col-3 d-flex">
-                  <div class="me-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;">
-                      <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                        <path d="M0,172v-172h172v172z" fill="none"></path>
-                        <g fill="#666666">
-                          <path d="M115.52576,0c-0.70001,0.00957 -1.36862,0.29208 -1.8634,0.78735l-69.875,69.875c-0.5042,0.5038 -0.78745,1.18738 -0.78735,1.90015v8.0625h-8.0625c-0.71273,0.00011 -1.39623,0.28333 -1.90015,0.78735l-32.25,32.25c-0.50427,0.50378 -0.78762,1.18735 -0.78762,1.90015c0,0.7128 0.28334,1.39637 0.78762,1.90015l53.75,53.75c0.50381,0.50421 1.18737,0.7875 1.90015,0.7875c0.71278,0 1.39633,-0.28329 1.90015,-0.7875l32.25,-32.25c0.5042,-0.5038 0.78745,-1.18738 0.78735,-1.90015v-8.0625h8.0625c0.71273,-0.00011 1.39623,-0.28333 1.90015,-0.78735l69.875,-69.875c0.50427,-0.50378 0.78762,-1.18735 0.78762,-1.90015c0,-0.7128 -0.28334,-1.39637 -0.78762,-1.90015l-53.75,-53.75c-0.51278,-0.51329 -1.21142,-0.79728 -1.93689,-0.78735zM115.5625,6.48779l49.94971,49.94971l-67.1875,67.1875h-9.63721c-1.48427,0 -2.6875,1.20323 -2.6875,2.6875v9.63721l-29.5625,29.5625l-49.94971,-49.94971l29.5625,-29.5625h9.63721c1.48427,0 2.6875,-1.20323 2.6875,-2.6875v-9.63721zM115.36304,26.91174c-0.63813,0.03993 -1.24113,0.30607 -1.70068,0.75061l-48.375,48.375c-0.69552,0.67545 -0.97332,1.67316 -0.72696,2.61087c0.24636,0.93771 0.97868,1.67003 1.91639,1.91639c0.93771,0.24636 1.93542,-0.03144 2.61087,-0.72696l48.375,-48.375c0.77149,-0.79744 0.97361,-1.98703 0.50879,-2.99453c-0.46482,-1.0075 -1.50102,-1.62578 -2.6084,-1.55638zM128.80054,40.34924c-0.63813,0.03993 -1.24113,0.30607 -1.70068,0.75061l-48.375,48.375c-0.50427,0.50378 -0.78762,1.18735 -0.78762,1.90015c0,0.7128 0.28334,1.39637 0.78762,1.90015c0.50381,0.50421 1.18737,0.7875 1.90015,0.7875c0.71278,0 1.39633,-0.28329 1.90015,-0.7875l48.375,-48.375c0.77149,-0.79744 0.97361,-1.98703 0.50879,-2.99453c-0.46482,-1.0075 -1.50102,-1.62578 -2.6084,-1.55638zM116.70679,79.31799c-0.63813,0.03993 -1.24113,0.30607 -1.70068,0.75061l-22.84375,22.84375c-0.69552,0.67545 -0.97332,1.67316 -0.72696,2.61087c0.24636,0.93771 0.97868,1.67003 1.91639,1.91639c0.93771,0.24636 1.93542,-0.03144 2.61087,-0.72696l22.84375,-22.84375c0.77149,-0.79744 0.97361,-1.98703 0.50879,-2.99453c-0.46482,-1.0075 -1.50102,-1.62578 -2.6084,-1.55638zM53.69751,88.72424c-1.06148,0.0346 -2.00302,0.69107 -2.40254,1.6751c-0.39952,0.98403 -0.18206,2.11105 0.55488,2.8758l5.375,5.375c1.05378,1.02337 2.73399,1.01107 3.77267,-0.02762c1.03869,-1.03869 1.05099,-2.71889 0.02762,-3.77267l-5.375,-5.375c-0.52279,-0.50365 -1.22709,-0.77439 -1.95264,-0.75061zM64.44751,99.47424c-1.06148,0.0346 -2.00302,0.69107 -2.40254,1.6751c-0.39952,0.98403 -0.18206,2.11105 0.55488,2.8758l5.375,5.375c1.05378,1.02337 2.73399,1.01107 3.77267,-0.02762c1.03869,-1.03869 1.05099,-2.71889 0.02762,-3.77267l-5.375,-5.375c-0.52279,-0.50365 -1.22709,-0.77439 -1.95264,-0.75061zM45.54053,104.87549c-2.41824,0.03674 -4.72758,1.01167 -6.44055,2.71899l-1.47498,1.48023l-0.78735,-0.78735c-1.05378,-1.02337 -2.73399,-1.01107 -3.77267,0.02762c-1.03869,1.03869 -1.05099,2.71889 -0.02762,3.77267l0.78735,0.78735l-1.48023,1.48022c-3.22531,3.23057 -3.63352,8.32276 -0.96404,12.02588c2.66948,3.70312 7.62962,4.92541 11.71404,2.8866l4.75037,-2.37256l7.47986,7.47986l-1.47498,1.48022c-1.53887,1.53554 -4.03034,1.53554 -5.56921,0l-0.69287,-0.68762c-0.66815,-0.72478 -1.67947,-1.02559 -2.63513,-0.78382c-0.95565,0.24178 -1.70225,0.98734 -1.94534,1.94265c-0.2431,0.95532 0.05632,1.96705 0.78018,2.63621l0.68762,0.69287c3.64004,3.63371 9.53501,3.63371 13.17505,0l1.47498,-1.48023l0.5354,0.5354c0.67545,0.69552 1.67316,0.97332 2.61087,0.72696c0.93771,-0.24636 1.67003,-0.97868 1.91639,-1.91639c0.24636,-0.93771 -0.03144,-1.93542 -0.72696,-2.61087l-0.5354,-0.5354l1.47498,-1.48022c3.22531,-3.23057 3.63352,-8.32276 0.96404,-12.02588c-2.66948,-3.70312 -7.62962,-4.92541 -11.71404,-2.8866l-4.74512,2.37256l-7.47986,-7.47986l1.48023,-1.48022c1.53826,-1.53206 4.0257,-1.53206 5.56396,0l0.69287,0.68762c0.67451,0.69638 1.67179,0.9755 2.60979,0.73043c0.938,-0.24507 1.6713,-0.97635 1.91896,-1.91367c0.24766,-0.93732 -0.0287,-1.93538 -0.72322,-2.6118l-0.69287,-0.69287c-1.78508,-1.77929 -4.21444,-2.76012 -6.7345,-2.71899zM75.19751,110.22424c-1.06148,0.0346 -2.00302,0.69107 -2.40254,1.6751c-0.39952,0.98403 -0.18206,2.11105 0.55488,2.8758l5.375,5.375c1.05378,1.02337 2.73399,1.01107 3.77267,-0.02762c1.03869,-1.03869 1.05099,-2.71889 0.02762,-3.77267l-5.375,-5.375c-0.52279,-0.50365 -1.22709,-0.77439 -1.95264,-0.75061zM37.625,116.67529l6.21484,6.2096l-3.14417,1.57471c-1.7285,0.86818 -3.83161,0.3524 -4.9623,-1.21699c-1.13069,-1.56939 -0.95411,-3.72762 0.41665,-5.09234zM57.95972,122.37573c1.56509,0.05761 2.94726,1.03723 3.52007,2.49487c0.57281,1.45764 0.22735,3.11617 -0.87981,4.22388l-1.47498,1.48023l-6.21484,-6.21484l3.14417,-1.56946c0.59032,-0.29579 1.24554,-0.43838 1.90539,-0.41467z"></path>
-                        </g>
-                      </g>
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 class="m-0 text-color-dark text-center">voucher</h4>
-                  </div>
+            <div class="card-body px-2 py-5">
+              <div class="row mb-6 justify-content-center align-items-center">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block text-center" for="Profile Image">Payment information</label>
                 </div>
-                <div class="col-9 d-flex">
-                  <input class="voucher_input ps-2" type="text" name="voucher_code" placeholder="voucher code...">
-                  <input class="voucher_input ps-2" type="hidden" name="total_price" value="<?php echo $total_price ?>" placeholder="voucher code...">
-                  <input type="submit" class="apply_code_btn bg-color-one text-light" value="apply">
-                </div>
+                <div class="col-md-6 col-sm-12 d-flex align-items-center">
+                  <section>
 
-              </div>
-              <div class="row">
-                <div class="col-3"></div>
-                <div class="col-9">
-                  <small class="text-danger"><?php echo $warning_context ?></small>
+                  </section>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

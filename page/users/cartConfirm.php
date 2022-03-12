@@ -25,7 +25,8 @@
 
     require_once '../../config/dbcon.php';
 
-    $address = $_POST['address'];
+    $address = $_GET['address'];
+    $_SESSION['address'] = $address;
     $total_discount = $_POST['total_discount'];
     $shipping_fee = $_SESSION['user_cart_num'] * 60;
     if ($_SESSION['page'] == 'cart') {
@@ -53,13 +54,13 @@
       $tmpData[7] = $prodRow['prod_price'];
       $tmpData[8] = $prodRow['seller_id'];
       $tmpData[9] = $prodRow['cart_qty'];
+      $tmpData[10] = $prodRow['cart_type'];
+      $tmpData[11] = $prodRow['cart_size'];
 
       $i++;
       $cartItems[$i] = $tmpData;
     }
-
     // print("<pre>" . print_r($cartItems, true) . "</pre>");
-
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
@@ -296,19 +297,22 @@
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-12 d-flex justify-content-between align-items-start">
-                      <div class="cart-info">
-                        <div class="cart-info-title">
-                          <a class="text-decoration-none text-color-dark" href="./productDetailV2.php?id=<?php echo $cartItems[$index][0] ?>">
-                            <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
-                          </a>
+                      <div class="cart-info d-flex flex-column justify-content-between align-items-start">
+                        <div>
+                          <div class="cart-info-title">
+                            <a class="text-decoration-none text-color-dark" href="./productDetailV2.php?id=<?php echo $cartItems[$index][0] ?>">
+                              <h5 class="fs-3 m-0"><?php echo $cartItems[$index][1] ?></h5>
+                            </a>
+                          </div>
+                          <div>
+                            <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
+                          </div>
                         </div>
                         <div>
-                          <h5 class="fs-6 text-secondary fw-light"><?php echo $cartItems[$index][6] ?></h5>
-                        </div>
-                      </div>
-                      <div class="cart-sub-info">
-                        <div class="cart-info-subtitle my-3">
-                          <h5 class="fs-5 text-color-dark fw-normal">Price : ฿<?php echo number_format($cartItems[$index][7]) ?></h5>
+                          <div>
+                            <h5 class="fs-6 text-secondary fw-light"><span class="fw-normal">type: </span><?php echo $cartItems[$index][10] ?></h5>
+                            <h5 class="fs-6 text-secondary fw-light"><span class="fw-normal">size: </span> <?php echo $cartItems[$index][11] ?></h5>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -348,13 +352,14 @@
             <?php
               $total_qty += $cartItems[$index][9];
               $total_price += $cartItems[$index][9] * $cartItems[$index][7];
+              $_SESSION['allPrice'] = $total_price;
             }
             ?>
           </div>
         </div>
 
         <div class="col-lg-5 col-md-12 ps-3 pe-0 mt-3">
-          <form action="../../service/addToOrder.php">
+          <form action="./promtpay.php" method="post">
             <div class="checkout-info-bg border-self rounded">
               <div class="checkout-info-title bg-color-one p-4">
                 <h3 class="m-0 text-color-light text-center">cart summary</h3>
@@ -371,7 +376,7 @@
                     </div>
                     <div class="col-5 d-flex justify-content-center align-items-center">promtpay</div>
                     <div class="col-3 d-flex justify-content-center align-items-center">
-                      <input class="input-radio" type="radio" name="pay_type">
+                      <input class="input-radio" type="radio" name="pay_type" checked>
                     </div>
                   </div>
                   <div class="mb-3 mt-1 pay-method rounded px-2 py-3 row">
@@ -382,7 +387,7 @@
                       bank transfer
                     </div>
                     <div class="col-3 d-flex justify-content-center align-items-center">
-                      <input class="input-radio" type="radio" name="pay_type">
+                      <input class="input-radio" type="radio" name="pay_type" disabled>
                     </div>
 
                   </div>
@@ -450,9 +455,7 @@
         </div>
         </form>
       </div>
-
     </section>
-
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">
