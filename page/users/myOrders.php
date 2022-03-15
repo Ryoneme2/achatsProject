@@ -23,12 +23,6 @@
 
     require_once '../../config/dbcon.php';
 
-    $search = $_GET['search_context'];
-
-    $sql = "SELECT * FROM faverite_user INNER JOIN product ON faverite_user.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'];
-
-    $result = mysqli_query($con, $sql);
-
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
@@ -74,7 +68,7 @@
             </div>
           </div>
           <div class="me-3">
-            <a href="./compareProd.php">
+            <a href="">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <path d="M0,172v-172h172v172z" fill="none"></path>
@@ -130,7 +124,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="./myOrders.php">my orders</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="#">my orders</a></li>
           </div>
         </div>
         <hr class="hr-drop">
@@ -170,38 +164,80 @@
 
     <script src="../../public/js/close.js"></script>
 
+    <section class="container mt-5">
+      <h3 class="fs-2 text-color-dark">my orders</h3>
 
-    <section class="container my-4">
-      <h3 class="fs-4 text-color-dark">my faverite</h3>
-      <hr style="width:100%;" class="mx-auto mb-5">
       <div class="row">
-        <?php
-        while ($prodRow = mysqli_fetch_assoc($result)) {
-          $Allphoto = explode('-', $prodRow['prod_photo']);
-
-        ?>
-
-          <div class="col-lg-3 col-md-6 col-sm-12 p-3">
-            <div class="recom-bg p-3">
-              <a class="text-decoration-none" href="./productDetailV2.php?id=<?php echo $prodRow['prod_id'] ?>">
-                <div class="d-flex flex-column">
-                  <div class="img_thumnail2 d-flex justify-content-center">
-                    <div class="mb-2">
-                      <img src="<?php echo $Allphoto[0] ?>" alt="">
-                    </div>
-                  </div>
-                  <div class="detail-content">
-                    <h3 class="text-color-dark my-2"><?php echo $prodRow['prod_name'] ?></h3>
-                    <p class="text-color-dark"><?php echo number_format($prodRow['prod_price']) ?> Baht</p>
-                  </div>
-                </div>
-              </a>
+        <div class="col-6 ">
+          <div class="bg-white rounded-top p-2 d-flex justify-content-center align-items-center">
+            <div>
+              <h3 class="fw-3 m-0 text-color-one my-2">all orders history</h3>
             </div>
           </div>
-
-        <?php } ?>
+        </div>
       </div>
+      <div class="bg-white rounded-bottom rounded-end p-4">
+        <div class="row">
+
+          <!-- start loop here -->
+
+          <?php
+
+          $sql = "SELECT * FROM orders 
+          JOIN product ON orders.prod_id = product.prod_id 
+          JOIN seller_info ON product.seller_id = seller_info.seller_id 
+          WHERE usr_id = " . $_SESSION['usr_id'];
+
+          // echo $sql;
+
+          $result = mysqli_query($con, $sql);
+
+          while ($row = mysqli_fetch_assoc($result)) {
+            $AllPhoto = explode('-', $row['prod_photo']);
+          ?>
+            <div class="col-12 my-3">
+              <div class="bg-color-three border-purple rounded p-3">
+                <div class="row">
+                  <div class="col-6">
+                    <h3 class="text-color-one">order number : <?php echo $row['order_id'] ?> </h3>
+                  </div>
+                  <div class="col-6">
+                    <h3 class="text-color-one">status :
+                      <!-- if status 0 is on the way delivery and 1 is delivered -->
+                      <?php echo $row['order_status'] == 0 ? "your parcel is on the way to delivery." : "your parcel has been delivered." ?>
+                    </h3>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-3 d-flex justify-content-center align-items-center">
+                    <img src="<?php echo $row['prod_photo'] ?>" alt="" height="100" width="100">
+                  </div>
+                  <div class="col-6">
+                    <div class="d-flex flex-column justify-content-start align-items-start">
+                      <div>
+                        <h3 class="text-color-dark fs-4 fw-normal">product name: <?php echo $row['prod_name'] ?></h3>
+                        <h3 class="text-color-dark fs-4 fw-normal">shop name:<?php echo $row['seller_shopname'] ?> </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="d-flex justify-content-end align-items-end">
+                      <div>
+                        <h3 class="text-color-dark fs-4 fw-normal">price: <?php echo number_format($row['prod_price']) ?> baht</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end loop here -->
+          <?php } ?>
+
+        </div>
+      </div>
+
     </section>
+
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">

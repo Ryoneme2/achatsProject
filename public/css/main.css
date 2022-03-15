@@ -51,6 +51,9 @@ body {
 .bg-color-dark {
   background-color: #7f7c82;
 }
+.bg-color-three {
+  background-color: #f3f1f5;
+}
 
 .text-color-one {
   color: #bfa2db;

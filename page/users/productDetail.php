@@ -152,7 +152,7 @@
             </svg>
           </div>
           <div>
-            <li><a class="text-color-dark text-decoration-none" href="#">my orders</a></li>
+            <li><a class="text-color-dark text-decoration-none" href="./myOrders.php">my orders</a></li>
           </div>
         </div>
         <hr class="hr-drop">
