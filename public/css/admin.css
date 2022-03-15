@@ -174,3 +174,7 @@
   max-height: 200px;
   width: auto;
 }
+
+.container-admin {
+  width: calc(100% - 280px);
+}

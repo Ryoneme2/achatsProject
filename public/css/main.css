@@ -164,3 +164,6 @@ a:hover {
 .border-purple-soft {
   border: 1px solid #bfa2db;
 }
+.roundly {
+  border-radius: 15px;
+}
