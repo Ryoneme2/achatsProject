@@ -22,10 +22,7 @@
   session_start();
 
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'admin') {
-
     require_once '../../config/dbcon.php';
-
-
   ?>
 
     <header>
@@ -132,10 +129,55 @@
       </nav>
     </header>
 
-    <section class="container">
-      asdf
-    </section>
+    <div class="d-flex justify-content-end">
+      <div class="container-admin  mt-5 mx-0 px-5">
+        <div>
+          <h2 class="text-color-dark">users data</h2>
+          <hr class="hr-purple w-100">
+        </div>
+        <div class="container">
+          <div class="row">
+            <?php
 
+            $sql = "SELECT * from achats";
+            $result = mysqli_query($con, $sql);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+
+              <div class="col-6 mt-3">
+                <div class="border-purple p-3 rounded">
+                  <div class="row">
+                    <div class="col-10">
+                      <div class="d-flex flex-column justify-content-between align-items-start">
+                        <div class="d-flex justify-content-center align-items-center">
+                          <!-- name and profile -->
+                          <div>
+                            <img class="rounded-circle" src="<?php echo $row['usr_photo'] ?>" alt="" width="100px" height="100px">
+                          </div>
+                          <div>
+                            <h2 class="ms-2 text-color-dark"><?php echo $row['usr_name'] ?></h2>
+                          </div>
+                        </div>
+                        <div>
+                          <h3 class="text-color-dark">username : <span class="fw-light"><?php echo $row['usr_username'] ?></span></h3>
+                          <h3 class="text-color-dark">phone : <span class="fw-light"><?php echo $row['usr_phone'] ?></span></h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <a class="text-decoration-none rounded-pill bg-color-one px-3 py-2 text-white" href="#">block</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <?php } ?>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- <script src="../../public/js/sidebar.js"></script> -->
   <?php

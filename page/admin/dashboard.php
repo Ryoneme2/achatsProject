@@ -22,10 +22,7 @@
   session_start();
 
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'admin') {
-
     require_once '../../config/dbcon.php';
-
-
   ?>
 
     <header>
@@ -139,7 +136,7 @@
           <hr class="hr-purple w-100">
           <div class="my-5"></div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-7">
               <div class="bg-white roundly">
                 <div class="row p-3">
                   <div class="col-12">
@@ -219,9 +216,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-5">
               <div class="row">
-                <div class="col-6 px-5">
+                <div class="col-6">
                   <div class="bg-white roundly p-4">
                     <div class="flex flex-column justify-content-start">
                       <div>
@@ -230,13 +227,13 @@
                         </h4>
                       </div>
                       <div>
-                        <h1 class="text-color-dark fs-1">
+                        <h1 class="text-color-dark fs-0 fw-normal">
                           23
                         </h1>
                       </div>
                       <div>
-                        <div class="rounded-pill bg-color-one shadow w-25">
-                          <h5 class="text-white text-center">+ 5 ea</h5>
+                        <div class="rounded-pill bg-color-one shadow w-50 py-1">
+                          <h5 class="text-white text-center mt-1">+ 5 ea</h5>
                         </div>
                       </div>
                     </div>
@@ -251,19 +248,19 @@
                         </h4>
                       </div>
                       <div>
-                        <h1 class="text-color-dark fs-1">
+                        <h1 class="text-color-dark fs-0 fw-normal">
                           23
                         </h1>
                       </div>
                       <div>
-                        <div class="rounded-pill bg-color-one shadow w-25">
-                          <h5 class="text-white text-center">+ 5 ea</h5>
+                        <div class="rounded-pill bg-color-one shadow w-50 py-1">
+                          <h5 class="text-white text-center mt-1">+ 5 ea</h5>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 mt-3">
                   <div class="bg-white roundly p-4">
                     <div class="flex flex-column justify-content-start">
                       <div>
@@ -272,13 +269,13 @@
                         </h4>
                       </div>
                       <div>
-                        <h1 class="text-color-dark fs-1">
+                        <h1 class="text-color-dark fs-0 fw-normal">
                           23
                         </h1>
                       </div>
                       <div>
-                        <div class="rounded-pill bg-color-one shadow w-25">
-                          <h5 class="text-white text-center">+ 5 ea</h5>
+                        <div class="rounded-pill bg-color-one shadow w-50 py-1">
+                          <h5 class="text-white text-center mt-1">+ 5 ea</h5>
                         </div>
                       </div>
                     </div>
@@ -289,7 +286,44 @@
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-end">
+        <div class="container-admin  mt-5 mx-0 px-5">
+          <div class="bg-white roundly p-3">
+            <h1 class="fw-light fs-2 text-color-dark">mailbox from seller</h1>
+            <div class="row p-0 mt-4">
+              <div class="col-3 mb-2 mx-2 bg-color-two">
+                <h3 class="fw-light text-color-dark">seller name</h3>
+              </div>
+              <div class="col-6 mb-2 mx-2 bg-color-two">
+                <h3 class="fw-light text-color-dark">question</h3>
+              </div>
+              <div class="col-2 mb-2 mx-2 bg-color-two">
+                <h3 class="fw-light text-color-dark">answer</h3>
+              </div>
+
+              <div class="col-3 mx-2">
+                <div class="border-bottom">
+                  <p class="text-color-dark m-0">seller name one</p>
+                </div>
+              </div>
+              <div class="col-6 mx-2">
+                <div class="border-bottom">
+                  <p class="text-color-dark m-0">why user jame so smart</p>
+                </div>
+              </div>
+              <div class="col-2 mx-2">
+                <div class="border-bottom">
+                  <p class="text-color-dark m-0">....</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
+
+
 
 
     <!-- <script src="../../public/js/sidebar.js"></script> -->

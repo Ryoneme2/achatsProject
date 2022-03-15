@@ -98,7 +98,6 @@
 
     <script src="../../public/js/close.js"></script>
 
-
     <?php
 
     require('../../config/dbcon.php');
@@ -205,6 +204,14 @@
             </div>
             <div class="col-9">
               <h5 class="fw-light fs-4 ps-3"><?php echo number_format($row['prod_price']) ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">address : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo $row['order_address'] ?></h5>
             </div>
           </div>
         </div>

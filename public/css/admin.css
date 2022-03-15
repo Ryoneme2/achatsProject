@@ -178,3 +178,10 @@
 .container-admin {
   width: calc(100% - 280px);
 }
+.card {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+.fs-0 {
+  font-size: 3rem;
+}

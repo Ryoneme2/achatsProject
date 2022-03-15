@@ -196,13 +196,14 @@
 
             $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
+              $AllPhoto = explode("-", $row['prod_photo']);
             ?>
               <tr>
                 <td class="text-color-dark"><?php echo $row['order_id'] ?></td>
                 <td class="text-color-dark">
                   <div class="d-flex justify-content-center align-items-center m-2">
                     <div class="me-3">
-                      <img class="rounded-3" src="<?php echo $row['prod_photo'] ?>" alt="" height="100px" width="100px">
+                      <img class="rounded-3" src="<?php echo $AllPhoto[0] ?>" alt="" height="100px" width="100px">
                     </div>
                     <h5 class="text-color-dark"><?php echo $row['prod_name'] ?></h5>
                   </div>

@@ -213,6 +213,20 @@
                   <input class="input-text" value="<?php echo $row['prod_price'] ?>" name="price" type="text" placeholder="Enter Price...">
                 </div>
               </div>
+              <div class="row mb-4">
+                <div class="col-md-4 col-sm-12">
+                  <label class="text-color-dark d-block" for="productname">Disable</label>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+
+
+
 
               <div class="mt-5 d-flex justify-content-evenly">
                 <input class="sign-up-btn bg-color-one text-light fs-4" type="submit" value="update">

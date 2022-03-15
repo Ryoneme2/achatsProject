@@ -167,3 +167,9 @@ a:hover {
 .roundly {
   border-radius: 15px;
 }
+.w-80 {
+  width: 80%;
+}
+.border-3 {
+  border-width: 3px !important;
+}
