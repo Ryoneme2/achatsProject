@@ -132,7 +132,7 @@
                 </div>
               </div>
 
-              <div class="row mb-4">
+              <!-- <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
                   <label class="text-color-dark d-block" for="Product Image">Product Image</label>
                 </div>
@@ -148,7 +148,7 @@
                     <div id="preview" class="d-flex justify-content-center align-items-center"><img id="img-tmp" src='<?php echo $row['prod_photo'] ?>' alt=""></div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
@@ -171,24 +171,22 @@
                 </div>
               </div>
 
-              <div class="row mb-4">
+              <!-- <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
                   <label class="text-color-dark d-block" for="productname">Size</label>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <input class="input-text" value="<?php echo $row['prod_size'] ?>" name="size" type="text" placeholder="Enter Size1, Size2,...">
-                  <!-- <small class="text-secondary">Format : value,value,value</small> -->
                 </div>
-              </div>
-              <div class="row mb-4">
+              </div> -->
+              <!-- <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
                   <label class="text-color-dark d-block" for="productname">Color</label>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <input class="input-text" value="<?php echo $row['prod_color'] ?>" name="color" type="text" placeholder="Enter Color1, Color2,...">
-                  <!-- <small class="text-secondary">Format : value,value,value</small> -->
                 </div>
-              </div>
+              </div> -->
               <div class="row mb-4">
                 <div class="col-md-4 col-sm-12">
                   <label class="text-color-dark d-block" for="Address">Details</label>
@@ -213,19 +211,36 @@
                   <input class="input-text" value="<?php echo $row['prod_price'] ?>" name="price" type="text" placeholder="Enter Price...">
                 </div>
               </div>
-              <div class="row mb-4">
-                <div class="col-md-4 col-sm-12">
-                  <label class="text-color-dark d-block" for="productname">Disable</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                  </label>
-                </div>
-              </div>
+              <?php
+              if ($row['isDisable'] == 0) {
 
+              ?>
+                <div class="row mb-4">
+                  <div class="col-md-4 col-sm-12">
+                    <label class="text-color-dark d-block" for="productname">Disable</label>
+                  </div>
+                  <div class="col-md-8 col-sm-12">
+                    <label class="switch">
+                      <input type="checkbox" name="disable">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
 
+              <?php } else { ?>
+
+                <div class="row mb-4">
+                  <div class="col-md-4 col-sm-12">
+                    <label class="text-color-dark d-block" for="productname">Disable</label>
+                  </div>
+                  <div class="col-md-8 col-sm-12">
+                    <label class="switch">
+                      <input type="checkbox" name="disable" checked>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+              <?php } ?>
 
 
               <div class="mt-5 d-flex justify-content-evenly">

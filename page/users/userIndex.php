@@ -221,7 +221,7 @@
       <div class="row">
         <?php
 
-        $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product ORDER BY RAND() LIMIT 8';
+        $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product WHERE isDisable != 1 ORDER BY RAND() LIMIT 8';
 
         $prodRes = mysqli_query($con, $sqlprodCmd);
 

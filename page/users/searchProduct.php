@@ -25,7 +25,7 @@
 
     $search = $_GET['search_context'];
 
-    $sql = "SELECT * FROM product WHERE prod_name LIKE '%$search%'";
+    $sql = "SELECT * FROM product WHERE prod_name AND isDisable != 1 LIKE '%$search%'";
 
     $result = mysqli_query($con, $sql);
 

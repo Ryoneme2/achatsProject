@@ -221,7 +221,7 @@
         <?php
 
 
-        $prodDataCmd = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = ' . $shop_id;
+        $prodDataCmd = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.isDisable != 1 AND product.seller_id = ' . $shop_id;
         // echo $prodDataCmd;
         $prodData =  mysqli_query($con, $prodDataCmd);
 

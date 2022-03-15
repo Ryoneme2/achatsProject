@@ -493,7 +493,7 @@
           <div class="row">
             <?php
 
-            $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product ORDER BY RAND() LIMIT 3';
+            $sqlprodCmd = 'SELECT prod_id,prod_name,prod_photo,prod_price FROM product WHERE isDisable != 1 ORDER BY RAND() LIMIT 3';
 
             $prodRes = mysqli_query($con, $sqlprodCmd);
 

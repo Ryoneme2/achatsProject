@@ -25,7 +25,7 @@
 
     $search = $_GET['search_context'];
 
-    $sql = "SELECT * FROM faverite_user INNER JOIN product ON faverite_user.prod_id = product.prod_id WHERE usr_id = " . $_SESSION['usr_id'];
+    $sql = "SELECT * FROM faverite_user INNER JOIN product ON faverite_user.prod_id = product.prod_id WHERE product.isDisable != 1 AND usr_id = " . $_SESSION['usr_id'];
 
     $result = mysqli_query($con, $sql);
 
