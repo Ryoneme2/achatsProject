@@ -200,7 +200,7 @@
         $result = mysqli_query($con, $sql);
         $index = 0;
         while ($row = mysqli_fetch_assoc($result)) {
-
+          $Allphoto = explode('-', $prodRow['prod_photo']);
         ?>
 
           <div class="col-md-4 col-sm-6">
@@ -211,7 +211,7 @@
             <div class="compare-bg p-3 bg-white">
               <div class="d-flex flex-column">
                 <div class="img_thumnail_compare rounded-3 mb-5 d-flex justify-content-center">
-                  <img src="<?php echo $row['prod_photo']; ?>" alt="">
+                  <img src="<?php echo $Allphoto[0]; ?>" alt="">
                 </div>
                 <div class="mb-3">
                   <h4 class="fs-4 text-color-dark mb-3">product name: </h4>

@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="../../public/css/seller.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Sign in: Seller</title>
+  <title>Add Product: Seller</title>
 </head>
 
 <body>
@@ -22,19 +22,11 @@
 
   if ($_SESSION['isLogin'] && $_SESSION['role'] == 'seller') {
 
-    require_once '../../config/dbcon.php';
-
-    $sqlSellCmd = "SELECT seller_product_qty,seller_follower,seller_rating FROM seller_info WHERE seller_id = " . $_SESSION['seller_id'];
-
-    // echo $sqlCmd;
-    $result2 = mysqli_query($con, $sqlSellCmd);
-    $rowP = mysqli_fetch_array($result2);
-
   ?>
     <nav class="navbar navbar-light bg-color-one70 py-1">
       <div class="container-fluid d-flex justify-content-between align-items-center mx-2">
         <div>
-          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="#">
+          <a class="navbar-brand ms-4 text-decoration-line-through fs-1 text-light" href="./dashboard.php">
             achats<span class="fs-1 text-light text-decoration-none">.</span>
           </a>
 
@@ -91,22 +83,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
               <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                 <path d="M0,172v-172h172v172z" fill="none"></path>
-                <g fill="#6f6f6f">
-                  <path d="M86,14.33333c-39.49552,0 -71.66667,32.17115 -71.66667,71.66667c0,39.49552 32.17115,71.66667 71.66667,71.66667c39.49552,0 71.66667,-32.17115 71.66667,-71.66667c0,-39.49552 -32.17115,-71.66667 -71.66667,-71.66667zM86,28.66667c31.74921,0 57.33333,25.58412 57.33333,57.33333c0,31.74921 -25.58412,57.33333 -57.33333,57.33333c-31.74921,0 -57.33333,-25.58412 -57.33333,-57.33333c0,-31.74921 25.58412,-57.33333 57.33333,-57.33333zM78.83333,50.16667v28.66667h-28.66667v14.33333h28.66667v28.66667h14.33333v-28.66667h28.66667v-14.33333h-28.66667v-28.66667z"></path>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div>
-            <li><a class="text-color-dark text-decoration-none" href="../../service/logout.php">new product</a></li>
-          </div>
-        </div>
-        <hr class="hr-drop">
-        <div class="d-flex justify-content-start align-items-center ms-3">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 172 172" style=" fill:#000000;">
-              <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                <path d="M0,172v-172h172v172z" fill="none"></path>
                 <g fill="#666666">
                   <path d="M43,14.33333c-7.90483,0 -14.33333,6.4285 -14.33333,14.33333v114.66667c0,7.90483 6.4285,14.33333 14.33333,14.33333h86c7.90483,0 14.33333,-6.4285 14.33333,-14.33333v-34.04167l-14.31934,10.736v23.30566h-86.014v-114.66667h86v23.29167l14.33333,10.75v-34.04167c0,-7.90483 -6.4285,-14.33333 -14.33333,-14.33333zM114.66667,59.125v19.70833h-35.83333v14.33333h35.83333v19.70833l35.83333,-26.875z"></path>
                 </g>
@@ -123,122 +99,118 @@
     <script src="../../public/js/close.js"></script>
 
 
-    <section class="container my-5 px-6">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-lg-3 col-sm-12 d-flex justify-content-center mb-4">
-          <div class="img-shop">
-            <img src="<?php echo $_SESSION['seller_photo'] ?>" alt="">
-          </div>
-        </div>
-        <div class="col-lg-9 col-sm-12">
-          <div class="flexx">
-            <div class="d-flex align-items-center text-color-dark">
-              <h2 class="m-0 fs-1 d-inline"><?php echo $_SESSION['seller_shopname'] ?></h2>
-              <a class="ms-1" href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 172 172" style=" fill:#000000;">
-                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                    <path d="M0,172v-172h172v172z" fill="none"></path>
-                    <g fill="#7f7c82">
-                      <path d="M128.49609,21.33203c-5.62695,0 -11.25391,2.18359 -15.62109,6.55078l-84.99219,84.99219l-0.33594,1.67969l-5.87891,29.5625l-1.67969,7.89453l7.89453,-1.67969l29.5625,-5.87891l1.67969,-0.33594l84.99219,-84.99219c8.73438,-8.73437 8.73438,-22.50781 0,-31.24219c-4.36719,-4.36719 -9.99414,-6.55078 -15.62109,-6.55078zM128.49609,31.57813c2.70849,0 5.43799,1.23877 8.0625,3.86328c5.22803,5.22803 5.22803,10.89697 0,16.125l-3.86328,3.69531l-15.95703,-15.95703l3.69531,-3.86328c2.62451,-2.62451 5.35401,-3.86328 8.0625,-3.86328zM109.17969,46.86328l15.95703,15.95703l-65.00391,65.00391c-3.52734,-6.88672 -9.07031,-12.42969 -15.95703,-15.95703zM37.28906,120.60156c6.4458,2.60352 11.50586,7.66357 14.10938,14.10938l-17.63672,3.52734z"></path>
-                    </g>
-                  </g>
-                </svg></a>
-            </div>
-            <div>
-              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowP['seller_product_qty'] ?></span> products</p>
-              <p class="d-inline me-3 text-color-dark"><span><?php echo $rowP['seller_follower'] ?></span> followers</p>
-            </div>
-            <div>
-              <p class="d-inline me-3 text-color-dark">rating: <span><?php echo $rowP['seller_rating'] ?></span></p>
-            </div>
-          </div>
+    <?php
 
+    require('../../config/dbcon.php');
+
+    $id = $_GET['id'];
+
+    // echo $id;
+
+    $sql = "SELECT * FROM orders 
+    JOIN product ON product.prod_id = orders.prod_id 
+    JOIN seller_info ON product.seller_id = seller_info.seller_id 
+    WHERE product.seller_id = " . $_SESSION['seller_id'] . " AND orders.order_id = " . $id;
+    // echo $sql;
+
+    $result = mysqli_query($con, $sql);
+
+    $row = mysqli_fetch_assoc($result);
+
+    ?>
+
+    <section class="container mt-5">
+      <div class="bg-white w-100 h-auto p-3">
+        <div class="">
+          <h2 class="text-center my-3">
+            order detail
+          </h2>
+        </div>
+        <div class="ps-4 mt-3">
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">order number : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo $row['order_id'] ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">product name: </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo $row['prod_name'] ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">photo : </h4>
+            </div>
+            <div class="col-9">
+              <?php
+              $AllPhoto = explode('-', $row['prod_photo']);
+              foreach ($AllPhoto as $photo) {
+
+              ?>
+
+                <img src="<?php echo $photo ?>" alt="" height="120px" width="120px">
+
+              <?php } ?>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">type : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo isset($row['order_type']) ? "-" : $row['order_type']; ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">size : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo isset($row['order_size']) ? "-" : $row['order_size']; ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">details : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo $row['prod_details'] ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">weight(kg.) : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo $row['prod_weight'] ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">warranty : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo $row['prod_warranty'] ?></h5>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <h4 class="text-end">price : </h4>
+            </div>
+            <div class="col-9">
+              <h5 class="fw-light fs-4 ps-3"><?php echo number_format($row['prod_price']) ?></h5>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="container my-5 px-5">
-      <div class="row">
-        <div class="col-6 bg-color-one text-color-light link-prod1 d-flex align-items-center justify-content-center">
-          <h2 class="fs-2 mt-1">products</h2>
-        </div>
-        <div class="col-6 bg-color-light text-color-dark link-prod2 d-flex align-items-center justify-content-center">
-          <h2 class="fs-2 mt-1"><a class="fs-2 mt-1 text-color-dark text-decoration-none" href="./orders.php">orders</a></h2>
-        </div>
-      </div>
-
-      <div class="row"></div>
-    </section>
-
-    <!-- TODO show product -->
-    <!-- SELECT * FROM `product` LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = 1; -->
-
-
-    <section class="container my-5 px-5">
-      <div class="row d-flex justify-content-center align-items-center">
-
-        <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail2 mx-2 my-2 p-2">
-          <a class="text-decoration-none text-color-dark" href="./addProduct.php">
-            <div class="d-flex justify-content-center align-items-center w-100 h-100">
-              <h1 class="big-size ">+</h1>
-            </div>
-          </a>
-        </div>
-
-        <?php
-
-        require_once "../../config/dbcon.php";
-
-        $prodDataCmd = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = ' . $_SESSION['seller_id'];
-        // echo $prodDataCmd;
-        $prodData =  mysqli_query($con, $prodDataCmd);
-
-        while ($prod_row = mysqli_fetch_array($prodData)) {
-          $Allphoto = explode('-', $prod_row['prod_photo']);
-        ?>
-
-          <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail mx-2 my-2 p-2">
-            <a class="text-decoration-none" href="<?php echo "./editProduct.php?id=" . $prod_row['prod_id'] ?>">
-              <div class="img-thumnail d-flex justify-content-center mb-3">
-                <img src="<?php echo $Allphoto[0] ?>">
-              </div>
-              <div class="ms-2">
-                <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>
-                <p class="text-color-dark text-overflow-self">Price : <?php echo number_format($prod_row['prod_price']) ?> baht</p>
-              </div>
-            </a>
-          </div>
-
-
-        <?php } ?>
-      </div>
-    </section>
-
-    <section class="container my-5 px-5">
-      <h2 class="text-color-dark fs-3">contact admin</h2>
-      <hr style="width:100%;" class="mx-auto mb-5">
-
-      <form action="#">
-        <div class="container row mb-4">
-          <div class="col-md-3 col-sm-12">
-            <label class="text-color-dark d-block fs-3" for="Address">question:</label>
-          </div>
-          <div class="col-md-9 col-sm-12">
-            <textarea class="input-textarea" name="address" rows="4" cols="50" placeholder="Enter Address..."></textarea>
-            <input class="sign-up-btn bg-color-one text-light fs-5" type="submit">
-          </div>
-        </div>
-      </form>
-
-      <div class="container row mb-4">
-        <div class="col-md-3 col-sm-12">
-          <label class="text-color-dark d-block fs-3" for="Address">answer:</label>
-        </div>
-        <div class="col-md-9 col-sm-12">
-
-        </div>
-      </div>
-
-    </section>
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">
@@ -277,6 +249,8 @@
         </div>
       </div>
     </footer>
+
+    <script src="../../public/js/signin.js"></script>
   <?php
 
   } else {
@@ -298,6 +272,8 @@
   }
 
   ?>
+
+
 </body>
 
 </html>

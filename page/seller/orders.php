@@ -158,11 +158,11 @@
 
     <section class="container my-5 px-5">
       <div class="row">
-        <div class="col-6 bg-color-one text-color-light link-prod1 d-flex align-items-center justify-content-center">
-          <h2 class="fs-2 mt-1">products</h2>
+        <div class="col-6 bg-color-light text-color-light link-prod1 d-flex align-items-center justify-content-center">
+          <h2 class="fs-2 mt-1"><a class="fs-2 mt-1 text-color-dark text-decoration-none" href="./dashboard.php">products</a></h2>
         </div>
-        <div class="col-6 bg-color-light text-color-dark link-prod2 d-flex align-items-center justify-content-center">
-          <h2 class="fs-2 mt-1"><a class="fs-2 mt-1 text-color-dark text-decoration-none" href="./orders.php">orders</a></h2>
+        <div class="col-6 bg-color-one text-color-dark link-prod2 d-flex align-items-center justify-content-center">
+          <h2 class="fs-2 mt-1"><a class="fs-2 mt-1 text-white text-decoration-none" href="#">orders</a></h2>
         </div>
       </div>
 
@@ -176,69 +176,52 @@
     <section class="container my-5 px-5">
       <div class="row d-flex justify-content-center align-items-center">
 
-        <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail2 mx-2 my-2 p-2">
-          <a class="text-decoration-none text-color-dark" href="./addProduct.php">
-            <div class="d-flex justify-content-center align-items-center w-100 h-100">
-              <h1 class="big-size ">+</h1>
-            </div>
-          </a>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>order number</th>
+              <th>product</th>
+              <th>quantity</th>
+              <th>type</th>
+              <th>status</th>
+              <th>detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $sql = "SELECT * FROM orders 
+            JOIN product ON product.prod_id = orders.prod_id 
+            JOIN seller_info ON product.seller_id = seller_info.seller_id 
+            WHERE product.seller_id = " . $_SESSION['seller_id'] . ";";
 
-        <?php
+            $result = mysqli_query($con, $sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+              <tr>
+                <td class="text-color-dark"><?php echo $row['order_id'] ?></td>
+                <td class="text-color-dark">
+                  <div class="d-flex justify-content-center align-items-center m-2">
+                    <div class="me-3">
+                      <img class="rounded-3" src="<?php echo $row['prod_photo'] ?>" alt="" height="100px" width="100px">
+                    </div>
+                    <h5 class="text-color-dark"><?php echo $row['prod_name'] ?></h5>
+                  </div>
+                </td>
+                <td class="text-color-dark"><?php echo $row['order_qty'] ?></td>
+                <td class="text-color-dark"><?php echo "delivery" ?></td>
+                <td class="text-color-dark"><?php echo "Waiting" ?></td>
+                <td class="text-color-dark"><a class="text-decoration-none" href="./orderDetail.php?id=<?php echo $row['order_id'] ?>">detail</a></td>
+              </tr>
+            <?php
+            }
+            ?>
+          </tbody>
+        </table>
 
-        require_once "../../config/dbcon.php";
-
-        $prodDataCmd = 'SELECT * FROM product LEFT JOIN seller_info ON product.seller_id = seller_info.seller_id WHERE product.seller_id = ' . $_SESSION['seller_id'];
-        // echo $prodDataCmd;
-        $prodData =  mysqli_query($con, $prodDataCmd);
-
-        while ($prod_row = mysqli_fetch_array($prodData)) {
-          $Allphoto = explode('-', $prod_row['prod_photo']);
-        ?>
-
-          <div class="col-lg-3 col-md-6 col-sm-12 prod_thumnail mx-2 my-2 p-2">
-            <a class="text-decoration-none" href="<?php echo "./editProduct.php?id=" . $prod_row['prod_id'] ?>">
-              <div class="img-thumnail d-flex justify-content-center mb-3">
-                <img src="<?php echo $Allphoto[0] ?>">
-              </div>
-              <div class="ms-2">
-                <h3 class="text-color-dark text-overflow-self"><?php echo $prod_row['prod_name'] ?></h3>
-                <p class="text-color-dark text-overflow-self">Price : <?php echo number_format($prod_row['prod_price']) ?> baht</p>
-              </div>
-            </a>
-          </div>
-
-
-        <?php } ?>
       </div>
     </section>
 
-    <section class="container my-5 px-5">
-      <h2 class="text-color-dark fs-3">contact admin</h2>
-      <hr style="width:100%;" class="mx-auto mb-5">
 
-      <form action="#">
-        <div class="container row mb-4">
-          <div class="col-md-3 col-sm-12">
-            <label class="text-color-dark d-block fs-3" for="Address">question:</label>
-          </div>
-          <div class="col-md-9 col-sm-12">
-            <textarea class="input-textarea" name="address" rows="4" cols="50" placeholder="Enter Address..."></textarea>
-            <input class="sign-up-btn bg-color-one text-light fs-5" type="submit">
-          </div>
-        </div>
-      </form>
-
-      <div class="container row mb-4">
-        <div class="col-md-3 col-sm-12">
-          <label class="text-color-dark d-block fs-3" for="Address">answer:</label>
-        </div>
-        <div class="col-md-9 col-sm-12">
-
-        </div>
-      </div>
-
-    </section>
 
     <footer class="container-fulid py-4 mt-5">
       <div class="container">
