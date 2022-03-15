@@ -166,7 +166,17 @@
                       </div>
                     </div>
                     <div class="col-2">
-                      <a class="text-decoration-none rounded-pill bg-color-one px-3 py-2 text-white" href="#">block</a>
+                      <?php
+                      if ($row['isApprove'] == 0) {
+                      ?>
+                        <a class="text-decoration-none rounded-pill bg-color-one px-3 py-2 text-white" href="../../service/blockService.php?id=<?php echo $row['usr_id'] . "&type=user&type2=unblock" ?>">unblock</a>
+                      <?php
+                      } else {
+                      ?>
+                        <a class="text-decoration-none rounded-pill bg-color-one px-3 py-2 text-white" href="../../service/blockService.php?id=<?php echo $row['usr_id'] . "&type=user&type2=block" ?>">block</a>
+                      <?php
+                      }
+                      ?>
                     </div>
                   </div>
                 </div>

@@ -17,8 +17,12 @@ if ($_SESSION['isLogin'] && $_SESSION['role'] == 'user') {
 
   // insert all rows getCartQuery into orders table
   while ($row = mysqli_fetch_assoc($getCartQuery)) {
+    $type = $row['cart_type'];
+    $size = $row['cart_size'];
+    echo $type;
+    echo $size;
     $insertOrderSql = "INSERT INTO orders (prod_id, usr_id, order_type, order_size, order_qty, order_address) 
-    VALUES (" . "'$row[prod_id]'" . "," . "'$row[usr_id]'" . "," . "'$row[cart_type]'" . "," . "'$row[cart_size]'" . "," . "'$row[cart_qty]'" . ",'" . $_SESSION['address'] . "')";
+    VALUES (" . $row['prod_id'] . "," . $row['usr_id'] . ",'" . $type . "','" . $size . "'," . $row['cart_qty'] . ",'" . $_SESSION['address'] . "')";
     echo $insertOrderSql . "<br><br>";
     $insertOrderQuery = mysqli_query($con, $insertOrderSql);
     // check if insertOrderQuery is successful
