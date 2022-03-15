@@ -210,7 +210,7 @@
                 </div>
                 <div class="row mt-2">
                   <div class="col-3 d-flex justify-content-center align-items-center">
-                    <img src="<?php echo $row['prod_photo'] ?>" alt="" height="100" width="100">
+                    <img src="<?php echo $AllPhoto[0] ?>" alt="" height="100" width="100">
                   </div>
                   <div class="col-6">
                     <div class="d-flex flex-column justify-content-start align-items-start">
