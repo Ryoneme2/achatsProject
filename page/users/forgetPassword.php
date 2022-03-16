@@ -7,12 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../../public/css/login.css">
   <link rel="stylesheet" href="../../public/css/main.css">
-  <title>Sign in</title>
+  <title>Forgot password</title>
 </head>
 
 <body>
+  <?php
+
+  session_start();
+
+  ?>
   <nav class="navbar navbar-light bg-color-one70 py-2">
     <div class="container-fluid d-flex justify-content-between align-items-center ">
       <div>
@@ -29,36 +36,30 @@
     </div>
   </nav>
 
-  <section class="container mt-5">
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center">
-        <!-- img -->
-        <div>
-          <img class="img-cover" src="../../public/img/v5.png" alt="cover">
+  <script src="../../public/js/close.js"></script>
+
+  <section class="container my-4">
+    <h3 class="fs-4 text-color-dark">forget password</h3>
+    <div class="bg-white roundly p-3">
+      <form action="../../service/forgotPassword.php" method="post">
+        <div class="form-group my-3">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
         </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-login container py-5">
-          <h1 class="text-center text-color-dark fs-0">Sign in</h1>
-          <form action="../../service/userLogin.php" method="post">
-            <div>
-              <label class="text-color-dark d-block fs-4 mb-1" for="username">username</label>
-              <input class="input-text mb-4" name="username" autocomplete="username" type="text" placeholder="Username...">
-            </div>
-            <div>
-              <label class="text-color-dark d-block fs-4 mb-1" for="username">password</label>
-              <input class="input-text mb-1" name="password" autocomplete="current-password" type="password" placeholder="Password...">
-            </div>
-            <small><a class="text-color-one text-decoration-underline fs-7 d-block" href="./forgetPassword.php">Forgot the password?</a></small>
-            <div class="d-flex justify-content-center mt-5">
-              <button class="sign-up-btn bg-color-one text-light fs-5">Sign in</button>
-            </div>
-            <div class="d-flex justify-content-center mt-3">
-              <p class="text-color-one text-center">Don't have an account yet? <a href="./signup.php" class="fw-bold text-color-one text-decoration-underline">sign up</a></p>
-            </div>
-          </form>
+        <div class="form-group my-3">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Username">
         </div>
-      </div>
+        <div class="form-group my-3">
+          <label for="Name">Name without LastName</label>
+          <input type="text" class="form-control" id="Name" name="name" placeholder="Name">
+        </div>
+        <div class="form-group my-3">
+          <label for="Name">New Password</label>
+          <input type="password" class="form-control" id="Name" name="password" placeholder="New Passwords">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
   </section>
 
@@ -99,7 +100,10 @@
       </div>
     </div>
   </footer>
+  <?php
 
+
+  ?>
 </body>
 
 </html>

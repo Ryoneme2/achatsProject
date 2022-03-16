@@ -397,14 +397,14 @@
                             </svg>
                           </div>
                           <div>
-                            <input class="text-decoration-none text-color-one bg-white border-0" type="submit" value="add to cart">
+                            <input class="text-decoration-none text-color-one bg-white border-0" name="addResult" type="submit" value="add to cart">
                           </div>
                         </div>
                       </div>
                       <div>
                         <div class="d-flex justify-content-center align-items-center border-cart bg-color-one px-3 rounded">
                           <div>
-                            <input class="text-decoration-none text-light bg-color-one border-0" type="submit" value="buy now">
+                            <input class="text-decoration-none text-light bg-color-one border-0" name="addResult" type="submit" value="buy now">
                           </div>
                         </div>
                       </div>
